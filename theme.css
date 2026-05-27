@@ -1,16 +1,23 @@
 <style>
   /* 1. Force the background wallpaper strictly onto the absolute root canvas layers */
-  #app,
-.v-application,
-.v-application--wrap {
-    background-image: url("http://dragonballrage.wiki/trash.jpg") !important; /* FIXED: Direct target + double quote syntax */
-    background-attachment: fixed !important;
+  html, 
+/* 1. THE WALLPAPER HACK: Inject a dedicated, floating canvas layer behind Vuetify */
+.v-application::before {
+    content: "" !important;
+    position: fixed !important;
+    inset: 0 !important; /* Stretches perfectly across the full viewport window */
+    background-image: url("http://dragonballrage.wiki/trash.jpg") !important; /* Explicit absolute HTTP URL */
     background-position: center top !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
+    z-index: -1 !important; /* Locks it safely beneath all website elements */
+    pointer-events: none !important; /* Ensures it doesn't block mouse clicks */
 }
 
-/* Ensure the inner layout tracks are clear so the image shows through */
+/* 2. Strip standard container fills so our background canvas shines through */
+#app,
+.v-application,
+.v-application--wrap,
 .v-layout,
 .v-main,
 .v-main__wrap,
@@ -19,6 +26,7 @@
     background-color: transparent !important;
     background: transparent !important;
 }
+
   /* 3. Your Fandom-style Floating Central Content Box */
   .container,
   .page-col-main {
