@@ -31,7 +31,7 @@ main.v-content,
   /* 3. Your Fandom-style Floating Central Content Box */
   .container,
   .page-col-main {
-      background-color: rgba(255, 0, 0, 0.95) !important; /* rgba(20, 20, 20, 0.95) !important; */
+      background-color: rgba(20, 20, 20, 0.95) !important;
       max-width: 1200px !important;
       width: 100% !important;
       margin-left: auto !important;
