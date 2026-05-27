@@ -1,0 +1,649 @@
+<style>
+  /* 1. Force the background wallpaper strictly onto the absolute root canvas layers */
+  html, 
+  body {
+      background-image: url('http://dragonballrage.wiki/trash.jpg') !important;
+      background-attachment: fixed !important;
+      background-position: center top !important;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+  }
+
+  /* 2. Completely strip the background fills off the nested framework panels so the wallpaper shows through */
+  .v-application,
+  .v-application--wrap,
+  main.v-content,
+  .v-content__wrap,
+  .v-main {
+      background-color: transparent !important;
+      background: transparent !important;
+  }
+
+  /* 3. Your Fandom-style Floating Central Content Box */
+  .container,
+  .page-col-main {
+      background-color: rgba(20, 20, 20, 0.95) !important;
+      max-width: 1200px !important;
+      width: 100% !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      margin-top: 40px !important; 
+      padding: 40px !important;
+      border-radius: 8px !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8) !important;
+  }
+
+  /* 4. Standardized header text alignments */
+  .page-header, 
+  .page-header-title,
+  main h1:first-of-type,
+  .page-header h1 {
+      text-align: center !important;
+      display: block !important;
+      width: 100% !important;
+      margin: 0 auto !important;
+      padding: 0 !important;
+  }
+
+  /* 5. Keep standard body text, tables, lists, and general headers white */
+  .contents, 
+  .contents p, 
+  .contents td, 
+  .contents th, 
+  .contents li,
+  .contents h1,
+  .contents h2,
+  .contents h3 {
+      color: #ffffff !important;
+  }
+
+  /* 6. Clean up tables inside the frame */
+  .contents table {
+      background-color: rgba(30, 30, 30, 0.6) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* 7. Remove the header divider line entirely */
+  hr[aria-orientation="horizontal"],
+  header + hr {
+      display: none !important;
+  }
+
+  /* Target the header container itself */
+  .page-header-section {
+      position: relative !important;
+      display: block !important;
+      box-sizing: border-box !important;
+      overflow: visible !important; 
+      width: 100% !important;
+      margin: 0 auto !important;
+      padding: 10px 20px !important; 
+      border-radius: 6px !important;
+  }
+
+  /* The image layer + Dark Gradient Overlay */
+  .page-header-section::before {
+      content: "" !important;
+      position: absolute !important;
+      inset: 0 !important;
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75)), url("http://dragonballrage.wiki/headerimage.png") !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      opacity: 1 !important; 
+      z-index: 0 !important;
+      pointer-events: none !important;
+  }
+
+  /* Force all text elements inside the header to be layered correctly and have shadows */
+  .page-header-section > *,
+  .page-header h1,
+  .page-header-title,
+  .page-header-section .caption {
+      position: relative !important;
+      z-index: 1 !important;
+      text-shadow: 0px 3px 8px rgba(0, 0, 0, 0.95), 0px 1px 3px rgba(0, 0, 0, 0.8) !important; 
+  }
+
+  /* Make the main header title larger and clean */
+  .page-header h1,
+  .page-header-title {
+      color: #ffffff !important;
+      font-size: 2.5rem !important; 
+      font-weight: 700 !important;
+      letter-spacing: 0.5px !important;
+      margin-bottom: 6px !important;
+  }
+
+  /* Ironclad override for Vuetify's gray utility classes on the caption */
+  .page-header-section .caption,
+  .page-header-section .grey--text.text--darken-1,
+  div.caption.grey--text.text--darken-1 {
+      display: block !important;
+      color: rgba(255, 255, 255, 0.75) !important;
+      font-size: 1.05rem !important;
+      font-weight: 500 !important;
+      margin-top: 8px !important;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9) !important;
+  }
+
+  /* 8. IRONCLAD TOOLBAR TRANSPARENCY - Overrides Vuetify's hardcoded .black utility classes */
+  header.nav-header.black,
+  header.nav-header-inner.black,
+  .nav-header,
+  .nav-header-inner,
+  .v-toolbar,
+  .v-app-bar,
+  .v-toolbar__content {
+      background-color: transparent !important;
+      background: transparent !important;
+      box-shadow: none !important;
+  }
+
+  /* Ensures the toolbar navigation titles and links remain beautifully readable */
+  .v-toolbar__title,
+  .v-toolbar__title *,
+  .subheading {
+      color: #ffffff !important;
+  }
+
+  /* 9. SEARCH RESULTS DROPDOWN & FULL-SCREEN OVERLAY CLEANUP */
+  .search-results {
+      background-color: transparent !important;
+      background: transparent !important;
+      box-shadow: none !important;
+  }
+
+  .search-results-container {
+      background-color: transparent !important;
+      background-image: linear-gradient(to bottom, rgba(20, 20, 20, 0.75), rgba(35, 35, 35, 0.80)) !important;
+      backdrop-filter: blur(10px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.9) !important;
+      border-radius: 6px !important;
+  }
+
+  .search-results-help,
+  .search-results-container,
+  .search-results-container div,
+  .search-results-container .v-list-item__title {
+      color: #ffffff !important;
+  }
+
+  .search-results-container .v-list,
+  .search-results-container .v-list-item {
+      background-color: transparent !important;
+      background: transparent !important;
+  }
+
+  .search-results-container .v-list-item:hover {
+      background-color: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  /* 10. BREADCRUMBS SUB-HEADER DESTRUCTION */
+  header.v-toolbar--dense,
+  header[style*="height: 48px"],
+  .breadcrumbs-nav {
+      display: none !important;
+      height: 0 !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+  }
+
+  /* 11. Fandom-style header nav modifications */
+  .page-header,
+  .page-header-section .page-header {
+      position: relative !important;
+      z-index: 2 !important;
+      max-width: 100% !important;
+      padding-right: 600px !important; 
+      box-sizing: border-box !important;
+  }
+
+  .fandom-caption-link {
+      color: #ffffff !important;
+      text-decoration: none !important;
+      font-weight: 700 !important;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.4) !important;
+      transition: opacity 0.15s ease, border-color 0.15s ease !important;
+  }
+
+  .fandom-caption-link:hover {
+      opacity: 0.85 !important;
+      border-bottom-style: solid !important;
+      border-bottom-color: #ffffff !important;
+  }
+
+  .fandom-header-nav {
+      position: absolute !important;
+      right: 20px !important;
+      bottom: 14px !important;
+      z-index: 6 !important;
+      display: flex !important;
+      flex-wrap: wrap !important;
+      justify-content: flex-end !important;
+      align-items: flex-end !important;
+      gap: 8px !important;
+      max-width: 600px !important; 
+      width: auto !important;
+  }
+
+  /* Top-level structure box wrapper elements config */
+  .fandom-header-dropdown {
+      position: relative !important;
+      flex: 0 0 auto !important;
+  }
+
+  .fandom-header-summary {
+      cursor: pointer !important;
+      user-select: none !important;
+      white-space: nowrap !important;
+      padding: 9px 14px !important;
+      border-radius: 6px !important;
+      border: 1px solid rgba(255, 255, 255, 0.16) !important;
+      background: linear-gradient(to bottom, rgba(38, 38, 38, 0.88), rgba(18, 18, 18, 0.94)) !important;
+      color: #ffffff !important;
+      font-size: 0.94rem !important;
+      font-weight: 700 !important;
+      line-height: 1 !important;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.85) !important;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45) !important;
+      transition: background 0.18s ease !important;
+  }
+
+  .fandom-header-summary::after {
+      content: "▾";
+      margin-left: 8px;
+      font-size: 0.78rem;
+      opacity: 0.9;
+  }
+
+  .fandom-header-dropdown:hover .fandom-header-summary {
+      background: linear-gradient(to bottom, rgba(58, 58, 58, 0.92), rgba(26, 26, 26, 0.96)) !important;
+  }
+
+  /* Primary dropdown menu setup */
+  .fandom-header-menu {
+      position: absolute !important;
+      top: calc(100% + 4px) !important;
+      right: 0 !important;
+      bottom: auto !important;
+      min-width: 220px !important;
+      max-width: 300px;
+      padding: 8px !important;
+      border-radius: 8px !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      background: linear-gradient(to bottom, rgba(20, 20, 20, 0.97), rgba(34, 34, 34, 0.97)) !important;
+      backdrop-filter: blur(10px) !important;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.72) !important;
+      
+      display: block !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      transform: translateY(4px) !important;
+      
+      transition: opacity 0.1s ease-out, visibility 0.1s ease-out, transform 0.1s ease-out !important;
+      transition-delay: 0s !important; 
+  }
+
+  /* Reveal transition state mapping rules */
+  .fandom-header-dropdown:hover .fandom-header-menu {
+      visibility: visible !important;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      transition-delay: 0s !important; 
+  }
+
+  /* Invisible shield layer providing 12px of edge protection/leeway around primary menu borders */
+  .fandom-header-menu::before {
+      content: "" !important;
+      position: absolute !important;
+      top: -14px !important;
+      bottom: -12px !important;
+      left: -12px !important;
+      right: -12px !important;
+      background: transparent !important;
+      z-index: -1 !important;
+  }
+
+  .fandom-header-menu a {
+      display: block !important;
+      padding: 10px 12px !important;
+      border-radius: 5px !important;
+      color: #ffffff !important;
+      text-decoration: none !important;
+      font-size: 0.93rem !important;
+      font-weight: 500 !important;
+      line-height: 1.2 !important;
+  }
+
+  .fandom-header-menu a:hover {
+      background: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  /* 12. FLY-OUT SIDE PANEL SYSTEM (OPENS TO THE RIGHT WITH ASYMMETRICAL PROTECTION) */
+  .fandom-nested-folder {
+      position: relative !important;
+      display: block !important;
+      width: 100% !important;
+  }
+
+  .fandom-nested-summary {
+      cursor: pointer !important;
+      user-select: none !important;
+      padding: 10px 12px !important;
+      border-radius: 5px !important;
+      color: #ffffff !important;
+      font-size: 0.93rem !important;
+      font-weight: 700 !important;
+      line-height: 1.2 !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+  }
+
+  .fandom-nested-summary::after {
+      content: "▶" !important;
+      font-size: 0.82rem !important;
+      color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .fandom-nested-folder:hover .fandom-nested-summary {
+      background: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  /* Secondary fly-out panel layout frames config */
+  .fandom-nested-menu {
+      position: absolute !important;
+      left: 100% !important; 
+      right: auto !important;
+      top: -8px !important;
+      margin-left: 6px !important;
+      
+      min-width: 210px !important;
+      max-width: 280px !important;
+      padding: 8px !important;
+      border-radius: 8px !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      background: linear-gradient(to bottom, rgba(20, 20, 20, 0.98), rgba(32, 32, 32, 0.98)) !important;
+      backdrop-filter: blur(10px) !important;
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.75) !important;
+
+      display: block !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      transform: translateX(4px) !important;
+      
+      transition: opacity 0.1s ease-out, visibility 0.1s ease-out, transform 0.1s ease-out !important;
+      transition-delay: 0s !important; 
+  }
+
+  .fandom-nested-folder:hover .fandom-nested-menu {
+      visibility: visible !important;
+      opacity: 1 !important;
+      transform: translateX(0) !important;
+      transition-delay: 0s !important; 
+  }
+
+  /* FIXED: Left boundary shortened to -8px so it only bridges the gap and won't block adjacent text links */
+  .fandom-nested-menu::before {
+      content: "" !important;
+      position: absolute !important;
+      left: -8px !important;    /* Bridges the 6px gap with a safe 2px overlap—leaves parent buttons fully clickable */
+      right: -30px !important;  /* High padding kept on the outside open space where no buttons exist */
+      top: -30px !important;    /* High padding kept above */
+      bottom: -30px !important; /* High padding kept below */
+      background: transparent !important;
+      z-index: -1 !important;
+  }
+
+  @media (max-width: 980px) {
+      .page-header,
+      .page-header-section .page-header {
+          padding-right: 0 !important;
+      }
+
+      .page-header-section {
+          padding: 10px 16px 132px !important;
+      }
+
+      .fandom-header-nav {
+          left: 16px !important;
+          right: 16px !important;
+          bottom: 14px !important;
+          justify-content: flex-start !important;
+          max-width: none !important;
+      }
+      
+      .fandom-nested-menu {
+          position: static !important;
+          max-width: 100% !important;
+          box-shadow: none !important;
+          margin-left: 10px !important;
+          border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+          border-radius: 0 !important;
+          background: transparent !important;
+          backdrop-filter: none !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          transform: none !important;
+      }
+  }
+</style>
+
+<script>
+(function () {
+    // --- CONFIGURATION ---
+    const FOLDERS_WITH_PAGES = [
+        "characters", 
+        "sagas", 
+        "forms", 
+        "techniques", 
+        "planets"
+    ];
+
+    const NAV_GROUPS = [
+        {
+            label: "Community",
+            items: [
+                { text: "Update Logs", href: "/update-logs" },
+                { text: "Codes", href: "/codes" },
+                { text: "Trivia", href: "/trivia" },
+                { text: "Credits", href: "/credits" },
+            ]
+        },
+        {
+            label: "How to Play",
+            items: [
+                { text: "Tutorial", href: "/tutorial" },
+                { text: "Main Menu", href: "/main-menu" },
+                { text: "Stats", href: "/stats" },
+                { text: "Multipliers", href: "/multipliers" },
+                { text: "Zenkai Boosts", href: "/zenkai-boosts" },
+                { text: "Mastery", href: "/mastery" },
+                { text: "Zeni", href: "/zeni" }
+            ]
+        },
+        {
+            label: "Mechanics",
+            items: [
+                { text: "Dragon Balls", href: "/dragon-balls" },
+                { text: "Z Souls", href: "/z-souls" },
+                { text: "Titles", href: "/titles" },
+                { text: "Consumables", href: "/consumables" },
+                { text: "Accessories", href: "/accessories" },
+                { text: "Items", href: "/items" },
+                { text: "Skills", href: "/skills" },
+                {
+                    label: "Modes",
+                    isFolder: true,
+                    items: [
+                        { text: "Forms", href: "/forms" },
+                        { text: "Gamepass Forms", href: "/gamepass-forms" },
+                        { text: "Event Forms", href: "/event-forms" },
+                        { text: "Skin Forms", href: "/skin-forms" },
+                        { text: "Special Techniques", href: "/special-techniques" }
+                    ]
+                },
+                {
+                    label: "Cosmetics",
+                    isFolder: true,
+                    items: [
+                        { text: "Emotes", href: "/emotes" },
+                        { text: "Ki Skins", href: "/ki-skins" },
+                        { text: "Skin Forms", href: "/skin-forms" }
+                    ]
+                },
+                {
+                    label: "Events",
+                    isFolder: true,
+                    items: [
+                        { text: "Winter", href: "/winter-event" },
+                        { text: "Easter", href: "/easter-event" },
+                        { text: "Christmas", href: "/christmas-event" },
+                        { text: "Halloween", href: "/halloween-event" }
+                    ]
+                }
+            ]
+        },
+        {
+            label: "NPCs",
+            items: [
+                { text: "Miscellaneous NPCs", href: "/miscellaneous-npcs" },
+                { text: "Merchants", href: "/merchants" },
+                { text: "Quest Givers", href: "/quest-givers" },
+                { text: "Enemies", href: "/enemies" }
+            ]
+        },
+        {
+            label: "Store",
+            items: [
+                { text: "Gamepasses", href: "/gamepasses" },
+                { text: "Products", href: "/products" }
+            ]
+        }
+    ];
+
+    function buildDropdown(group) {
+        const dropdown = document.createElement("div");
+        dropdown.className = "fandom-header-dropdown";
+
+        const summary = document.createElement("div");
+        summary.className = "fandom-header-summary";
+        summary.textContent = group.label;
+
+        const menu = document.createElement("div");
+        menu.className = "fandom-header-menu";
+
+        group.items.forEach((item) => {
+            if (item.isFolder) {
+                const subFolder = document.createElement("div");
+                subFolder.className = "fandom-nested-folder";
+                
+                const subSummary = document.createElement("div");
+                subSummary.className = "fandom-nested-summary";
+                subSummary.textContent = item.label;
+                
+                const subMenu = document.createElement("div");
+                subMenu.className = "fandom-nested-menu";
+                
+                item.items.forEach((subItem) => {
+                    const link = document.createElement("a");
+                    link.href = subItem.href;
+                    link.textContent = subItem.text;
+                    subMenu.appendChild(link);
+                });
+                
+                subFolder.appendChild(subSummary);
+                subFolder.appendChild(subMenu);
+                menu.appendChild(subFolder);
+            } else {
+                const link = document.createElement("a");
+                link.href = item.href;
+                link.textContent = item.text;
+                menu.appendChild(link);
+            }
+        });
+
+        dropdown.appendChild(summary);
+        dropdown.appendChild(menu);
+        return dropdown;
+    }
+
+    function renderHeaderNav() {
+        const header = document.querySelector(".page-header-section");
+        if (!header) return;
+
+        let nav = header.querySelector(".fandom-header-nav");
+        if (!nav) {
+            nav = document.createElement("div");
+            nav.className = "fandom-header-nav";
+            header.appendChild(nav);
+        }
+
+        if (nav.innerHTML === "") {
+            NAV_GROUPS.forEach((group) => {
+                nav.appendChild(buildDropdown(group));
+            });
+        }
+
+        const captionEl = header.querySelector(".caption, [class*='caption']");
+        const currentPath = window.location.pathname;
+
+        if (captionEl && captionEl.getAttribute('data-path') !== currentPath) {
+            captionEl.setAttribute('data-path', currentPath);
+            
+            const parts = currentPath.split('/').filter(Boolean);
+            
+            let folderText = "Home";
+            let folderHref = "/";
+            let pageText = "Main Page";
+            let pageHref = "/";
+            
+            function convertToTitle(str) {
+                return str.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+            }
+            
+            if (parts.length === 1) {
+                pageText = convertToTitle(parts[0]);
+                pageHref = "/" + parts[0];
+            } else if (parts.length >= 2) {
+                const folderSlug = parts[parts.length - 2];
+                folderText = convertToTitle(folderSlug);
+                pageText = convertToTitle(parts[parts.length - 1]);
+                pageHref = "/" + parts.join('/');
+
+                if (FOLDERS_WITH_PAGES.includes(folderSlug.toLowerCase())) {
+                    folderHref = "/" + parts.slice(0, parts.length - 1).join('/');
+                } else {
+                    folderHref = "/";
+                }
+            }
+            
+            captionEl.innerHTML = `In <a href="${folderHref}" class="fandom-caption-link">${folderText}</a>, <a href="${pageHref}" class="fandom-caption-link">${pageText}</a>`;
+        }
+    }
+
+    function initHeaderNav() {
+        renderHeaderNav();
+
+        const observer = new MutationObserver(() => {
+            renderHeaderNav();
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initHeaderNav);
+    } else {
+        initHeaderNav();
+    }
+})();
+</script>
+
+
