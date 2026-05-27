@@ -239,33 +239,32 @@
     .search-results-container .v-list-item:hover {
         background-color: rgba(255, 255, 255, 0.08) !important;
     }
-
-    /* 1. Ensure the main container behaves as a flex column */
+    /* 1. Reset the main container so it doesn't stretch out of bounds */
     .search-results-container {
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
         align-items: center !important;
-        width: 100% !important;
-        height: 100% !important; /* Forces it to fill its parent frame */
-        min-height: 250px !important; 
+        text-align: center !important;
+        width: auto !important; /* Prevents stretching to screen edges */
+        max-width: 100% !important;
+        padding: 24px !important;
     }
 
-    /* 2. Target the specific wrapper around the button and force-center it */
+    /* 2. Fix the wrapper so it stays tight to the content, not the screen */
     .search-results-container .text-xs-center.pt-5 {
-        padding-top: 0 !important;   /* Kill that uneven top padding completely */
-        margin: 20px auto 0 auto !important; /* Auto margins handle horizontal centering */
-        display: flex !important;
-        justify-content: center !important; /* Centers the button inside this specific div */
-        align-items: center !important;     /* Vertically aligns the button if the div has height */
-        width: 100% !important;      /* Ensures the wrapper spans the full width of the frame */
+        padding-top: 0 !important;
+        margin-top: 20px !important;
+        display: block !important; /* Switch back to block to respect parent constraints */
+        width: auto !important;    /* Kill the screen-stretching width */
+        text-align: center !important; /* Natively centers inline elements like buttons */
     }
 
-    /* 3. Ensure the button itself doesn't have stray structural float margins */
+    /* 3. Force the button to behave as a centered inline block element */
     .search-results-container button.v-btn {
-        margin-left: auto !important;
-        margin-right: auto !important;
         display: inline-flex !important;
+        margin: 0 auto !important; /* Perfectly floats it to the center of its text-align box */
+        float: none !important;    /* Clears any weird CSS floats pushing it left/right */
     }
 
     /* 10. BREADCRUMBS SUB-HEADER DESTRUCTION */
