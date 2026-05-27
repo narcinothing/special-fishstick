@@ -103,6 +103,7 @@ main.v-content,
       opacity: 1 !important; 
       z-index: 0 !important;
       pointer-events: none !important;
+      border-radius: 6px !important;
   }
 
   /* Force all text elements inside the header to be layered correctly and have shadows */
