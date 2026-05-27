@@ -239,30 +239,18 @@
     .search-results-container .v-list-item:hover {
         background-color: rgba(255, 255, 255, 0.08) !important;
     }
-    
-    /* 1. Constraint the container so it stops stretching horizontally */
-    .search-results-container {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        max-width: 400px !important; /* Force a sane, compact maximum width */
-        margin: 0 auto !important;   /* Centers the entire container itself */
-        width: 100% !important;
+
+    /* Target the wrapper using an attribute match to guarantee the override takes */
+    .search-results-container div[class*="pt-5"] {
+        padding-top: 16px !important; /* Forces the '5' padding down to a '3' (16px) */
+        text-align: center !important; /* Natively centers the button inside its box */
     }
 
-    /* 2. Force pt-5 to act like pt-3 (approx 16px) and kill horizontal stretch */
-    .search-results-container .pt-5 {
-        padding-top: 16px !important; /* Overrides the massive '5' padding with a '3' value */
-        padding-bottom: 0 !important;
-        width: auto !important;        /* Keeps the button wrapper tight to the button */
-        display: inline-block !important; 
-    }
-
-    /* 3. Perfect center alignment for the button */
-    .search-results-container button.v-btn {
+    /* Ensure the close button inside it sits clean and centered */
+    .search-results-container div[class*="pt-5"] button.v-btn {
         display: inline-flex !important;
         margin: 0 auto !important;
+        vertical-align: middle !important;
     }
 
     /* 10. BREADCRUMBS SUB-HEADER DESTRUCTION */
