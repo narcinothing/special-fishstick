@@ -240,29 +240,33 @@
         background-color: rgba(255, 255, 255, 0.08) !important;
     }
 
-    /* 1. Turn the container into a full-height flexbox to center everything */
+    /* 1. Ensure the main container behaves as a flex column */
     .search-results-container {
         display: flex !important;
         flex-direction: column !important;
-        justify-content: center !important; /* Centers contents vertically */
-        align-items: center !important;     /* Centers contents horizontally */
-        min-height: 300px !important;       /* Ensures there is enough vertical space to center within */
-        padding: 20px !important;           /* Prevents contents from hugging any edge */
-    }
-
-    /* 2. Kill the uneven top padding that was pushing the button down */
-    .search-results-container .pt-5 {
-        padding-top: 0 !important;
-        margin-top: 24px !important; /* Uses a balanced top margin instead of heavy padding */
-    }
-
-    /* 3. Center the "No Results" sub-elements just in case */
-    .search-results-none {
-        display: flex !important;
-        flex-direction: column !important;
+        justify-content: center !important;
         align-items: center !important;
-        text-align: center !important;
-    }  
+        width: 100% !important;
+        height: 100% !important; /* Forces it to fill its parent frame */
+        min-height: 250px !important; 
+    }
+
+    /* 2. Target the specific wrapper around the button and force-center it */
+    .search-results-container .text-xs-center.pt-5 {
+        padding-top: 0 !important;   /* Kill that uneven top padding completely */
+        margin: 20px auto 0 auto !important; /* Auto margins handle horizontal centering */
+        display: flex !important;
+        justify-content: center !important; /* Centers the button inside this specific div */
+        align-items: center !important;     /* Vertically aligns the button if the div has height */
+        width: 100% !important;      /* Ensures the wrapper spans the full width of the frame */
+    }
+
+    /* 3. Ensure the button itself doesn't have stray structural float margins */
+    .search-results-container button.v-btn {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: inline-flex !important;
+    }
 
     /* 10. BREADCRUMBS SUB-HEADER DESTRUCTION */
     header.v-toolbar--dense,
