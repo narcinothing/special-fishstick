@@ -205,6 +205,8 @@
         /* box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.3) !important; /* Stronger inner glow/highlight */
     }
 
+
+
     /* 9. SEARCH RESULTS DROPDOWN & FULL-SCREEN OVERLAY CLEANUP */
     .search-results {
         background-color: transparent !important;
@@ -237,6 +239,30 @@
     .search-results-container .v-list-item:hover {
         background-color: rgba(255, 255, 255, 0.08) !important;
     }
+
+    /* 1. Turn the container into a full-height flexbox to center everything */
+    .search-results-container {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important; /* Centers contents vertically */
+        align-items: center !important;     /* Centers contents horizontally */
+        min-height: 300px !important;       /* Ensures there is enough vertical space to center within */
+        padding: 20px !important;           /* Prevents contents from hugging any edge */
+    }
+
+    /* 2. Kill the uneven top padding that was pushing the button down */
+    .search-results-container .pt-5 {
+        padding-top: 0 !important;
+        margin-top: 24px !important; /* Uses a balanced top margin instead of heavy padding */
+    }
+
+    /* 3. Center the "No Results" sub-elements just in case */
+    .search-results-none {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+    }  
 
     /* 10. BREADCRUMBS SUB-HEADER DESTRUCTION */
     header.v-toolbar--dense,
