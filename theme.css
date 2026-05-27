@@ -238,7 +238,7 @@
     }
 
     .search-results-container .v-list-item:hover {
-        background-color: rgba(255, 255, 255, 0.08) !important;
+        background-color: rgba(255, 255, 255, 1) !important;
     }
 
     .search-results-container .pt-5 {
@@ -384,7 +384,7 @@
     }
 
     .fandom-header-menu a:hover {
-        background: rgba(255, 255, 255, 0.08) !important;
+        background: rgba(36, 96, 235, 1) !important;
     }
 
     /* 12. FLY-OUT SIDE PANEL SYSTEM */
@@ -411,7 +411,7 @@
     .fandom-nested-summary::after {
         content: "▶" !important;
         font-size: 0.82rem !important;
-        background: rgba(36, 96, 235, 1) !important;
+        color: rgba(255, 255, 255, 0.8) !important;
     }
 
     .fandom-nested-folder:hover .fandom-nested-summary {
