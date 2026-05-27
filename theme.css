@@ -188,6 +188,23 @@
         border: none !important;
     }
 
+    /* 1. Base state: ensure a smooth transition when hovering/typing */
+    header.v-toolbar.deep-purple .v-input__slot {
+        transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out !important;
+    }
+
+    /* 2. Hover state: Triggered when mouse glides over the search slot */
+    header.v-toolbar.deep-purple .v-input__slot:hover {
+        background-color: rgba(30, 30, 30, 0.75) !important; /* Slightly brightens the background */
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15) !important; /* Subtle inner highlight */
+    }
+
+    /* 3. Typing/Focus state: Triggered when clicking inside to type */
+    header.v-toolbar.deep-purple .v-input--is-focused .v-input__slot {
+        background-color: rgba(40, 40, 40, 0.85) !important; /* Noticeably deeper dark background */
+        box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.3) !important; /* Stronger inner glow/highlight */
+    }
+
     /* 9. SEARCH RESULTS DROPDOWN & FULL-SCREEN OVERLAY CLEANUP */
     .search-results {
         background-color: transparent !important;
