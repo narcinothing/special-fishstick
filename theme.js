@@ -273,6 +273,28 @@
     return nav;
   }
 
+  function placeNav(header, nav) {
+    if (!header || !nav) return;
+
+    let shell = document.querySelector(".fandom-header-nav-shell");
+
+    if (window.innerWidth <= 980) {
+      if (!shell) {
+        shell = document.createElement("div");
+        shell.className = "fandom-header-nav-shell";
+        header.insertAdjacentElement("afterend", shell);
+      }
+
+      if (nav.parentElement !== shell) {
+        shell.appendChild(nav);
+      }
+    } else {
+      if (nav.parentElement !== header) {
+        header.appendChild(nav);
+      }
+    }
+  }
+
   function renderCaption(header) {
     const captionEl = header.querySelector(".caption, [class*='caption']");
     if (!captionEl) return;
@@ -329,12 +351,12 @@
     const header = document.querySelector(".page-header-section");
     if (!header) return;
 
-    let nav = header.querySelector(".fandom-header-nav");
+    let nav = document.querySelector(".fandom-header-nav");
     if (!nav) {
       nav = buildNav();
-      header.appendChild(nav);
     }
 
+    placeNav(header, nav);
     renderCaption(header);
   }
 
@@ -356,6 +378,10 @@
     };
 
     window.addEventListener("popstate", function () {
+      setTimeout(renderHeaderNav, 50);
+    });
+
+    window.addEventListener("resize", function () {
       setTimeout(renderHeaderNav, 50);
     });
 
