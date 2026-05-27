@@ -411,7 +411,7 @@
     .fandom-nested-summary::after {
         content: "▶" !important;
         font-size: 0.82rem !important;
-        color: rgba(255, 255, 255, 0.8) !important;
+        background: rgba(36, 96, 235, 1) !important;
     }
 
     .fandom-nested-folder:hover .fandom-nested-summary {
