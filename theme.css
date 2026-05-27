@@ -240,17 +240,8 @@
         background-color: rgba(255, 255, 255, 0.08) !important;
     }
 
-    /* Target the wrapper using an attribute match to guarantee the override takes */
-    .search-results-container div[class*="pt-5"] {
-        padding-top: 16px !important; /* Forces the '5' padding down to a '3' (16px) */
-        text-align: center !important; /* Natively centers the button inside its box */
-    }
-
-    /* Ensure the close button inside it sits clean and centered */
-    .search-results-container div[class*="pt-5"] button.v-btn {
-        display: inline-flex !important;
-        margin: 0 auto !important;
-        vertical-align: middle !important;
+    .search-results-container .pt-5 {
+        padding-top: 16px !important; /* Forces Vuetify's '5' to look like a '3' */
     }
 
     /* 10. BREADCRUMBS SUB-HEADER DESTRUCTION */
