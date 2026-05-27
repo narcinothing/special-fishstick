@@ -145,7 +145,7 @@ main.v-content,
   .v-toolbar,
   .v-app-bar,
   .v-toolbar__content {
-      background-color: rgba(255, 255, 255, 0.15) !important; 
+      background-color: rgba(27, 27, 27, 0.15) !important; 
       background: rgba(255, 255, 255, 0.15) !important; 
       box-shadow: none !important;
       backdrop-filter: blur(12px) !important;
