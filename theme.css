@@ -242,8 +242,8 @@
     }
 
     .search-results-container .pt-5 {
-        padding-top: 15px !important;
-        padding-bottom: 15px !important;
+        padding-top: 25px !important;
+        padding-bottom: 25px !important;
     }
 
     /* 10. BREADCRUMBS SUB-HEADER DESTRUCTION */
@@ -415,7 +415,8 @@
     }
 
     .fandom-nested-folder:hover .fandom-nested-summary {
-        background: rgba(255, 255, 255, 0.08) !important;
+        /*background: rgba(255, 255, 255, 0.08) !important;*/
+        background: rgba(36, 96, 235, 1) !important;
     }
 
     /* Secondary fly-out panel layout frames config */
