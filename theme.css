@@ -239,32 +239,30 @@
     .search-results-container .v-list-item:hover {
         background-color: rgba(255, 255, 255, 0.08) !important;
     }
-    /* 1. Reset the main container so it doesn't stretch out of bounds */
+    
+    /* 1. Constraint the container so it stops stretching horizontally */
     .search-results-container {
         display: flex !important;
         flex-direction: column !important;
-        justify-content: center !important;
         align-items: center !important;
-        text-align: center !important;
-        width: auto !important; /* Prevents stretching to screen edges */
-        max-width: 100% !important;
-        padding: 24px !important;
+        justify-content: center !important;
+        max-width: 400px !important; /* Force a sane, compact maximum width */
+        margin: 0 auto !important;   /* Centers the entire container itself */
+        width: 100% !important;
     }
 
-    /* 2. Fix the wrapper so it stays tight to the content, not the screen */
-    .search-results-container .text-xs-center.pt-5 {
-        padding-top: 0 !important;
-        margin-top: 20px !important;
-        display: block !important; /* Switch back to block to respect parent constraints */
-        width: auto !important;    /* Kill the screen-stretching width */
-        text-align: center !important; /* Natively centers inline elements like buttons */
+    /* 2. Force pt-5 to act like pt-3 (approx 16px) and kill horizontal stretch */
+    .search-results-container .pt-5 {
+        padding-top: 16px !important; /* Overrides the massive '5' padding with a '3' value */
+        padding-bottom: 0 !important;
+        width: auto !important;        /* Keeps the button wrapper tight to the button */
+        display: inline-block !important; 
     }
 
-    /* 3. Force the button to behave as a centered inline block element */
+    /* 3. Perfect center alignment for the button */
     .search-results-container button.v-btn {
         display: inline-flex !important;
-        margin: 0 auto !important; /* Perfectly floats it to the center of its text-align box */
-        float: none !important;    /* Clears any weird CSS floats pushing it left/right */
+        margin: 0 auto !important;
     }
 
     /* 10. BREADCRUMBS SUB-HEADER DESTRUCTION */
