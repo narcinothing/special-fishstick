@@ -221,6 +221,7 @@
         border: 1px solid rgba(255, 255, 255, 0.15) !important;
         box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.9) !important;
         border-radius: 6px !important;
+        max-width: 320px !important;
     }
 
     .search-results-help,
@@ -241,8 +242,8 @@
     }
 
     .search-results-container .pt-5 {
-        padding-top: 10px !important;
-        padding-bottom: 10px !important;
+        padding-top: 15px !important;
+        padding-bottom: 15px !important;
     }
 
     /* 10. BREADCRUMBS SUB-HEADER DESTRUCTION */
