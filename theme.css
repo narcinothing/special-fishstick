@@ -145,8 +145,7 @@ main.v-content,
   .v-toolbar,
   .v-app-bar,
   .v-toolbar__content {
-      background-color: rgba(27, 27, 27, 0.15) !important; 
-      background: rgba(255, 255, 255, 0.15) !important; 
+      background: rgba(20, 20, 20, 0.1) !important; /* rgba(27, 27, 27, 0.15) !important;  */
       box-shadow: none !important;
       backdrop-filter: blur(12px) !important;
       -webkit-backdrop-filter: blur(12px) !important;
@@ -157,8 +156,9 @@ main.v-content,
   .v-toolbar__title *,
   .subheading {
       color: #ffffff !important;
-      opacity: 0.4 !important;          
-      filter: blur(0.5px) !important;   
+      opacity: 1 !important;          
+      /*filter: blur(0.5px) !important;   */
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9) !important;
       pointer-events: none !important;  
   }
 
