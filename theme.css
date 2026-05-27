@@ -128,25 +128,33 @@
       text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9) !important;
   }
 
-  /* 8. IRONCLAD TOOLBAR TRANSPARENCY - Overrides Vuetify's hardcoded .black utility classes */
-  header.nav-header.black,
-  header.nav-header-inner.black,
-  .nav-header,
-  .nav-header-inner,
-  .v-toolbar,
-  .v-app-bar,
-  .v-toolbar__content {
-      background-color: transparent !important;
-      background: transparent !important;
-      box-shadow: none !important;
-  }
+/* 8. IRONCLAD TOOLBAR TRANSPARENCY - Modified for Low Quality & Blurred BG */
+header.nav-header.black,
+header.nav-header-inner.black,
+.nav-header,
+.nav-header-inner,
+.v-toolbar,
+.v-app-bar,
+.v-toolbar__content {
+    /* Instead of pure transparent, we use a semi-transparent overlay */
+    background-color: rgba(255, 255, 255, 0.15) !important; /* Light mode: use rgba(0,0,0,0.3) if your app is dark mode */
+    background: rgba(255, 255, 255, 0.15) !important; 
+    box-shadow: none !important;
 
-  /* Ensures the toolbar navigation titles and links remain beautifully readable */
-  .v-toolbar__title,
-  .v-toolbar__title *,
-  .subheading {
-      color: #ffffff !important;
-  }
+    /* The Blur Effect on whatever rolls underneath the header */
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+}
+
+/* Ensures the toolbar navigation titles and links look faded and low-quality */
+.v-toolbar__title,
+.v-toolbar__title *,
+.subheading {
+    color: #ffffff !important;
+    opacity: 0.4 !important;          /* Fades the text significantly */
+    filter: blur(0.5px) !important;   /* Slightly degrades the text sharpness */
+    pointer-events: none !important;  /* Optional: stops users from clicking header links */
+}
 
   /* 9. SEARCH RESULTS DROPDOWN & FULL-SCREEN OVERLAY CLEANUP */
   .search-results {
