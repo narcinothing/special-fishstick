@@ -2,7 +2,7 @@
   /* 1. Force the background wallpaper strictly onto the absolute root canvas layers */
   html, 
   body {
-      background-image: url('http://dragonballrage.wiki/trash.jpg') !important;
+      background-image: url('https://dragonballrage.wiki/trash.jpg') !important; /* FIXED: Upgraded to HTTPS */
       background-attachment: fixed !important;
       background-position: center top !important;
       background-size: cover !important;
@@ -10,12 +10,14 @@
   }
 
   /* 2. Completely strip the background fills off the nested framework panels so the wallpaper shows through */
+  #app,
+  .v-layout,
   .v-application,
   .v-application--wrap,
   main.v-content,
   .v-content__wrap,
   .v-main {
-      background-color: transparent !important;
+      background-color: transparent !important; /* FIXED: Added #app and .v-layout layout overrides */
       background: transparent !important;
   }
 
@@ -87,7 +89,7 @@
       content: "" !important;
       position: absolute !important;
       inset: 0 !important;
-      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75)), url("http://dragonballrage.wiki/headerimage.png") !important;
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75)), url("https://dragonballrage.wiki/headerimage.png") !important; /* FIXED: Upgraded to HTTPS */
       background-size: cover !important;
       background-position: center !important;
       background-repeat: no-repeat !important;
@@ -128,33 +130,30 @@
       text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9) !important;
   }
 
-/* 8. IRONCLAD TOOLBAR TRANSPARENCY - Modified for Low Quality & Blurred BG */
-header.nav-header.black,
-header.nav-header-inner.black,
-.nav-header,
-.nav-header-inner,
-.v-toolbar,
-.v-app-bar,
-.v-toolbar__content {
-    /* Instead of pure transparent, we use a semi-transparent overlay */
-    background-color: rgba(255, 255, 255, 0.15) !important; /* Light mode: use rgba(0,0,0,0.3) if your app is dark mode */
-    background: rgba(255, 255, 255, 0.15) !important; 
-    box-shadow: none !important;
+  /* 8. IRONCLAD TOOLBAR TRANSPARENCY - Modified for Low Quality & Blurred BG */
+  header.nav-header.black,
+  header.nav-header-inner.black,
+  .nav-header,
+  .nav-header-inner,
+  .v-toolbar,
+  .v-app-bar,
+  .v-toolbar__content {
+      background-color: rgba(255, 255, 255, 0.15) !important; 
+      background: rgba(255, 255, 255, 0.15) !important; 
+      box-shadow: none !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+  }
 
-    /* The Blur Effect on whatever rolls underneath the header */
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-}
-
-/* Ensures the toolbar navigation titles and links look faded and low-quality */
-.v-toolbar__title,
-.v-toolbar__title *,
-.subheading {
-    color: #ffffff !important;
-    opacity: 0.4 !important;          /* Fades the text significantly */
-    filter: blur(0.5px) !important;   /* Slightly degrades the text sharpness */
-    pointer-events: none !important;  /* Optional: stops users from clicking header links */
-}
+  /* Ensures the toolbar navigation titles and links look faded and low-quality */
+  .v-toolbar__title,
+  .v-toolbar__title *,
+  .subheading {
+      color: #ffffff !important;
+      opacity: 0.4 !important;          
+      filter: blur(0.5px) !important;   
+      pointer-events: none !important;  
+  }
 
   /* 9. SEARCH RESULTS DROPDOWN & FULL-SCREEN OVERLAY CLEANUP */
   .search-results {
@@ -330,7 +329,7 @@ header.nav-header-inner.black,
       background: rgba(255, 255, 255, 0.08) !important;
   }
 
-  /* 12. FLY-OUT SIDE PANEL SYSTEM (OPENS TO THE RIGHT WITH ASYMMETRICAL PROTECTION) */
+  /* 12. FLY-OUT SIDE PANEL SYSTEM */
   .fandom-nested-folder {
       position: relative !important;
       display: block !important;
@@ -394,14 +393,13 @@ header.nav-header-inner.black,
       transition-delay: 0s !important; 
   }
 
-  /* FIXED: Left boundary shortened to -8px so it only bridges the gap and won't block adjacent text links */
   .fandom-nested-menu::before {
       content: "" !important;
       position: absolute !important;
-      left: -8px !important;    /* Bridges the 6px gap with a safe 2px overlap—leaves parent buttons fully clickable */
-      right: -30px !important;  /* High padding kept on the outside open space where no buttons exist */
-      top: -30px !important;    /* High padding kept above */
-      bottom: -30px !important; /* High padding kept below */
+      left: -8px !important;    
+      right: -30px !important;  
+      top: -30px !important;    
+      bottom: -30px !important; 
       background: transparent !important;
       z-index: -1 !important;
   }
@@ -653,5 +651,3 @@ header.nav-header-inner.black,
     }
 })();
 </script>
-
-
