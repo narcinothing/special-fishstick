@@ -28,7 +28,6 @@
         z-index: 1 !important;
     }
 
-    /* 3. Your Fandom-style Floating Central Content Box */
     .container,
     .page-col-main {
         background-color: rgba(20, 20, 20, 0.95) !important;
@@ -40,10 +39,9 @@
         padding: 40px !important;
         border-radius: 8px !important;
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
     }
 
-    /* 4. Standardized header text alignments */
     .page-header,
     .page-header-title,
     main h1:first-of-type,
@@ -55,7 +53,6 @@
         padding: 0 !important;
     }
 
-    /* 5. Keep standard body text, tables, lists, and general headers white */
     .contents,
     .contents p,
     .contents td,
@@ -67,19 +64,16 @@
         color: #ffffff !important;
     }
 
-    /* 6. Clean up tables inside the frame */
     .contents table {
         background-color: rgba(30, 30, 30, 0.6) !important;
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
     }
 
-    /* 7. Remove the header divider line entirely */
     hr[aria-orientation="horizontal"],
     header+hr {
         display: none !important;
     }
 
-    /* Target the header container itself */
     .page-header-section {
         position: relative !important;
         display: block !important;
@@ -87,17 +81,17 @@
         overflow: visible !important;
         width: 100% !important;
         margin: 0 auto !important;
-        padding: 10px 20px !important;
+        padding: 16px 20px 88px !important;
         border-radius: 6px !important;
     }
 
-    /* The image layer + Dark Gradient Overlay */
     .page-header-section::before {
         content: "" !important;
         position: absolute !important;
         inset: 0 !important;
-        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url("https://dragonballrage.wiki/headerimage.png") !important;
-        /* FIXED: Upgraded to HTTPS */
+        background-image:
+            linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)),
+            url("https://dragonballrage.wiki/headerimage.png") !important;
         background-size: cover !important;
         background-position: center !important;
         background-repeat: no-repeat !important;
@@ -107,17 +101,15 @@
         border-radius: 6px !important;
     }
 
-    /* Force all text elements inside the header to be layered correctly and have shadows */
     .page-header-section>*,
     .page-header h1,
     .page-header-title,
     .page-header-section .caption {
         position: relative !important;
         z-index: 1 !important;
-        text-shadow: 0px 3px 8px rgba(0, 0, 0, 0.95), 0px 1px 3px rgba(0, 0, 0, 0.8) !important;
+        text-shadow: 0 3px 8px rgba(0, 0, 0, 0.95), 0 1px 3px rgba(0, 0, 0, 0.8) !important;
     }
 
-    /* Make the main header title larger and clean */
     .page-header h1,
     .page-header-title {
         color: #ffffff !important;
@@ -127,12 +119,11 @@
         margin-bottom: 6px !important;
     }
 
-    /* Ironclad override for Vuetify's gray utility classes on the caption */
     .page-header-section .caption,
     .page-header-section .grey--text.text--darken-1,
     div.caption.grey--text.text--darken-1 {
         display: block !important;
-        color: rgba(255, 255, 255, 0.75) !important;
+        color: rgba(255, 255, 255, 0.78) !important;
         font-size: 1.05rem !important;
         font-weight: 500 !important;
         margin-bottom: 6px !important;
@@ -140,7 +131,6 @@
         text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9) !important;
     }
 
-    /* 8. IRONCLAD TOOLBAR TRANSPARENCY - Modified for Low Quality & Blurred BG */
     header.nav-header.black,
     header.nav-header-inner.black,
     .nav-header,
@@ -148,66 +138,48 @@
     .v-toolbar,
     .v-app-bar,
     .v-toolbar__content {
-        
-        background: rgba(20, 20, 20, .65) !important;
-        /* rgba(27, 27, 27, 0.15) !important;  */
+        background: rgba(20, 20, 20, 0.65) !important;
         box-shadow: none !important;
         backdrop-filter: blur(12px) !important;
         -webkit-backdrop-filter: blur(12px) !important;
     }
 
-    /* Ensures the toolbar navigation titles and links look faded and low-quality */
     .v-toolbar__title,
     .v-toolbar__title *,
     .subheading {
         color: #ffffff !important;
         opacity: 1 !important;
-        /*filter: blur(0.5px) !important;   */
         text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9) !important;
         pointer-events: none !important;
     }
 
-    /* FIX PURPLE SEARCH */
-    /* 1. Target the actual header bar and force it to be semi-transparent dark */
     header.v-toolbar.deep-purple {
         background-color: rgba(20, 20, 20, 0.65) !important;
         border: none !important;
         box-shadow: none !important;
     }
 
-    /* 2. Remove Vuetify's bottom border/shadow line that headers usually have */
     header.v-toolbar.deep-purple::after {
         display: none !important;
         background: transparent !important;
     }
 
-    /* 3. Make sure the inner search input doesn't fight it */
     header.v-toolbar.deep-purple .v-input__slot {
         background-color: transparent !important;
         box-shadow: none !important;
         border: none !important;
-    }
-
-    /* 1. Base state: ensure a smooth transition when hovering/typing */
-    header.v-toolbar.deep-purple .v-input__slot {
         transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out !important;
     }
 
-    /* 2. Hover state: Triggered when mouse glides over the search slot */
     header.v-toolbar.deep-purple .v-input__slot:hover {
-        background-color: rgba(30, 30, 30, 0.75) !important; /* Slightly brightens the background */
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15) !important; /* Subtle inner highlight */
+        background-color: rgba(30, 30, 30, 0.75) !important;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15) !important;
     }
 
-    /* 3. Typing/Focus state: Triggered when clicking inside to type */
     header.v-toolbar.deep-purple .v-input--is-focused .v-input__slot {
-        background-color: rgba(40, 40, 40, 0.85) !important; /* Noticeably deeper dark background */
-        /* box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.3) !important; /* Stronger inner glow/highlight */
+        background-color: rgba(40, 40, 40, 0.85) !important;
     }
 
-
-
-    /* 9. SEARCH RESULTS DROPDOWN & FULL-SCREEN OVERLAY CLEANUP */
     .search-results {
         background-color: transparent !important;
         background: transparent !important;
@@ -216,10 +188,10 @@
 
     .search-results-container {
         background-color: transparent !important;
-        background-image: linear-gradient(to bottom, rgba(20, 20, 20, 0.75), rgba(35, 35, 35, 0.80)) !important;
+        background-image: linear-gradient(to bottom, rgba(20, 20, 20, 0.75), rgba(35, 35, 35, 0.8)) !important;
         backdrop-filter: blur(10px) !important;
         border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.9) !important;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9) !important;
         border-radius: 6px !important;
         max-width: 700px !important;
     }
@@ -246,7 +218,6 @@
         padding-bottom: 25px !important;
     }
 
-    /* 10. BREADCRUMBS SUB-HEADER DESTRUCTION */
     header.v-toolbar--dense,
     header[style*="height: 48px"],
     .breadcrumbs-nav {
@@ -256,13 +227,12 @@
         visibility: hidden !important;
     }
 
-    /* 11. Fandom-style header nav modifications */
     .page-header,
     .page-header-section .page-header {
         position: relative !important;
         z-index: 2 !important;
         max-width: 100% !important;
-        padding-right: 600px !important;
+        padding-right: 620px !important;
         box-sizing: border-box !important;
     }
 
@@ -290,77 +260,104 @@
         justify-content: flex-end !important;
         align-items: flex-end !important;
         gap: 8px !important;
-        max-width: 600px !important;
+        max-width: min(600px, calc(100vw - 48px)) !important;
         width: auto !important;
     }
 
-    /* Top-level structure box wrapper elements config */
-    .fandom-header-dropdown {
+    .fandom-header-dropdown,
+    .fandom-nested-folder {
         position: relative !important;
         flex: 0 0 auto !important;
     }
 
-    .fandom-header-summary {
-        cursor: pointer !important;
-        user-select: none !important;
-        white-space: nowrap !important;
-        padding: 9px 14px !important;
-        border-radius: 6px !important;
-        border: 1px solid rgba(255, 255, 255, 0.16) !important;
-        background: linear-gradient(to bottom, rgba(38, 38, 38, 0.88), rgba(18, 18, 18, 0.94)) !important;
+    .fandom-header-summary-row,
+    .fandom-nested-row {
+        display: flex !important;
+        align-items: stretch !important;
+        min-width: 0 !important;
+    }
+
+    .fandom-header-summary-link,
+    .fandom-nested-link {
+        display: inline-flex !important;
+        align-items: center !important;
+        min-height: 42px !important;
+        min-width: 0 !important;
+        text-decoration: none !important;
         color: #ffffff !important;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.85) !important;
+    }
+
+    .fandom-header-summary-link {
+        white-space: nowrap !important;
+        padding: 9px 10px 9px 14px !important;
+        border-radius: 6px 0 0 6px !important;
+        border: 1px solid rgba(255, 255, 255, 0.16) !important;
+        border-right: none !important;
+        background: linear-gradient(to bottom, rgba(38, 38, 38, 0.88), rgba(18, 18, 18, 0.94)) !important;
         font-size: 0.94rem !important;
         font-weight: 700 !important;
         line-height: 1 !important;
-        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.85) !important;
         box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45) !important;
-        transition: background 0.18s ease !important;
     }
 
-    .fandom-header-summary::after {
+    .fandom-header-summary-toggle,
+    .fandom-nested-toggle {
+        cursor: pointer !important;
+        appearance: none !important;
+        border: 0 !important;
+        color: #ffffff !important;
+        background: transparent !important;
+    }
+
+    .fandom-header-summary-toggle {
+        width: 40px !important;
+        border-radius: 0 6px 6px 0 !important;
+        border: 1px solid rgba(255, 255, 255, 0.16) !important;
+        background: linear-gradient(to bottom, rgba(38, 38, 38, 0.88), rgba(18, 18, 18, 0.94)) !important;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45) !important;
+    }
+
+    .fandom-header-summary-toggle::before {
         content: "▾";
-        margin-left: 8px;
         font-size: 0.78rem;
         opacity: 0.9;
     }
 
-    .fandom-header-dropdown:hover .fandom-header-summary {
+    .fandom-header-dropdown:hover .fandom-header-summary-link,
+    .fandom-header-dropdown:hover .fandom-header-summary-toggle,
+    .fandom-header-dropdown.is-open .fandom-header-summary-link,
+    .fandom-header-dropdown.is-open .fandom-header-summary-toggle {
         background: linear-gradient(to bottom, rgba(58, 58, 58, 0.92), rgba(26, 26, 26, 0.96)) !important;
     }
 
-    /* Primary dropdown menu setup */
+    .fandom-header-menu,
+    .fandom-nested-menu {
+        display: block !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        transition: opacity 0.12s ease-out, visibility 0.12s ease-out, transform 0.12s ease-out !important;
+        transition-delay: 0s !important;
+    }
+
     .fandom-header-menu {
         position: absolute !important;
         top: calc(100% + 4px) !important;
         right: 0 !important;
         bottom: auto !important;
-        min-width: 220px !important;
-        max-width: 300px;
+        min-width: 240px !important;
+        max-width: min(320px, calc(100vw - 32px)) !important;
+        max-height: min(70vh, 720px) !important;
+        overflow-y: auto !important;
         padding: 8px !important;
         border-radius: 8px !important;
         border: 1px solid rgba(255, 255, 255, 0.14) !important;
         background: linear-gradient(to bottom, rgba(20, 20, 20, 0.97), rgba(34, 34, 34, 0.97)) !important;
         backdrop-filter: blur(10px) !important;
         box-shadow: 0 14px 34px rgba(0, 0, 0, 0.72) !important;
-
-        display: block !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
         transform: translateY(4px) !important;
-
-        transition: opacity 0.1s ease-out, visibility 0.1s ease-out, transform 0.1s ease-out !important;
-        transition-delay: 0s !important;
     }
 
-    /* Reveal transition state mapping rules */
-    .fandom-header-dropdown:hover .fandom-header-menu {
-        visibility: visible !important;
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-        transition-delay: 0s !important;
-    }
-
-    /* Invisible shield layer providing 12px of edge protection/leeway around primary menu borders */
     .fandom-header-menu::before {
         content: "" !important;
         position: absolute !important;
@@ -372,8 +369,20 @@
         z-index: -1 !important;
     }
 
-    .fandom-header-menu a {
-        display: block !important;
+    .fandom-header-dropdown:hover>.fandom-header-menu,
+    .fandom-header-dropdown.is-open>.fandom-header-menu,
+    .fandom-nested-folder:hover>.fandom-nested-menu,
+    .fandom-nested-folder.is-open>.fandom-nested-menu {
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: translate(0, 0) !important;
+    }
+
+    .fandom-menu-link,
+    .fandom-nested-link {
+        display: flex !important;
+        justify-content: space-between !important;
+        width: 100% !important;
         padding: 10px 12px !important;
         border-radius: 5px !important;
         color: #ffffff !important;
@@ -384,88 +393,67 @@
         text-shadow: 0 2px 3px rgba(0, 0, 0, 0.85) !important;
     }
 
-    .fandom-header-menu a:hover {
+    .fandom-menu-link:hover,
+    .fandom-nested-link:hover {
         background: rgba(36, 96, 235, 1) !important;
     }
 
-    /* 12. FLY-OUT SIDE PANEL SYSTEM */
-    .fandom-nested-folder {
-        position: relative !important;
-        display: block !important;
-        width: 100% !important;
-    }
-
-    .fandom-nested-summary {
-        cursor: pointer !important;
-        user-select: none !important;
-        padding: 10px 12px !important;
+    .fandom-nested-row {
         border-radius: 5px !important;
-        color: #ffffff !important;
-        font-size: 0.93rem !important;
-        font-weight: 700 !important;
-        line-height: 1.2 !important;
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        text-shadow: 0 2px 3px rgba(0, 0, 0, 0.85) !important;
     }
 
-    .fandom-nested-summary::after {
-        content: "▶" !important;
+    .fandom-nested-link {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        border-radius: 5px 0 0 5px !important;
+    }
+
+    .fandom-nested-toggle {
+        width: 36px !important;
+        border-radius: 0 5px 5px 0 !important;
+    }
+
+    .fandom-nested-toggle::before {
+        content: "◂" !important;
         font-size: 0.82rem !important;
         color: rgba(255, 255, 255, 0.8) !important;
     }
 
-    .fandom-nested-folder:hover .fandom-nested-summary {
-        /*background: rgba(255, 255, 255, 0.08) !important;*/
+    .fandom-nested-folder:hover>.fandom-nested-row,
+    .fandom-nested-folder.is-open>.fandom-nested-row {
         background: rgba(36, 96, 235, 1) !important;
     }
 
-    /* Secondary fly-out panel layout frames config */
     .fandom-nested-menu {
         position: absolute !important;
-        left: 100% !important;
-        right: auto !important;
+        right: calc(100% + 6px) !important;
+        left: auto !important;
         top: -8px !important;
-        margin-left: 6px !important;
-
-        min-width: 210px !important;
-        max-width: 280px !important;
+        min-width: 220px !important;
+        max-width: min(300px, calc(100vw - 32px)) !important;
+        max-height: min(68vh, 680px) !important;
+        overflow-y: auto !important;
         padding: 8px !important;
         border-radius: 8px !important;
         border: 1px solid rgba(255, 255, 255, 0.14) !important;
         background: linear-gradient(to bottom, rgba(20, 20, 20, 0.98), rgba(32, 32, 32, 0.98)) !important;
         backdrop-filter: blur(10px) !important;
         box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.75) !important;
-
-        display: block !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        transform: translateX(4px) !important;
-
-        transition: opacity 0.1s ease-out, visibility 0.1s ease-out, transform 0.1s ease-out !important;
-        transition-delay: 0s !important;
-    }
-
-    .fandom-nested-folder:hover .fandom-nested-menu {
-        visibility: visible !important;
-        opacity: 1 !important;
-        transform: translateX(0) !important;
-        transition-delay: 0s !important;
+        transform: translateX(-4px) !important;
     }
 
     .fandom-nested-menu::before {
         content: "" !important;
         position: absolute !important;
-        left: -8px !important;
-        right: -30px !important;
+        left: -30px !important;
+        right: -8px !important;
         top: -30px !important;
         bottom: -30px !important;
         background: transparent !important;
         z-index: -1 !important;
     }
 
-    @media (max-width: 980px) {
+    @media (max-width: 1100px) {
 
         .page-header,
         .page-header-section .page-header {
@@ -473,29 +461,116 @@
         }
 
         .page-header-section {
-            padding: 10px 16px 132px !important;
+            padding: 16px !important;
         }
 
         .fandom-header-nav {
-            left: 16px !important;
-            right: 16px !important;
-            bottom: 14px !important;
-            justify-content: flex-start !important;
+            position: static !important;
+            margin-top: 18px !important;
             max-width: none !important;
+            width: 100% !important;
+            justify-content: flex-start !important;
+        }
+    }
+
+    @media (max-width: 980px) {
+
+        .container,
+        .page-col-main {
+            margin-top: 24px !important;
+            padding: 22px !important;
+        }
+
+        .page-header h1,
+        .page-header-title {
+            font-size: 2rem !important;
+        }
+
+        .page-header-section .caption,
+        .page-header-section .grey--text.text--darken-1,
+        div.caption.grey--text.text--darken-1 {
+            line-height: 1.45 !important;
+            padding-right: 0 !important;
+        }
+
+        .fandom-header-nav {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            gap: 10px !important;
+        }
+
+        .fandom-header-dropdown,
+        .fandom-nested-folder {
+            width: 100% !important;
+        }
+
+        .fandom-header-summary-row,
+        .fandom-nested-row {
+            width: 100% !important;
+        }
+
+        .fandom-header-summary-link,
+        .fandom-header-summary-toggle {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35) !important;
+        }
+
+        .fandom-header-summary-link {
+            flex: 1 1 auto !important;
+            white-space: normal !important;
+            line-height: 1.2 !important;
+        }
+
+        .fandom-header-menu,
+        .fandom-nested-menu {
+            position: static !important;
+            right: auto !important;
+            left: auto !important;
+            top: auto !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+            max-height: none !important;
+            margin-top: 8px !important;
+            overflow: hidden !important;
+            border-radius: 10px !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .fandom-header-menu {
+            display: none !important;
         }
 
         .fandom-nested-menu {
-            position: static !important;
-            max-width: 100% !important;
-            box-shadow: none !important;
-            margin-left: 10px !important;
-            border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
-            border-radius: 0 !important;
+            display: none !important;
+            margin-left: 12px !important;
+            border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+            border-top: none !important;
+            border-right: none !important;
+            border-bottom: none !important;
             background: transparent !important;
             backdrop-filter: none !important;
+            padding: 8px 0 0 10px !important;
+        }
+
+        .fandom-header-dropdown.is-open>.fandom-header-menu,
+        .fandom-nested-folder.is-open>.fandom-nested-menu {
+            display: block !important;
             visibility: visible !important;
             opacity: 1 !important;
-            transform: none !important;
+        }
+
+        .fandom-header-dropdown:hover>.fandom-header-menu,
+        .fandom-nested-folder:hover>.fandom-nested-menu {
+            display: none !important;
+        }
+
+        .fandom-header-dropdown.is-open:hover>.fandom-header-menu,
+        .fandom-nested-folder.is-open:hover>.fandom-nested-menu {
+            display: block !important;
+        }
+
+        .fandom-nested-link {
+            white-space: normal !important;
         }
     }
 </style>

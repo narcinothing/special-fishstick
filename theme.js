@@ -1,186 +1,327 @@
 (function () {
-  const FOLDERS_WITH_PAGES = [
-    "characters",
-    "sagas",
-    "forms",
-    "techniques",
-    "planets"
-  ];
+  function slugify(text) {
+    return String(text)
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/'/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
 
   const NAV_GROUPS = [
     {
-      label: "Community",
+      label: "How To Play",
       items: [
-        { text: "Update Logs", href: "/update-logs" },
-        { text: "Codes", href: "/codes" },
-        { text: "Trivia", href: "/trivia" },
-        { text: "Credits", href: "/credits" }
-      ]
-    },
-    {
-      label: "How to Play",
-      items: [
-        { text: "Tutorial", href: "/tutorial" },
-        { text: "Main Menu", href: "/main-menu" },
-        { text: "Stats", href: "/stats" },
-        { text: "Multipliers", href: "/multipliers" },
-        { text: "Zenkai Boosts", href: "/zenkai-boosts" },
-        { text: "Mastery", href: "/mastery" },
-        { text: "Zeni", href: "/zeni" }
+        {
+          label: "Progress",
+          items: [
+            { label: "Stats" },
+            { label: "Multiplier" },
+            { label: "Mastery" },
+            { label: "Zenkai Boosts" }
+          ]
+        },
+        {
+          label: "Worlds",
+          items: [
+            { label: "Quest Givers" },
+            { label: "Merchants" },
+            { label: "Enemies" }
+          ]
+        },
+        { label: "Guides" }
       ]
     },
     {
       label: "Mechanics",
       items: [
-        { text: "Dragon Balls", href: "/dragon-balls" },
-        { text: "Z Souls", href: "/z-souls" },
-        { text: "Titles", href: "/titles" },
-        { text: "Consumables", href: "/consumables" },
-        { text: "Accessories", href: "/accessories" },
-        { text: "Items", href: "/items" },
-        { text: "Skills", href: "/skills" },
+        { label: "Titles" },
+        { label: "Z Souls" },
+        { label: "Dragon Balls" },
         {
-          label: "Modes",
-          isFolder: true,
+          label: "Items",
           items: [
-            { text: "Forms", href: "/forms" },
-            { text: "Gamepass Forms", href: "/gamepass-forms" },
-            { text: "Event Forms", href: "/event-forms" },
-            { text: "Skin Forms", href: "/skin-forms" },
-            { text: "Special Techniques", href: "/special-techniques" }
-          ]
-        },
-        {
-          label: "Cosmetics",
-          isFolder: true,
-          items: [
-            { text: "Emotes", href: "/emotes" },
-            { text: "Ki Skins", href: "/ki-skins" },
-            { text: "Skin Forms", href: "/skin-forms" }
-          ]
-        },
-        {
-          label: "Events",
-          isFolder: true,
-          items: [
-            { text: "Winter", href: "/winter-event" },
-            { text: "Easter", href: "/easter-event" },
-            { text: "Christmas", href: "/christmas-event" },
-            { text: "Halloween", href: "/halloween-event" }
+            { label: "Consumables" },
+            { label: "Accessories" }
           ]
         }
       ]
     },
     {
-      label: "NPCs",
+      label: "Skills",
       items: [
-        { text: "Miscellaneous NPCs", href: "/miscellaneous-npcs" },
-        { text: "Merchants", href: "/merchants" },
-        { text: "Quest Givers", href: "/quest-givers" },
-        { text: "Enemies", href: "/enemies" }
+        {
+          label: "Modes",
+          items: [
+            { label: "Gamepass Forms" },
+            { label: "Event Forms" },
+            { label: "Skin Forms" }
+          ]
+        },
+        { label: "Specials" },
+        {
+          label: "Techniques",
+          items: [
+            {
+              label: "Energy Skills",
+              items: [
+                { label: "Energy Volley" },
+                { label: "Kamehameha" },
+                { label: "Blast Zone Attack" },
+                { label: "Galick Gun" },
+                { label: "Masenko" },
+                { label: "Super Kamehameha" },
+                { label: "Big Bang Attack" },
+                { label: "Death Beam" },
+                { label: "Spirit Bomb" },
+                { label: "Omega Cannon" },
+                { label: "Kamehameha X10" },
+                { label: "Final Flash" },
+                { label: "Supernova" },
+                { label: "Destructo Disk" },
+                { label: "Perfect Slash" },
+                { label: "Lightning Shower Rain" }
+              ]
+            },
+            {
+              label: "Combat Skills",
+              items: [
+                { label: "Bone Crush" },
+                { label: "High Speed Rush" },
+                { label: "Counter Slam" },
+                { label: "Dirty Fireworks" },
+                { label: "Transmission" },
+                { label: "God Breaker" },
+                { label: "Perfect Transmission" },
+                { label: "Grand Slam" },
+                { label: "Gigantic Slam" },
+                { label: "Rapid Punches" }
+              ]
+            }
+          ]
+        }
       ]
     },
     {
       label: "Store",
       items: [
-        { text: "Gamepasses", href: "/gamepasses" },
-        { text: "Products", href: "/products" }
+        {
+          label: "Cosmetics",
+          items: [
+            { label: "Emotes" },
+            { label: "Ki Skins" }
+          ]
+        },
+        { label: "Gamepasses" },
+        { label: "Products" }
+      ]
+    },
+    {
+      label: "Events",
+      items: [
+        { label: "Codes" },
+        { label: "Beyond Time" },
+        { label: "New Years Event" },
+        { label: "Valentine's Day" },
+        { label: "Festival of the Celestial Dragon" },
+        { label: "Festival of Forgotten Eggs" },
+        { label: "Dracius's Birthday" },
+        { label: "The Hollow Harvest" },
+        { label: "Christmas Festival" },
+        { label: "Winter's Reckoning" }
       ]
     }
   ];
 
-  function convertToTitle(str) {
-    return str.replace(/[-_]/g, " ").replace(/\b\w/g, function (c) {
-      return c.toUpperCase();
+  function withComputedHrefs(items, parentParts) {
+    return items.map(function (item) {
+      const currentParts = parentParts.concat(slugify(item.label));
+      const nextItem = {
+        label: item.label,
+        href: item.href || "/" + currentParts.join("/")
+      };
+
+      if (Array.isArray(item.items) && item.items.length > 0) {
+        nextItem.items = withComputedHrefs(item.items, currentParts);
+      }
+
+      return nextItem;
     });
   }
 
-  function buildLink(text, href) {
+  const NAV_TREE = withComputedHrefs(NAV_GROUPS, []);
+
+  function convertToTitle(str) {
+    return String(str)
+      .replace(/[-_]/g, " ")
+      .replace(/\b\w/g, function (char) {
+        return char.toUpperCase();
+      });
+  }
+
+  function buildLink(text, href, className) {
     const link = document.createElement("a");
     link.href = href;
     link.textContent = text;
+    if (className) {
+      link.className = className;
+    }
     return link;
   }
 
-  function buildDropdown(group) {
-    const dropdown = document.createElement("div");
-    dropdown.className = "fandom-header-dropdown";
+  function buildToggleButton(className, label) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = className;
+    button.setAttribute("aria-label", "Toggle " + label + " menu");
+    button.setAttribute("aria-expanded", "false");
+    return button;
+  }
 
-    const summary = document.createElement("div");
-    summary.className = "fandom-header-summary";
-    summary.textContent = group.label;
+  function getFolderToggle(folder) {
+    if (!folder || !folder.firstElementChild) return null;
+    return folder.firstElementChild.querySelector(
+      ".fandom-header-summary-toggle, .fandom-nested-toggle"
+    );
+  }
 
-    const menu = document.createElement("div");
-    menu.className = "fandom-header-menu";
+  function setExpandedState(folder, expanded) {
+    if (expanded) {
+      folder.classList.add("is-open");
+    } else {
+      folder.classList.remove("is-open");
+    }
 
-    group.items.forEach(function (item) {
-      if (item.isFolder) {
-        const subFolder = document.createElement("div");
-        subFolder.className = "fandom-nested-folder";
+    const toggle = getFolderToggle(folder);
+    if (toggle) {
+      toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+    }
+  }
 
-        const subSummary = document.createElement("div");
-        subSummary.className = "fandom-nested-summary";
-        subSummary.textContent = item.label;
+  function closeSiblingFolders(folder) {
+    const parent = folder.parentElement;
+    if (!parent) return;
 
-        const subMenu = document.createElement("div");
-        subMenu.className = "fandom-nested-menu";
+    Array.prototype.forEach.call(parent.children, function (sibling) {
+      if (sibling !== folder && sibling.classList) {
+        sibling.classList.remove("is-open");
 
-        item.items.forEach(function (subItem) {
-          subMenu.appendChild(buildLink(subItem.text, subItem.href));
-        });
-
-        subFolder.appendChild(subSummary);
-        subFolder.appendChild(subMenu);
-        menu.appendChild(subFolder);
-      } else {
-        menu.appendChild(buildLink(item.text, item.href));
+        const siblingToggle = getFolderToggle(sibling);
+        if (siblingToggle) {
+          siblingToggle.setAttribute("aria-expanded", "false");
+        }
       }
     });
+  }
 
-    dropdown.appendChild(summary);
-    dropdown.appendChild(menu);
-    return dropdown;
+  function buildNode(item, depth) {
+    const hasChildren = Array.isArray(item.items) && item.items.length > 0;
+
+    if (!hasChildren) {
+      return buildLink(item.label, item.href, "fandom-menu-link");
+    }
+
+    const wrapper = document.createElement("div");
+    const row = document.createElement("div");
+    const menu = document.createElement("div");
+    const isTopLevel = depth === 0;
+
+    wrapper.className = isTopLevel ? "fandom-header-dropdown" : "fandom-nested-folder";
+    row.className = isTopLevel ? "fandom-header-summary-row" : "fandom-nested-row";
+    menu.className = isTopLevel ? "fandom-header-menu" : "fandom-nested-menu";
+
+    row.appendChild(
+      buildLink(
+        item.label,
+        item.href,
+        isTopLevel ? "fandom-header-summary-link" : "fandom-nested-link"
+      )
+    );
+
+    const toggle = buildToggleButton(
+      isTopLevel ? "fandom-header-summary-toggle" : "fandom-nested-toggle",
+      item.label
+    );
+
+    toggle.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const isOpen = wrapper.classList.contains("is-open");
+      closeSiblingFolders(wrapper);
+      setExpandedState(wrapper, !isOpen);
+    });
+
+    row.appendChild(toggle);
+
+    item.items.forEach(function (childItem) {
+      menu.appendChild(buildNode(childItem, depth + 1));
+    });
+
+    wrapper.appendChild(row);
+    wrapper.appendChild(menu);
+    return wrapper;
+  }
+
+  function buildNav() {
+    const nav = document.createElement("div");
+    nav.className = "fandom-header-nav";
+
+    NAV_TREE.forEach(function (group) {
+      nav.appendChild(buildNode(group, 0));
+    });
+
+    return nav;
   }
 
   function renderCaption(header) {
     const captionEl = header.querySelector(".caption, [class*='caption']");
     if (!captionEl) return;
 
-    const currentPath = window.location.pathname;
+    const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
     if (captionEl.getAttribute("data-path") === currentPath) return;
 
     captionEl.setAttribute("data-path", currentPath);
 
-    const parts = currentPath.split("/").filter(Boolean);
-
-    let folderText = "Home";
-    let folderHref = "/";
-    let pageText = "Main Page";
-    let pageHref = "/";
-
-    if (parts.length === 1) {
-      pageText = convertToTitle(parts[0]);
-      pageHref = "/" + parts[0];
-    } else if (parts.length >= 2) {
-      const folderSlug = parts[parts.length - 2];
-      folderText = convertToTitle(folderSlug);
-      pageText = convertToTitle(parts[parts.length - 1]);
-      pageHref = "/" + parts.join("/");
-
-      if (FOLDERS_WITH_PAGES.includes(folderSlug.toLowerCase())) {
-        folderHref = "/" + parts.slice(0, parts.length - 1).join("/");
-      }
+    if (currentPath === "/") {
+      captionEl.innerHTML =
+        'In <a href="/" class="fandom-caption-link">Home</a>, <a href="/" class="fandom-caption-link">Main Page</a>';
+      return;
     }
 
+    const parts = currentPath.split("/").filter(Boolean);
+    const pageLabel = convertToTitle(parts[parts.length - 1]);
+    const parentParts = parts.slice(0, -1);
+
+    if (parentParts.length === 0) {
+      captionEl.innerHTML =
+        'In <a href="/" class="fandom-caption-link">Home</a>, <a href="' +
+        currentPath +
+        '" class="fandom-caption-link">' +
+        pageLabel +
+        "</a>";
+      return;
+    }
+
+    const trail = parentParts
+      .map(function (part, index) {
+        const href = "/" + parentParts.slice(0, index + 1).join("/");
+        return (
+          '<a href="' +
+          href +
+          '" class="fandom-caption-link">' +
+          convertToTitle(part) +
+          "</a>"
+        );
+      })
+      .join(" / ");
+
     captionEl.innerHTML =
-      'In <a href="' +
-      folderHref +
+      "In " +
+      trail +
+      ', <a href="' +
+      currentPath +
       '" class="fandom-caption-link">' +
-      folderText +
-      '</a>, <a href="' +
-      pageHref +
-      '" class="fandom-caption-link">' +
-      pageText +
+      pageLabel +
       "</a>";
   }
 
@@ -190,15 +331,8 @@
 
     let nav = header.querySelector(".fandom-header-nav");
     if (!nav) {
-      nav = document.createElement("div");
-      nav.className = "fandom-header-nav";
+      nav = buildNav();
       header.appendChild(nav);
-    }
-
-    if (!nav.hasChildNodes()) {
-      NAV_GROUPS.forEach(function (group) {
-        nav.appendChild(buildDropdown(group));
-      });
     }
 
     renderCaption(header);
@@ -223,6 +357,14 @@
 
     window.addEventListener("popstate", function () {
       setTimeout(renderHeaderNav, 50);
+    });
+
+    document.addEventListener("click", function (event) {
+      if (event.target.closest(".fandom-header-nav")) return;
+
+      document.querySelectorAll(".fandom-header-dropdown.is-open, .fandom-nested-folder.is-open").forEach(function (node) {
+        setExpandedState(node, false);
+      });
     });
   }
 
