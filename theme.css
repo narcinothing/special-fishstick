@@ -241,7 +241,7 @@
     }
 
     .search-results-container .pt-5 {
-        padding-top: 16px !important; /* Forces Vuetify's '5' to look like a '3' */
+        padding-top: 1px !important; /* Forces Vuetify's '5' to look like a '3' */
     }
 
     /* 10. BREADCRUMBS SUB-HEADER DESTRUCTION */
