@@ -1,26 +1,28 @@
 <style>
   /* 1. Force the background wallpaper strictly onto the absolute root canvas layers */
-  html, 
-  body {
-      background-image: url('http://dragonballrage.wiki/trash.jpg') !important; /* FIXED: Upgraded to HTTPS */
-      background-attachment: fixed !important;
-      background-position: center top !important;
-      background-size: cover !important;
-      background-repeat: no-repeat !important;
-  }
+html:root,
+html body {
+    /* FIXED: Using the explicit HTTP absolute URL with boosted selector weight */
+    background-image: url('http://dragonballrage.wiki/trash.jpg') !important; 
+    background-attachment: fixed !important;
+    background-position: center top !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
 
-  /* 2. Completely strip the background fills off the nested framework panels so the wallpaper shows through */
-  #app,
-  .v-layout,
-  .v-application,
-  .v-application--wrap,
-  main.v-content,
-  .v-content__wrap,
-  .v-main {
-      background-color: transparent !important; /* FIXED: Added #app and .v-layout layout overrides */
-      background: transparent !important;
-  }
-
+/* 2. COMPLETELY STRIP BACKGROUNDS (Boosted Specificity to beat Vuetify's loading order) */
+html body #app,
+html body .v-application,
+html body .v-application--wrap,
+html body .v-layout,
+html body .v-main,
+html body .v-main__wrap,
+html body .v-content,
+html body .v-content__wrap,
+html body [class*="v-theme--"] {
+    background-color: transparent !important;
+    background: transparent !important;
+}
   /* 3. Your Fandom-style Floating Central Content Box */
   .container,
   .page-col-main {
