@@ -6,7 +6,7 @@
     content: "" !important;
     position: fixed !important;
     inset: 0 !important; /* Stretches perfectly across the full viewport window */
-    background-image: url("http://dragonballrage.wiki/trash.jpg") !important; /* Explicit absolute HTTP URL */
+    background-image: url("http://dragonballrage.wiki/headerimage.png") !important; /* Explicit absolute HTTP URL */
     background-position: center top !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
