@@ -166,17 +166,27 @@
         pointer-events: none !important;
     }
 
-    /* Override the mobile search bar background color */
+    /* 1. Target the main background container of the search bar */
     .v-input__slot.deep-purple {
-        background-color: rgba(20, 20, 20, 0.95) !important;
-        background-image: none !important;
-        /* Prevents any gradient overrides */
+        background-color: rgba(20, 20, 20, 0.65) !important; /* Semi-transparent */
+        border: none !important;                              /* Removes standard borders */
+        box-shadow: none !important;                           /* Removes default shadow */
     }
 
-    /* Optional: If you want to customize the border or shadow to match your main container */
-    .v-input__slot.deep-purple {
-        order: 1px solid rgba(255, 255, 255, 0.1) !important;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5) !important;
+    /* 2. Target the outer wrapper to crush any focus outlines or borders */
+    .v-input.v-text-field--solo-flat {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    /* 3. Ensure the border doesn't come back when you click/focus inside the search bar */
+    .v-input.v-text-field--solo-flat:focus-within,
+    .v-input.v-text-field--solo-flat .v-input__control:focus,
+    .v-input.v-text-field--solo-flat .v-input__slot:focus {
+        border: none !important;
+        outline: none !important;
+        background-color: rgba(20, 20, 20, 0.75) !important; /* Slightly darker on focus so users know it's active */
     }
 
     /* 9. SEARCH RESULTS DROPDOWN & FULL-SCREEN OVERLAY CLEANUP */
@@ -462,217 +472,3 @@
         }
     }
 </style>
-
-<script>
-    (function () {
-        // --- CONFIGURATION ---
-        const FOLDERS_WITH_PAGES = [
-            "characters",
-            "sagas",
-            "forms",
-            "techniques",
-            "planets"
-        ];
-
-        const NAV_GROUPS = [
-            {
-                label: "Community",
-                items: [
-                    { text: "Update Logs", href: "/update-logs" },
-                    { text: "Codes", href: "/codes" },
-                    { text: "Trivia", href: "/trivia" },
-                    { text: "Credits", href: "/credits" },
-                ]
-            },
-            {
-                label: "How to Play",
-                items: [
-                    { text: "Tutorial", href: "/tutorial" },
-                    { text: "Main Menu", href: "/main-menu" },
-                    { text: "Stats", href: "/stats" },
-                    { text: "Multipliers", href: "/multipliers" },
-                    { text: "Zenkai Boosts", href: "/zenkai-boosts" },
-                    { text: "Mastery", href: "/mastery" },
-                    { text: "Zeni", href: "/zeni" }
-                ]
-            },
-            {
-                label: "Mechanics",
-                items: [
-                    { text: "Dragon Balls", href: "/dragon-balls" },
-                    { text: "Z Souls", href: "/z-souls" },
-                    { text: "Titles", href: "/titles" },
-                    { text: "Consumables", href: "/consumables" },
-                    { text: "Accessories", href: "/accessories" },
-                    { text: "Items", href: "/items" },
-                    { text: "Skills", href: "/skills" },
-                    {
-                        label: "Modes",
-                        isFolder: true,
-                        items: [
-                            { text: "Forms", href: "/forms" },
-                            { text: "Gamepass Forms", href: "/gamepass-forms" },
-                            { text: "Event Forms", href: "/event-forms" },
-                            { text: "Skin Forms", href: "/skin-forms" },
-                            { text: "Special Techniques", href: "/special-techniques" }
-                        ]
-                    },
-                    {
-                        label: "Cosmetics",
-                        isFolder: true,
-                        items: [
-                            { text: "Emotes", href: "/emotes" },
-                            { text: "Ki Skins", href: "/ki-skins" },
-                            { text: "Skin Forms", href: "/skin-forms" }
-                        ]
-                    },
-                    {
-                        label: "Events",
-                        isFolder: true,
-                        items: [
-                            { text: "Winter", href: "/winter-event" },
-                            { text: "Easter", href: "/easter-event" },
-                            { text: "Christmas", href: "/christmas-event" },
-                            { text: "Halloween", href: "/halloween-event" }
-                        ]
-                    }
-                ]
-            },
-            {
-                label: "NPCs",
-                items: [
-                    { text: "Miscellaneous NPCs", href: "/miscellaneous-npcs" },
-                    { text: "Merchants", href: "/merchants" },
-                    { text: "Quest Givers", href: "/quest-givers" },
-                    { text: "Enemies", href: "/enemies" }
-                ]
-            },
-            {
-                label: "Store",
-                items: [
-                    { text: "Gamepasses", href: "/gamepasses" },
-                    { text: "Products", href: "/products" }
-                ]
-            }
-        ];
-
-        function buildDropdown(group) {
-            const dropdown = document.createElement("div");
-            dropdown.className = "fandom-header-dropdown";
-
-            const summary = document.createElement("div");
-            summary.className = "fandom-header-summary";
-            summary.textContent = group.label;
-
-            const menu = document.createElement("div");
-            menu.className = "fandom-header-menu";
-
-            group.items.forEach((item) => {
-                if (item.isFolder) {
-                    const subFolder = document.createElement("div");
-                    subFolder.className = "fandom-nested-folder";
-
-                    const subSummary = document.createElement("div");
-                    subSummary.className = "fandom-nested-summary";
-                    subSummary.textContent = item.label;
-
-                    const subMenu = document.createElement("div");
-                    subMenu.className = "fandom-nested-menu";
-
-                    item.items.forEach((subItem) => {
-                        const link = document.createElement("a");
-                        link.href = subItem.href;
-                        link.textContent = subItem.text;
-                        subMenu.appendChild(link);
-                    });
-
-                    subFolder.appendChild(subSummary);
-                    subFolder.appendChild(subMenu);
-                    menu.appendChild(subFolder);
-                } else {
-                    const link = document.createElement("a");
-                    link.href = item.href;
-                    link.textContent = item.text;
-                    menu.appendChild(link);
-                }
-            });
-
-            dropdown.appendChild(summary);
-            dropdown.appendChild(menu);
-            return dropdown;
-        }
-
-        function renderHeaderNav() {
-            const header = document.querySelector(".page-header-section");
-            if (!header) return;
-
-            let nav = header.querySelector(".fandom-header-nav");
-            if (!nav) {
-                nav = document.createElement("div");
-                nav.className = "fandom-header-nav";
-                header.appendChild(nav);
-            }
-
-            if (nav.innerHTML === "") {
-                NAV_GROUPS.forEach((group) => {
-                    nav.appendChild(buildDropdown(group));
-                });
-            }
-
-            const captionEl = header.querySelector(".caption, [class*='caption']");
-            const currentPath = window.location.pathname;
-
-            if (captionEl && captionEl.getAttribute('data-path') !== currentPath) {
-                captionEl.setAttribute('data-path', currentPath);
-
-                const parts = currentPath.split('/').filter(Boolean);
-
-                let folderText = "Home";
-                let folderHref = "/";
-                let pageText = "Main Page";
-                let pageHref = "/";
-
-                function convertToTitle(str) {
-                    return str.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-                }
-
-                if (parts.length === 1) {
-                    pageText = convertToTitle(parts[0]);
-                    pageHref = "/" + parts[0];
-                } else if (parts.length >= 2) {
-                    const folderSlug = parts[parts.length - 2];
-                    folderText = convertToTitle(folderSlug);
-                    pageText = convertToTitle(parts[parts.length - 1]);
-                    pageHref = "/" + parts.join('/');
-
-                    if (FOLDERS_WITH_PAGES.includes(folderSlug.toLowerCase())) {
-                        folderHref = "/" + parts.slice(0, parts.length - 1).join('/');
-                    } else {
-                        folderHref = "/";
-                    }
-                }
-
-                captionEl.innerHTML = `In <a href="${folderHref}" class="fandom-caption-link">${folderText}</a>, <a href="${pageHref}" class="fandom-caption-link">${pageText}</a>`;
-            }
-        }
-
-        function initHeaderNav() {
-            renderHeaderNav();
-
-            const observer = new MutationObserver(() => {
-                renderHeaderNav();
-            });
-
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true
-            });
-        }
-
-        if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", initHeaderNav);
-        } else {
-            initHeaderNav();
-        }
-    })();
-</script>
