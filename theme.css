@@ -381,7 +381,7 @@
         font-size: 0.93rem !important;
         font-weight: 500 !important;
         line-height: 1.2 !important;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85) !important;
+        text-shadow: 0 2px 3px rgba(0, 0, 0, 0.85) !important;
     }
 
     .fandom-header-menu a:hover {
@@ -407,6 +407,7 @@
         display: flex !important;
         justify-content: space-between !important;
         align-items: center !important;
+        text-shadow: 0 2px 3px rgba(0, 0, 0, 0.85) !important;
     }
 
     .fandom-nested-summary::after {
