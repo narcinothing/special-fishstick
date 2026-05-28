@@ -229,8 +229,8 @@
     wrapper.className = isTopLevel ? "fandom-header-dropdown" : "fandom-nested-folder";
     row.className = isTopLevel ? "fandom-header-summary-row" : "fandom-nested-row";
     menu.className = isTopLevel ? "fandom-header-menu" : "fandom-nested-menu";
-    menu.style.setProperty("--fandom-menu-width", Math.max(172, 214 - depth * 18) + "px");
-
+    menu.style.setProperty("--fandom-menu-width", Math.max(152, 176 - depth * 10) + "px")
+    
     const rowLink = buildLink(
       item.label,
       item.href,
