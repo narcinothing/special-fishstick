@@ -774,7 +774,7 @@ header[style*="height: 48px"],
         white-space: normal !important;
     }
 
-    .fandom-header-menu::before {
+    .fandom-header-menu {
         top: 0px !important;
         bottom: 0px !important;
         left: 0px !important;
