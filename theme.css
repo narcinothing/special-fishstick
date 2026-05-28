@@ -495,7 +495,9 @@ header[style*="height: 48px"],
     .page-header-title {
         font-size: 2rem !important;
     }
-
+    .container.grey.pa-0.container--fluid {
+        border-radius: 0px !important;
+    }
     .page-header-section .caption,
     .page-header-section .grey--text.text--darken-1,
     div.caption.grey--text.text--darken-1 {
@@ -508,6 +510,10 @@ header[style*="height: 48px"],
         border-radius: 0px !important;
     }
 
+    .page-header-section::before {
+        border-radius: 0px !important;
+    }
+
     .page-header,
     .page-header-section .page-header {
         padding-right: 0 !important;
@@ -516,6 +522,10 @@ header[style*="height: 48px"],
     .fandom-header-nav-shell {
         margin-top: 0px !important;
         margin-bottom: 0px !important;
+        border-radius: 0px !important;
+    }
+
+    fandom-header-nav-shell {
         border-radius: 0px !important;
     }
 
