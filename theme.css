@@ -496,6 +496,7 @@ header[style*="height: 48px"],
         font-size: 2rem !important;
     }
     .container.grey.pa-0.container--fluid {
+        background: transparent !important;
         border-radius: 0px !important;
     }
     .page-header-section .caption,
@@ -550,6 +551,8 @@ header[style*="height: 48px"],
     }
 
     .fandom-header-summary-row {
+        
+        border-radius: 0px !important;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35) !important;
     }
 
