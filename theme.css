@@ -773,6 +773,14 @@ header[style*="height: 48px"],
     .fandom-nested-link {
         white-space: normal !important;
     }
+
+    .fandom-header-menu::before {
+        top: 0px !important;
+        bottom: 0px !important;
+        left: 0px !important;
+        right: 0px !important;
+    }
+
 }
 
 </style>
