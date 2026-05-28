@@ -718,7 +718,7 @@ header[style*="height: 48px"],
         z-index: 8 !important;
         transform: none !important;
         box-sizing: border-box !important;
-        top: 0px !important;
+        top: 1px !important;
         bottom: 0px !important;
         left: 0px !important;
         right: 0px !important;
