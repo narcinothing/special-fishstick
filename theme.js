@@ -229,26 +229,34 @@
     wrapper.className = isTopLevel ? "fandom-header-dropdown" : "fandom-nested-folder";
     row.className = isTopLevel ? "fandom-header-summary-row" : "fandom-nested-row";
     menu.className = isTopLevel ? "fandom-header-menu" : "fandom-nested-menu";
+    menu.style.setProperty("--fandom-menu-width", Math.max(188, 236 - depth * 18) + "px");
 
-    row.appendChild(
-      buildLink(
-        item.label,
-        item.href,
-        isTopLevel ? "fandom-header-summary-link" : "fandom-nested-link"
-      )
+    const rowLink = buildLink(
+      item.label,
+      item.href,
+      isTopLevel ? "fandom-header-summary-link" : "fandom-nested-link"
     );
+
+    function toggleFolder(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const isOpen = wrapper.classList.contains("is-open");
+      closeSiblingFolders(wrapper);
+      setExpandedState(wrapper, !isOpen);
+    }
+
+    row.appendChild(rowLink);
 
     const toggle = buildToggleButton(
       isTopLevel ? "fandom-header-summary-toggle" : "fandom-nested-toggle",
       item.label
     );
 
-    toggle.addEventListener("click", function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      const isOpen = wrapper.classList.contains("is-open");
-      closeSiblingFolders(wrapper);
-      setExpandedState(wrapper, !isOpen);
+    toggle.addEventListener("click", toggleFolder);
+
+    row.addEventListener("click", function (event) {
+      if (window.innerWidth > 980 || event.target.closest("a")) return;
+      toggleFolder(event);
     });
 
     row.appendChild(toggle);
