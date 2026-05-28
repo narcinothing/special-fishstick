@@ -481,10 +481,6 @@ header[style*="height: 48px"],
     .page-header-section .page-header {
         padding-right: 420px !important;
     }
-
-    .fandom-header-nav {
-        max-width: min(420px, calc(100vw - 48px)) !important;
-    }
 }
 
 @media (max-width: 980px) {
