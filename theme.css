@@ -505,6 +505,7 @@ header[style*="height: 48px"],
 
     .page-header-section {
         padding: 16px !important;
+        border-radius: 0px !important;
     }
 
     .page-header,
@@ -515,6 +516,7 @@ header[style*="height: 48px"],
     .fandom-header-nav-shell {
         margin-top: 0px !important;
         margin-bottom: 0px !important;
+        border-radius: 0px !important;
     }
 
     .fandom-header-nav {
@@ -524,6 +526,7 @@ header[style*="height: 48px"],
         position: static !important;
         max-width: none !important;
         width: 100% !important;
+        border-radius: 0px !important;
     }
 
     .fandom-header-dropdown,
