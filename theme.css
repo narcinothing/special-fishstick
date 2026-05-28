@@ -34,8 +34,8 @@ main.v-content,
     width: 100% !important;
     margin-left: auto !important;
     margin-right: auto !important;
-    margin-top: 40px !important;
-    padding: 40px !important;
+    margin-top: 20px !important;
+    padding: 20px !important;
     border-radius: 8px !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
