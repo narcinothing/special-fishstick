@@ -619,6 +619,8 @@ header[style*="height: 48px"],
         width: 100% !important;
         border-radius: 0px !important;
         box-sizing: border-box !important;
+        right: 0px !important;
+        bottom: 0px !important;
     }
 
     .fandom-header-dropdown {
