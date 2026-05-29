@@ -362,6 +362,25 @@
       '" class="fandom-caption-link">' +
       pageLabel +
       "</a>";
+
+
+    // ==========================================================================
+    // NEW: MOBILE TITLE CLEANUP
+    // ==========================================================================
+    const titleSubheading = document.querySelector(".v-toolbar__title .subheading");
+    if (titleSubheading) {
+      if (window.innerWidth <= 980) {
+        // If on mobile, strip out "Official " to save screen space
+        if (titleSubheading.textContent.includes("Official ")) {
+          titleSubheading.textContent = titleSubheading.textContent.replace("Official ", "");
+        }
+      } else {
+        // Optional: Re-add it on desktop if they resized the window outward
+        if (!titleSubheading.textContent.includes("Official ")) {
+          titleSubheading.textContent = "Official " + titleSubheading.textContent;
+        }
+      }
+    }
   }
 
   function renderHeaderNav() {
@@ -409,28 +428,6 @@
         setExpandedState(node, false);
       });
     });
-  }
-
-  function renderCaption(header) {
-      // ... all of your existing caption rendering code remains exactly the same ...
-      
-      // ==========================================================================
-      // NEW: MOBILE TITLE CLEANUP
-      // ==========================================================================
-      const titleSubheading = document.querySelector(".v-toolbar__title .subheading");
-      if (titleSubheading) {
-        if (window.innerWidth <= 980) {
-          // If on mobile, strip out "Official " to save screen space
-          if (titleSubheading.textContent.includes("Official ")) {
-            titleSubheading.textContent = titleSubheading.textContent.replace("Official ", "");
-          }
-        } else {
-          // Optional: Re-add it on desktop if they resized the window outward
-          if (!titleSubheading.textContent.includes("Official ")) {
-            titleSubheading.textContent = "Official " + titleSubheading.textContent;
-          }
-        }
-      }
   }
   
   function initHeaderNav() {
