@@ -160,16 +160,16 @@
   }
 
   function buildLink(text, href, className) {
-    const link = document.createElement("a");
-    link.href = href;
-    
-    // Assign the text string to a custom data attribute instead of innerText
-    link.setAttribute("data-text", text);
-    
-    if (className) {
-      link.className = className;
-    }
-    return link;
+      const link = document.createElement("a");
+      link.href = href;
+      
+      // Explicitly write the text inside the anchor container natively
+      link.textContent = text; 
+      
+      if (className) {
+        link.className = className;
+      }
+      return link;
   }
 
   function buildToggleButton(className, label) {
