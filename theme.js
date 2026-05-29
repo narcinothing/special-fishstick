@@ -162,18 +162,13 @@
   function buildLink(text, href, className) {
     const link = document.createElement("a");
     link.href = href;
-    
-    const textSpan = document.createElement("span");
-    textSpan.textContent = text;
-    textSpan.className = "fandom-text-target";
-    
-    link.appendChild(textSpan);
-    
+    link.textContent = text;
     if (className) {
       link.className = className;
     }
     return link;
   }
+
   function buildToggleButton(className, label) {
     const button = document.createElement("button");
     button.type = "button";
@@ -250,7 +245,6 @@
       setExpandedState(wrapper, !isOpen);
     }
 
-    // REPLACE WITH THIS UPDATED LOGIC:
     row.appendChild(rowLink);
 
     const toggle = buildToggleButton(
@@ -258,21 +252,10 @@
       item.label
     );
 
-    // Find the dynamic text span we just built
-    const textTarget = rowLink.querySelector(".fandom-text-target");
-
-    if (textTarget) {
-      textTarget.addEventListener("click", function (event) {
-        // Stop the link click from bubbling out to the parent row wrapper toggle code
-        // on BOTH desktop and mobile viewports if it's a folder/dropdown item
-        event.stopPropagation(); 
-      });
-    }
-
     toggle.addEventListener("click", toggleFolder);
 
     row.addEventListener("click", function (event) {
-      if (window.innerWidth > 980) return;
+      if (window.innerWidth > 980 || event.target.closest("a")) return;
       toggleFolder(event);
     });
 
