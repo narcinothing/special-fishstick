@@ -526,7 +526,7 @@ header[style*="height: 48px"],
     .v-toolbar__title .subheading {
         display: block !important;
         position: absolute !important;
-        left: -54px !important; /* Shifts the word "Official " behind the left mask wall */
+        left: -53px !important; /* Shifts the word "Official " behind the left mask wall */
         top: 50% !important;
         transform: translateY(-50%) !important;
         white-space: nowrap !important;
