@@ -692,11 +692,14 @@ header[style*="height: 48px"],
         transform: none !important;
     }
 
-    .fandom-menu-link,
+    .fandom-header-summary-link, 
     .fandom-nested-link {
-        padding: 9px 10px !important;
-        font-size: 0.9rem !important;
-        border-radius: 0px !important;
+        flex: 0 0 auto !important; /* Forces the box to shrink tight to the font */
+        width: auto !important;
+        max-width: fit-content !important;
+        padding: 0 8px !important; /* Gives the text just a tiny bit of breathing room */
+        position: relative !important;
+        z-index: 10 !important; /* Keeps the text clickable above the background row */
     }
     
     .fandom-nested-link {
