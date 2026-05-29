@@ -162,13 +162,19 @@
   function buildLink(text, href, className) {
     const link = document.createElement("a");
     link.href = href;
-    link.textContent = text;
+    
+    // Create a span to capture the dynamic text width on screen
+    const textSpan = document.createElement("span");
+    textSpan.textContent = text;
+    textSpan.className = "fandom-text-target";
+    
+    link.appendChild(textSpan);
+    
     if (className) {
       link.className = className;
     }
     return link;
   }
-
   function buildToggleButton(className, label) {
     const button = document.createElement("button");
     button.type = "button";
@@ -253,22 +259,23 @@
       item.label
     );
 
-    // 1. Explicitly allow the link click to bypass drop-down actions
-    rowLink.addEventListener("click", function (event) {
-      if (window.innerWidth <= 980) {
-        // This allows the default anchor behavior to run cleanly without being swallowed
-        event.stopPropagation(); 
-      }
-    });
+    // Find the dynamic text span we just built
+    const textTarget = rowLink.querySelector(".fandom-text-target");
 
-    // 2. Clicking the arrow button explicitly toggles the folder
+    if (textTarget) {
+      textTarget.addEventListener("click", function (event) {
+        if (window.innerWidth <= 980) {
+          // Let the click bubble up to the <a> tag natively, 
+          // but STOP it from reaching the row wrapper toggle code.
+          event.stopPropagation(); 
+        }
+      });
+    }
+
     toggle.addEventListener("click", toggleFolder);
 
-    // 3. Clicking the rest of the button row wrapper toggles the folder
     row.addEventListener("click", function (event) {
       if (window.innerWidth > 980) return;
-      
-      // If they somehow managed to tap something else, trigger the dropdown
       toggleFolder(event);
     });
 
