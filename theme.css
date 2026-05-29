@@ -9,7 +9,7 @@ body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background: url("https://dragonballrage.wiki/trash.jpg") center top / cover no-repeat;
+    background: url("https://dragonballrage.wiki/narci_(2).jpg") center top / cover no-repeat;
     z-index: 0;
     pointer-events: none;
 }
@@ -524,7 +524,7 @@ header[style*="height: 48px"],
         opacity: 0.9 !important;
         color: rgba(255, 255, 255, 0.8) !important;
     }
-    
+
     /* ==========================================================================
        Main Containers & Sizing Resets
        ========================================================================== */
