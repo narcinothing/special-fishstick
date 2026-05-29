@@ -515,6 +515,9 @@ header[style*="height: 48px"],
 }
 
 @media (max-width: 980px) {
+    /* ==========================================================================
+       Main Containers & Sizing Resets
+       ========================================================================== */
     .container,
     .page-col-main {
         margin-top: 0px !important;
@@ -524,7 +527,14 @@ header[style*="height: 48px"],
         border-radius: 0px !important;
     }
 
-    /* 1. Expand the toolbar title layout cleanly and fluidly on mobile viewports */
+    .container.pl-5.pt-4.container--fluid.grid-list-xl,
+    .container.grey.pa-0.container--fluid {
+        border-radius: 0px !important;
+    }
+
+    /* ==========================================================================
+       Mobile Title Alignment & Page Headers
+       ========================================================================== */
     .v-toolbar__content {
         display: flex !important;
         justify-content: flex-start !important;
@@ -536,25 +546,19 @@ header[style*="height: 48px"],
         flex: 1 1 auto !important;
         position: relative !important;
         width: 100% !important;
-        max-width: calc(100vw - 70px) !important; /* Maximizes single-line real estate cleanly next to the logo */
+        max-width: calc(100vw - 70px) !important;
         min-width: 0 !important;
         overflow: visible !important;
     }
 
-    /* 2. Lock text to one line without the buggy absolute tracking hacks */
     .v-toolbar__title .subheading {
         display: inline-block !important;
         position: static !important;
         transform: none !important;
-        white-space: nowrap !important; /* Guarantees strict single-line text rendering */
+        white-space: nowrap !important;
         width: max-content !important;
         color: #ffffff !important;
         font-size: 0.95rem !important;
-    }
-
-    .container.pl-5.pt-4.container--fluid.grid-list-xl,
-    .container.grey.pa-0.container--fluid {
-        border-radius: 0px !important;
     }
 
     .page-header h1,
@@ -583,7 +587,9 @@ header[style*="height: 48px"],
         padding-right: 0 !important;
     }
 
-    /* Mobile Navigation Container Adjustments */
+    /* ==========================================================================
+       Navigation Containers & Shells
+       ========================================================================== */
     .fandom-header-nav-shell {
         margin: 0 !important;
         border-radius: 0px !important;
@@ -643,7 +649,7 @@ header[style*="height: 48px"],
         overflow: hidden !important;
     }
 
-    /* Top Grid Navigation Buttons (Kept precisely aligned as requested) */
+    /* Top Grid Header Navigation Buttons (Untouched & Functional) */
     .fandom-header-summary-link {
         flex: 0 0 auto !important;
         width: max-content !important;
@@ -677,7 +683,9 @@ header[style*="height: 48px"],
         border-color: rgba(92, 141, 255, 0.95) !important;
     }
 
-    /* Fixed Fandom Header Menu Rules for Mobile Dropdown Behavior */
+    /* ==========================================================================
+       Dropdown Menus & Active Toggles
+       ========================================================================== */
     .fandom-header-menu {
         display: none !important;
         position: absolute !important; 
@@ -703,7 +711,6 @@ header[style*="height: 48px"],
         display: none !important;
     }
 
-    /* Nested Sub-Menu Formatting on Mobile */
     .fandom-nested-menu {
         display: none !important;
         position: static !important;
@@ -727,7 +734,6 @@ header[style*="height: 48px"],
         white-space: normal !important;
     }
 
-    /* Display State Triggers (Fixing the Hover vs Class interaction) */
     .fandom-header-dropdown.is-open>.fandom-header-menu,
     .fandom-nested-folder.is-open>.fandom-nested-menu,
     .fandom-header-dropdown.is-open:hover>.fandom-header-menu,
@@ -737,65 +743,44 @@ header[style*="height: 48px"],
         opacity: 1 !important;
     }
 
-    /* Prevent raw desktop hover styles from auto-triggering out of context on mobile */
     .fandom-header-dropdown:hover>.fandom-header-menu,
     .fandom-nested-folder:hover>.fandom-nested-menu {
         display: none !important;
     }
 
-/* ==========================================================================
-       Mobile Dropdown Links - True Content Width Hitbox with Full-Width Rows
+    /* ==========================================================================
+       Sub-Menu Buttons (Fixed Click Target & Background Spans)
        ========================================================================== */
-       
-    /* 1. Force the outer row wrapper to handle the full-width button styling */
-    .fandom-nested-row {
-        width: 100% !important;
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        box-sizing: border-box !important;
-        cursor: pointer !important;
-        
-        /* Fallback background safety if inherited styles drop out */
-        background: rgba(25, 25, 25, 0.4) !important; 
-    }
-
-    /* 2. Lock the link block to snap EXACTLY to the length of the text characters.
-       Because the background is handled by the row above, the gray button stays full-size
-       while the clickable link target perfectly mirrors the word footprint.
-    */
     .fandom-nested-link,
     .fandom-menu-link {
         border-radius: 0px !important;
-        display: inline-flex !important;  
-        flex: 0 1 auto !important;         /* Allows it to shrink to text size without stretching */
-        width: max-content !important;     /* Snaps the active clickable boundary directly to the letters */
-        max-width: calc(100% - 44px) !important; /* Safety barrier to prevent text crowding the arrow */
-        
+        display: flex !important;
+        width: 100% !important; /* Keeps the background wrappers 100% full-width */
+        justify-content: flex-start !important;
+        align-items: center !important;
+        text-align: left !important;
         color: #ffffff !important;
-        pointer-events: auto !important;   /* Normal instant navigation click execution */
         padding: 10px 12px !important;
         box-sizing: border-box !important;
-        background: transparent !important; /* Link block is clear; doesn't shrink the visual row */
+        
+        /* SAFE ISOLATION: Turning off click-events on the broad link wrapper box.
+          This stops the big dead zones from redirecting pages, letting touches pass straight 
+          through to the .fandom-nested-row wrapper so subcategories pop open smoothly.
+        */
+        pointer-events: none !important; 
     }
 
-    /* 3. Ensure the drop-down folder menus align their contents flush left */
-    .fandom-header-menu,
-    .fandom-nested-menu {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: flex-start !important; /* Left-aligns the collapsed link blocks */
-        pointer-events: auto !important;
+    /* Activate input mapping strictly on the text characters layer inside the block.
+       This preserves the wide button bars but ensures users can only navigate if they
+       explicitly tap the text itself.
+    */
+    .fandom-nested-link::first-line,
+    .fandom-menu-link::first-line {
+        pointer-events: auto !important; 
+        cursor: pointer !important;
     }
 
-    /* 4. Keep your expand toggles perfectly locked to the right side of the full row box */
     .fandom-nested-toggle {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 44px !important;
-        height: 44px !important;
-        margin-left: auto !important;     /* Pushes the button cleanly to the far right edge */
         pointer-events: auto !important;
         position: relative !important;
         z-index: 5 !important;
@@ -804,7 +789,7 @@ header[style*="height: 48px"],
     .fandom-header-menu,
     .fandom-nested-menu {
         border-radius: 0px !important;
-        pointer-events: auto !important;
+        pointer-events: auto !important; /* Re-opens click maps for internal dropdown cards */
     }
 }
 </style>
