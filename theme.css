@@ -743,40 +743,59 @@ header[style*="height: 48px"],
         display: none !important;
     }
 
-/* 3. Mobile Sub-Menu Buttons - Maintain full size but isolate touch zone */
+/* ==========================================================================
+       Mobile Dropdown Links - True Content Width Hitbox with Full-Width Rows
+       ========================================================================== */
+       
+    /* 1. Force the outer row wrapper to handle the full-width button styling */
+    .fandom-nested-row {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        box-sizing: border-box !important;
+        cursor: pointer !important;
+        
+        /* Fallback background safety if inherited styles drop out */
+        background: rgba(25, 25, 25, 0.4) !important; 
+    }
+
+    /* 2. Lock the link block to snap EXACTLY to the length of the text characters.
+       Because the background is handled by the row above, the gray button stays full-size
+       while the clickable link target perfectly mirrors the word footprint.
+    */
     .fandom-nested-link,
     .fandom-menu-link {
         border-radius: 0px !important;
-        display: flex !important;
-        width: 100% !important; /* Keeps the buttons physically full-width and perfectly sized */
-        justify-content: flex-start !important;
-        align-items: center !important;
-        text-align: left !important;
+        display: inline-flex !important;  
+        flex: 0 1 auto !important;         /* Allows it to shrink to text size without stretching */
+        width: max-content !important;     /* Snaps the active clickable boundary directly to the letters */
+        max-width: calc(100% - 44px) !important; /* Safety barrier to prevent text crowding the arrow */
+        
         color: #ffffff !important;
-        pointer-events: auto !important;   
+        pointer-events: auto !important;   /* Normal instant navigation click execution */
         padding: 10px 12px !important;
         box-sizing: border-box !important;
-        position: relative !important;
+        background: transparent !important; /* Link block is clear; doesn't shrink the visual row */
     }
 
-    /* An invisible shield that blocks taps on the empty right side of the row button */
-    .fandom-nested-link::before,
-    .fandom-menu-link::before {
-        content: "" !important;
-        position: absolute !important;
-        top: 0 !important;
-        bottom: 0 !important;
-        right: 0 !important;
-        /* This means only the left 45% of the button area (where the text sits) 
-           remains clickable as a link. The rest becomes dead background space. */
-        width: 55% !important; 
-        background: transparent !important;
-        z-index: 2 !important;
-        pointer-events: auto !important; /* Captures and kills the tap before it triggers the anchor URL */
+    /* 3. Ensure the drop-down folder menus align their contents flush left */
+    .fandom-header-menu,
+    .fandom-nested-menu {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important; /* Left-aligns the collapsed link blocks */
+        pointer-events: auto !important;
     }
 
-    /* Make sure your folder toggle icons stay above the invisible click barrier */
+    /* 4. Keep your expand toggles perfectly locked to the right side of the full row box */
     .fandom-nested-toggle {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 44px !important;
+        height: 44px !important;
+        margin-left: auto !important;     /* Pushes the button cleanly to the far right edge */
         pointer-events: auto !important;
         position: relative !important;
         z-index: 5 !important;
