@@ -771,6 +771,13 @@ header[style*="height: 48px"],
         background: transparent !important;
     }
 
+    /* THE FIX: Re-apply the blue background highlight when hovering over flat links on mobile */
+    .fandom-header-menu > .fandom-menu-link:hover,
+    .fandom-nested-menu > .fandom-menu-link:hover,
+    .fandom-nested-menu .fandom-menu-link:hover {
+        background: rgba(36, 96, 235, 1) !important;
+    }
+
     /* 2. Folder Rows (Progress, Worlds, Items, Techniques)
        These container boxes hold both a link text node and a dropdown arrow.
     */
@@ -803,6 +810,8 @@ header[style*="height: 48px"],
         z-index: 5 !important; /* Sits cleanly on top of the expanded toggle target */
         background: transparent !important;
     }
+
+
 
     /* 4. Giant Toggle Shield
        Expands across the entire row to absorb all empty tap zones outside the text.
