@@ -9,7 +9,7 @@ body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background: url("https://dragonballrage.wiki/narci_(2).jpg") center top / cover no-repeat;
+    background: url("https://dragonballrage.wiki/bg.jpg") center top / cover no-repeat;
     z-index: 0;
     pointer-events: none;
 }
@@ -103,7 +103,7 @@ header+hr {
     inset: 0 !important;
     background-image:
         linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)),
-        url("https://dragonballrage.wiki/headerimage.png") !important;
+        url("https://dragonballrage.wiki/header.jpg") !important;
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
