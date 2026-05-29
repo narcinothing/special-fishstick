@@ -512,7 +512,7 @@ header[style*="height: 48px"],
         border-radius: 0px !important;
     }
 
-    .v-toolbar__title {
+   /*.v-toolbar__title {
         flex: 0 1 auto !important;
         max-width: calc(100vw - 24px) !important;
         min-width: 0 !important;
@@ -522,6 +522,22 @@ header[style*="height: 48px"],
     .v-toolbar__title .subheading {
         font-size: 0.95rem !important;
         white-space: nowrap !important;
+    }*/
+
+    .v-toolbar__title {
+        flex: 1 1 auto !important;          /* Allows the container to grow to fit content */
+        max-width: none !important;         /* Removes the hard cap clipping the edge */
+        overflow: visible !important;       
+        text-overflow: clip !important;
+        white-space: normal !important;     /* Prepares the wrapper to handle standard text blocks */
+    }
+
+    /* 2. Force the actual title font string to wrap instead of formatting in one line */
+    .v-toolbar__title .subheading {
+        white-space: normal !important;     /* Crucial: breaks the rigid single line constraint */
+        word-break: break-word !important;  /* Safe fallback for exceptionally long page titles */
+        line-height: 1.2 !important;        /* Tightens text tracking so multi-line text reads cleanly */
+        display: block !important;
     }
 
     .container.pl-5.pt-4.container--fluid.grid-list-xl,
