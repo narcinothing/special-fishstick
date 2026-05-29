@@ -245,6 +245,7 @@
       setExpandedState(wrapper, !isOpen);
     }
 
+    // REPLACE WITH THIS UPDATED LOGIC:
     row.appendChild(rowLink);
 
     const toggle = buildToggleButton(
@@ -252,10 +253,22 @@
       item.label
     );
 
+    // 1. Explicitly allow the link click to bypass drop-down actions
+    rowLink.addEventListener("click", function (event) {
+      if (window.innerWidth <= 980) {
+        // This allows the default anchor behavior to run cleanly without being swallowed
+        event.stopPropagation(); 
+      }
+    });
+
+    // 2. Clicking the arrow button explicitly toggles the folder
     toggle.addEventListener("click", toggleFolder);
 
+    // 3. Clicking the rest of the button row wrapper toggles the folder
     row.addEventListener("click", function (event) {
-      if (window.innerWidth > 980 || event.target.closest("a")) return;
+      if (window.innerWidth > 980) return;
+      
+      // If they somehow managed to tap something else, trigger the dropdown
       toggleFolder(event);
     });
 
