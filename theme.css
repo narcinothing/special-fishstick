@@ -32,20 +32,27 @@ main.v-content,
 }
 
 /* ==========================================================================
-    2. Framework Wrapper Overrides (🎯 #ROOT SPECIFICITY FIXED)
+    2. Framework Wrapper Overrides (🎯 ISOLATED SPECIFICITY FIX)
    ========================================================================== */
-/* Traces directly through your true #root node to beat the framework's injected styles */
+/* 🎯 FIX: Targets ONLY the gray framework background strip to force it transparent */
 #root .v-application .container.grey.pa-0.container--fluid.darken-4-l3,
 #root .v-application .grey.darken-4-l3,
-.container.grey.pa-0.container--fluid.darken-4-l3,
+.container.grey.pa-0.container--fluid.darken-4-l3 {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* General clean layout parameters for normal document containers */
 .container,
 .page-col-main,
 [class*="container--fluid"] {
     display: block !important; 
-    background: transparent !important;
     background-color: transparent !important;
-    background-image: none !important;
-    border-color: transparent !important; /* Neutralizes the injected framework borders */
+    background: transparent !important;
     max-width: 1200px !important;
     width: 100% !important;
     margin-left: auto !important;
@@ -55,6 +62,7 @@ main.v-content,
     border: none !important;
     border-radius: 0px !important;
 }
+
 /* ==========================================================================
     Global Footer Removal Override
    ========================================================================== */
@@ -85,7 +93,7 @@ footer[data-booted="true"] {
     display: block !important;
 }
 
-/* 🎯 FIX: Absolute baseline guarantee ensuring sequential containers step away on PC */
+/* Uniform 40px block separation steps across custom desktop panels */
 .wiki-box + .wiki-box,
 .wiki-box + #homepage-media-hub {
     margin-top: 40px !important;
@@ -94,6 +102,7 @@ footer[data-booted="true"] {
 /* ==========================================================================
     4. General Typography & Content Styles
    ========================================================================== */
+/* Clears the default 8px margin/padding alignment shifts on both PC and Mobile globally */
 .contents,
 .contents > div {
     padding: 0 !important;
@@ -133,7 +142,7 @@ header+hr {
 }
 
 /* ==========================================================================
-    5. Page Header Banner Section (Desktop 40px Separation Gaps)
+    5. Page Header Banner Section Layout Specs
    ========================================================================== */
 .page-header-section {
     position: relative !important;
@@ -142,7 +151,7 @@ header+hr {
     overflow: visible !important; 
     max-width: 1200px !important;
     width: 100% !important;
-    margin: 40px auto 40px auto !important; /* 40px layout cushions top and bottom */
+    margin: 40px auto 40px auto !important; 
     padding: 16px 20px 96px !important;
     background: transparent !important;
 }
@@ -560,7 +569,7 @@ header[style*="height: 48px"],
 }
 
 /* ==========================================================================
-    8. RESPONSIVE MOBILE MEDIA QUERIES (🎯 RE-MAPPED SPACERS)
+    8. RESPONSIVE MEDIA QUERIES (🎯 RE-MAPPED TO SEPARATE DESKTOP/MOBILE BLOCKING)
    ========================================================================== */
 @media (max-width: 1100px) {
     .page-header,
@@ -570,15 +579,19 @@ header[style*="height: 48px"],
 }
 
 @media (max-width: 980px) {
-    /* Force parent system blocks to stay block elements on phones */
-    .container.pl-5.pt-4.container--fluid.grid-list-xl,
-    .container.grey.pa-0.container--fluid,
+    /* 🎯 FIX: Isolated general container mobile scaling resets (No longer hijacked by ID overrides) */
     .container,
     .page-col-main,
+    .container.pl-5.pt-4.container--fluid.grid-list-xl,
+    .container.grey.pa-0.container--fluid,
     [class*="container--fluid"] {
         display: block !important;
         padding-left: 0px !important;
         padding-right: 0px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
     }
 
     .wiki-box {
@@ -589,9 +602,11 @@ header[style*="height: 48px"],
         border-radius: 0px !important;
         background-color: rgba(20, 20, 20, 0.95) !important; 
         display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
-    /* 🎯 FIX: Explicitly forces consecutive containers to isolate via 30px margins on mobile */
+    /* 🎯 FIX: Forces the 30px vertical separation space explicitly between stacked multi-boxes on mobile layout cards */
     .wiki-box + .wiki-box,
     .wiki-box + #homepage-media-hub {
         margin-top: 30px !important;
@@ -608,7 +623,9 @@ header[style*="height: 48px"],
     .page-header-section {
         padding: 16px !important;
         border-radius: 0px !important;
-        margin: 0 auto !important; /* Zero margins keep banner flush with toolbar */
+        margin: 0 auto !important; 
+        width: 100% !important;
+        max-width: 100% !important;
     }
     
     .page-header-section::before {
@@ -908,4 +925,5 @@ header[style*="height: 48px"],
         max-width: 100% !important;
     }
 }
+
 </style>
