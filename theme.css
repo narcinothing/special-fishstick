@@ -695,13 +695,6 @@ header[style*="height: 48px"],
         box-shadow: none !important;
         transform: none !important;
     }
-
-    /* Target ONLY the inner text element to read character width exactly on screen */
-    .fandom-text-target {
-        flex: 0 0 auto !important;
-        width: max-content !important;
-        display: inline-block !important;
-    }
     
     .fandom-nested-link {
         white-space: normal !important;
@@ -723,19 +716,7 @@ header[style*="height: 48px"],
         display: none !important;
     }
 
-    .fandom-header-summary-link,
-    .fandom-menu-link,
-    .fandom-nested-link {
-        padding: 9px 10px !important;
-        font-size: 0.9rem !important;
-        border-radius: 0px !important;
-    }
-
-    .fandom-nested-link,
-    .fandom-menu-link {
-        width: 100% !important;
-        display: inline-flex !important;
-    }
+    
 }
 
 </style>
