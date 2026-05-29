@@ -743,13 +743,12 @@ header[style*="height: 48px"],
         display: none !important;
     }
 
- /* 3. Mobile Sub-Menu Buttons - Bound hitboxes strictly to text width */
+/* 3. Mobile Sub-Menu Buttons - Maintain full size but isolate touch zone */
     .fandom-nested-link,
     .fandom-menu-link {
         border-radius: 0px !important;
-        display: inline-flex !important;  /* Allows width constraints to apply to the flex structure */
-        width: max-content !important;     /* Snaps the active clickable boundary box directly to the word length */
-        max-width: calc(100% - 40px) !important; /* Leaves safe room for the toggle arrows on the right edge */
+        display: flex !important;
+        width: 100% !important; /* Keeps the buttons physically full-width and perfectly sized */
         justify-content: flex-start !important;
         align-items: center !important;
         text-align: left !important;
@@ -757,8 +756,26 @@ header[style*="height: 48px"],
         pointer-events: auto !important;   
         padding: 10px 12px !important;
         box-sizing: border-box !important;
+        position: relative !important;
     }
 
+    /* An invisible shield that blocks taps on the empty right side of the row button */
+    .fandom-nested-link::before,
+    .fandom-menu-link::before {
+        content: "" !important;
+        position: absolute !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        /* This means only the left 45% of the button area (where the text sits) 
+           remains clickable as a link. The rest becomes dead background space. */
+        width: 55% !important; 
+        background: transparent !important;
+        z-index: 2 !important;
+        pointer-events: auto !important; /* Captures and kills the tap before it triggers the anchor URL */
+    }
+
+    /* Make sure your folder toggle icons stay above the invisible click barrier */
     .fandom-nested-toggle {
         pointer-events: auto !important;
         position: relative !important;
