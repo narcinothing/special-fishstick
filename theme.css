@@ -344,23 +344,21 @@ header[style*="height: 48px"],
     visibility: hidden !important;
 }
 
-/* ==========================================================================
-    7. Fandom Desktop Layout Navigation Framework
-   ========================================================================== */
 .fandom-header-nav {
     position: absolute !important;
-    right: 20px !important;
+    /* 🎯 SWAP FROM RIGHT TO LEFT EDGE */
+    left: 20px !important; 
     bottom: 14px !important;
     z-index: 999 !important;
     display: flex !important;
     flex-wrap: wrap !important;
-    justify-content: flex-end !important;
+    /* 🎯 ALIGN LEFT */
+    justify-content: flex-start !important; 
     align-items: flex-end !important;
     gap: 8px !important;
     max-width: min(700px, calc(100vw - 48px)) !important;
     width: auto !important;
 }
-
 .fandom-header-nav-shell {
     width: 100% !important;
     box-sizing: border-box !important;
