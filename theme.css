@@ -54,6 +54,24 @@ main.v-content,
     border-radius: 0px !important;
 }
 
+.container.grey.pa-0.container--fluid.darken-4-l3,
+.container,
+.page-col-main,
+[class*="container--fluid"] {
+    display: block !important; 
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    max-width: 1200px !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 !important; 
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0px !important;
+}
+
 /* ==========================================================================
     Global Footer Removal Override
    ========================================================================== */
@@ -93,6 +111,12 @@ footer[data-booted="true"] {
 /* ==========================================================================
     4. General Typography & Content Styles
    ========================================================================== */
+.contents,
+.contents > div {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
 .page-header,
 .page-header-title,
 main h1:first-of-type,
