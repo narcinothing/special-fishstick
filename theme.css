@@ -716,47 +716,41 @@ header[style*="height: 48px"],
         display: none !important;
     }
 
-    
+    /* 1. Ensure the structural sub-folder row backgrounds remain full width */
+    .fandom-nested-folder,
+    .fandom-nested-row {
+        width: 100% !important;
+        display: flex !important;
+    }
+
+    /* 2. Lock the sub-menu links so their active hit-box tracks the text characters EXACTLY.
+       This prevents the empty space on the right of the text from being a link.
+    */
     .fandom-nested-link,
     .fandom-menu-link {
-        display: block !important;
-        width: 100% !important;
-        position: relative !important;
-        pointer-events: none !important; /* Make the wide background box completely click-through */
-        color: transparent !important;   /* Hides any fallback text if the framework leaks it */
+        display: inline-block !important; /* Drops block footprint, tracks content tightly */
+        flex: 0 0 auto !important;         /* Prevents the flexbox from stretching the link box */
+        width: max-content !important;     /* Snaps the boundary box right to the last letter */
+        max-width: calc(100% - 40px) !important;
+        box-sizing: border-box !important;
+        
+        /* Force white text color to override any wiki framework injection defaults */
+        color: #ffffff !important; 
+        pointer-events: auto !important;   /* Restores instant, normal clickability to the font */
+        
+        /* Clean internal spacing */
+        padding: 9px 12px !important;
     }
 
-    /* 2. Dynamically generate the visible text target box on screen.
-       This box automatically copies the string from your JavaScript data attribute.
+    /* 3. Force the interior container lists to align items flush to the left.
+       This keeps your text links organized cleanly on the left side of the dropdown panels 
+       even though they aren't stretched to 100% width anymore.
     */
-    .fandom-nested-link::after,
-    .fandom-menu-link::after {
-        content: attr(data-text) !important; /* Natively extracts the text string */
-        display: inline-block !important;
-        position: absolute !important;
-        
-        /* Absolute positioning anchors it cleanly relative to the button row */
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        
-        width: auto !important;
-        max-width: max-content !important; /* Snaps the hit-box exactly to the character metrics */
-        
-        /* Re-enables clicks/hovers ONLY inside these text character boundaries */
-        pointer-events: auto !important; 
-        cursor: pointer !important;
-        
-        /* Standard design colors */
-        color: #ffffff !important;
-        text-shadow: 0 2px 3px rgba(0, 0, 0, 0.85) !important;
-        font-weight: 500 !important;
-    }
-
-    /* Dropdown interior menu links left alignment adjustments */
-    .fandom-nested-link::after,
-    .fandom-menu-link::after {
-        left: 12px !important; /* Matches your original left padding offset */
-        font-size: 0.93rem !important;
+    .fandom-header-menu,
+    .fandom-nested-menu {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important; /* Left-aligns everything inside the dropdown panels */
     }
 }
 
