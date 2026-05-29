@@ -1,12 +1,3 @@
-Here is your entire stylesheet rewritten and cleaned up.
-
-The **`@media (max-width: 980px)`** section has been completely refactored to:
-
-1. Preserve your top navigation buttons exactly how you want them.
-2. Clean up the mobile navigation links (`.fandom-nested-link` and `.fandom-menu-link`) so they aren't choked out by desktop pointer overrides.
-3. Replace the buggy absolute positioning mask on your mobile title with a robust, wrap-free layout constraint that perfectly preserves your title layout and hides "Official" gracefully on mobile screen profiles.
-
-```css
 <style>
 html,
 body {
@@ -752,17 +743,18 @@ header[style*="height: 48px"],
         display: none !important;
     }
 
-    /* 3. Mobile Sub-Menu Buttons. Normal full-width clickable rows for mobile fingers */
+ /* 3. Mobile Sub-Menu Buttons - Bound hitboxes strictly to text width */
     .fandom-nested-link,
     .fandom-menu-link {
         border-radius: 0px !important;
-        display: flex !important;
-        width: 100% !important;
+        display: inline-flex !important;  /* Allows width constraints to apply to the flex structure */
+        width: max-content !important;     /* Snaps the active clickable boundary box directly to the word length */
+        max-width: calc(100% - 40px) !important; /* Leaves safe room for the toggle arrows on the right edge */
         justify-content: flex-start !important;
         align-items: center !important;
         text-align: left !important;
         color: #ffffff !important;
-        pointer-events: auto !important; /* Cleaned: Removed desktop pointer-blocking properties */
+        pointer-events: auto !important;   
         padding: 10px 12px !important;
         box-sizing: border-box !important;
     }
