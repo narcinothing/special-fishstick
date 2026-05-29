@@ -352,16 +352,13 @@ header[style*="height: 48px"],
     left: 520px !important; 
     bottom: 30px !important;
     z-index: 999 !important;
-    /* 🎯 FIX: Changed to nowrap to prevent vertical stacking */
-    display: flex !important;
-    flex-wrap: nowrap !important; 
+    display: flex !important; /* Flexbox for desktop single-row alignment */
+    flex-wrap: nowrap !important;
     justify-content: flex-start !important;
     align-items: center !important;
     gap: 8px !important;
-    /* 🎯 FIX: Remove max-width constraint to let the buttons sit in one long line */
     width: auto !important;
 }
-
 .fandom-header-nav-shell {
     width: 100% !important;
     box-sizing: border-box !important;
@@ -693,8 +690,7 @@ header[style*="height: 48px"],
         line-height: 1.45 !important;
         padding-right: 0 !important;
     }
-
-    .fandom-header-nav-shell {
+.fandom-header-nav-shell {
         margin: 0 !important;
         border-radius: 0px !important;
         display: block !important;
@@ -705,14 +701,19 @@ header[style*="height: 48px"],
         background: transparent !important;
     }
 
-.fandom-header-nav {
-        /* 🎯 MOBILE SNAP: Positions flush to the left when the media query triggers */
-        left: 0px !important;
-        bottom: 0px !important;
-        top: auto !important;
-        width: 100% !important;
+    /* 🎯 RESTORED: Your original 5-column grid layout for mobile buttons */
+    .fandom-header-nav {
+        display: grid !important;
+        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+        gap: 3px !important;
+        position: relative !important;
         max-width: 100% !important;
-        justify-content: center !important; /* Keeps buttons balanced on mobile */
+        width: 100% !important;
+        border-radius: 0px !important;
+        box-sizing: border-box !important;
+        left: 0px !important; /* Resets absolute position */
+        bottom: 0px !important;
+        top: 1px !important;
     }
 
     .fandom-header-dropdown {
