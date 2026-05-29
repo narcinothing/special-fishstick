@@ -619,7 +619,7 @@ header[style*="height: 48px"],
         flex: 0 0 auto !important;      /* Prevents the box from stretching past content */
         width: max-content !important;  /* Forces width to tightly track text string length */
         display: inline-block !important;
-        
+
         /*flex: 1 1 auto !important;*/
         white-space: nowrap !important;
         line-height: 1.2 !important;
@@ -698,6 +698,10 @@ header[style*="height: 48px"],
 
     .fandom-menu-link,
     .fandom-nested-link {
+        flex: 0 0 auto !important;      /* Prevents the elements from stretching */
+        width: max-content !important;  /* Snaps the bounding box exactly to the text width */
+        display: inline-block !important;
+
         padding: 9px 10px !important;
         font-size: 0.9rem !important;
         border-radius: 0px !important;
