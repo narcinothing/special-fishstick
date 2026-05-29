@@ -375,33 +375,6 @@ function renderHeaderNav() {
 
     placeNav(header, nav);
     renderCaption(header);
-
-    // ==========================================================================
-    // FRAMEWORK-SAFE FORCE REPLACEMENT
-    // ==========================================================================
-    function clearMobileTitle() {
-      const titleSubheading = document.querySelector(".v-toolbar__title .subheading");
-      if (titleSubheading) {
-        if (window.innerWidth <= 980) {
-          // Force text swap directly on the inner text node to bypass virtual DOM blocks
-          if (titleSubheading.innerText.indexOf("Official ") !== -1) {
-            titleSubheading.innerText = titleSubheading.innerText.replace("Official ", "");
-          }
-        } else {
-          if (titleSubheading.innerText.indexOf("Official ") === -1) {
-            titleSubheading.innerText = "Official " + titleSubheading.innerText;
-          }
-        }
-      }
-    }
-
-    // Run immediately
-    clearMobileTitle();
-
-    // Run checks over the next half second to catch slow framework injections
-    for (let delay of [50, 100, 200, 500]) {
-      setTimeout(clearMobileTitle, delay);
-    }
   }
 
   function patchHistory() {
