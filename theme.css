@@ -716,41 +716,39 @@ header[style*="height: 48px"],
         display: none !important;
     }
 
-    /* 1. Ensure the structural sub-folder row backgrounds remain full width */
-    .fandom-nested-folder,
-    .fandom-nested-row {
-        width: 100% !important;
-        display: flex !important;
-    }
-
-    /* 2. Lock the sub-menu links so their active hit-box tracks the text characters EXACTLY.
-       This prevents the empty space on the right of the text from being a link.
-    */
+/* 1. Keep sub-menu links as full-size, stable blocks with proper white coloring */
     .fandom-nested-link,
     .fandom-menu-link {
-        display: inline-block !important; /* Drops block footprint, tracks content tightly */
-        flex: 0 0 auto !important;         /* Prevents the flexbox from stretching the link box */
-        width: max-content !important;     /* Snaps the boundary box right to the last letter */
-        max-width: calc(100% - 40px) !important;
-        box-sizing: border-box !important;
-        
-        /* Force white text color to override any wiki framework injection defaults */
-        color: #ffffff !important; 
-        pointer-events: auto !important;   /* Restores instant, normal clickability to the font */
-        
-        /* Clean internal spacing */
-        padding: 9px 12px !important;
+        display: flex !important;
+        width: 100% !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        text-align: left !important;
+        color: #ffffff !important;
+        position: relative !important;
     }
 
-    /* 3. Force the interior container lists to align items flush to the left.
-       This keeps your text links organized cleanly on the left side of the dropdown panels 
-       even though they aren't stretched to 100% width anymore.
+    /* 2. Create an invisible barrier over the blank space on the right side of the row.
+       This intercepts clicks on empty space and blocks the link from navigating.
     */
-    .fandom-header-menu,
-    .fandom-nested-menu {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: flex-start !important; /* Left-aligns everything inside the dropdown panels */
+    .fandom-nested-row::before {
+        content: "" !important;
+        position: absolute !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        /* Adjust this width percentage to define how much of the right-hand blank space 
+           ignores the link and acts purely as a dropdown container helper zone */
+        width: 65% !important; 
+        background: transparent !important;
+        z-index: 10 !important; /* Sits over the anchor tag's empty background space */
+        pointer-events: auto !important; /* Catches the mouse clicks */
+    }
+
+    /* 3. Keep your interactive dropdown arrow icons sitting safely above the click barrier */
+    .fandom-nested-toggle {
+        position: relative !important;
+        z-index: 20 !important;
     }
 }
 
