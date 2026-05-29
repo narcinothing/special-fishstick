@@ -32,28 +32,11 @@ main.v-content,
 }
 
 /* ==========================================================================
-    2. Framework Wrapper Overrides (🎯 FORCES BLOCK LAYOUT FOR MARGIN GAPS)
+    2. Framework Wrapper Overrides (🎯 ROOT-LEVEL SPECIFICITY PATCH)
    ========================================================================== */
-.container,
-.page-col-main,
-.container.grey.pa-0.container--fluid,
-.container.pl-5.pt-4.container--fluid.grid-list-xl,
-.darken-4-l3,
-[class*="container--fluid"] {
-    /* 🎯 CRITICAL FIX: Overrides flexbox layout to restore true vertical margin pushing */
-    display: block !important; 
-    background-color: transparent !important;
-    background: transparent !important;
-    max-width: 1200px !important;
-    width: 100% !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding: 0 !important; 
-    box-shadow: none !important;
-    border: none !important;
-    border-radius: 0px !important;
-}
-
+/* Traces the wrapper back to the absolute root nodes to force full transparency */
+html body #app .v-application .container.grey.darken-4-l3,
+html body #app .v-application .grey.darken-4-l3,
 .container.grey.pa-0.container--fluid.darken-4-l3,
 .container,
 .page-col-main,
