@@ -516,6 +516,16 @@ header[style*="height: 48px"],
 
 @media (max-width: 980px) {
     /* ==========================================================================
+       Mobile Toggle Arrow Direction Sync
+       ========================================================================== */
+    .fandom-nested-toggle::before {
+        content: "\25BE" !important; /* Swaps the right-facing arrow (\25B8) to a clean down-facing arrow */
+        font-size: 0.78rem !important;
+        opacity: 0.9 !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+    }
+    
+    /* ==========================================================================
        Main Containers & Sizing Resets
        ========================================================================== */
     .container,
