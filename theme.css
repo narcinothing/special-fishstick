@@ -536,15 +536,6 @@ header[style*="height: 48px"],
         width: max-content !important;      /* Ensures the text box can stretch to its full content width */
     }
 
-    .v-toolbar__title .subheading::after {
-        content: "Dragon Ball Rage Wiki" !important;
-        font-size: 0.95rem !important; /* Restores your original mobile font size */
-        color: #ffffff !important;
-        font-weight: 500 !important;
-        letter-spacing: normal !important;
-        display: inline-block !important;
-    }
-
     .container.pl-5.pt-4.container--fluid.grid-list-xl,
     .container.grey.pa-0.container--fluid {
         border-radius: 0px !important;
