@@ -749,51 +749,51 @@ header[style*="height: 48px"],
     }
 
 /* ==========================================================================
-       Sub-Menu Buttons (Fixed Dual-Zone Touch Alignment)
+       Sub-Menu Buttons (Expanded Toggle Shield)
        ========================================================================== */
     
-    /* 1. Force the row background wrapper to handle the physical full-width button look.
-       By styling the row instead of the link, our button shapes stay immaculate.
-    */
+    /* 1. Ensure the outer row wrapper is a tight flex container */
     .fandom-nested-row {
         width: 100% !important;
         display: flex !important;
         justify-content: space-between !important;
-        align-items: stretch !important; /* Forces link and arrow to have the exact same height */
+        align-items: stretch !important; /* Forces the toggle to match the link's exact height */
         box-sizing: border-box !important;
-        background: transparent !important; /* Let the engine's row background show cleanly */
-        cursor: pointer !important;
+        position: relative !important;
     }
 
-    /* 2. Lock the link block to snap directly to its layout space.
-       It stays fully interactive and clickable, but it doesn't take over the arrow space.
+    /* 2. Keep the link box standard and flexible.
+       It will naturally shrink down horizontally when the toggle expands, 
+       preventing any text from slipping into the dead zone.
     */
     .fandom-nested-link,
     .fandom-menu-link {
         border-radius: 0px !important;
         display: flex !important;
-        flex: 1 1 auto !important;         /* Stretches to fill the available text space naturally */
-        width: auto !important;            /* Discards the hard 100% width lock */
+        flex: 1 1 auto !important;         
+        width: auto !important;            
         justify-content: flex-start !important;
         align-items: center !important;
         text-align: left !important;
         color: #ffffff !important;
         padding: 10px 12px !important;
         box-sizing: border-box !important;
-        pointer-events: auto !important;   /* Re-enables bulletproof, normal mobile link touch routing */
-        z-index: 3 !important;
+        pointer-events: auto !important;   
+        z-index: 2 !important;
     }
 
-    /* 3. Isolate the toggle arrow into its own dedicated, wide hit-box on the right.
-       Tapping the right side of the row fires the subcategory expansion script safely.
+    /* 3. THE SOLUTION: Make the toggle button absorb all empty space on the right.
+       'flex: 1 0 auto' allows it to aggressively expand inward, while 'min-width: 80px' 
+       guarantees a massive hit-box for mobile fingers.
     */
     .fandom-nested-toggle {
         display: flex !important;
         align-items: center !important;
-        justify-content: center !important;
-        flex: 0 0 50px !important;         /* Generates a generous 50px-wide tap target for fingers */
-        width: 50px !important;
-        min-width: 50px !important;
+        justify-content: flex-end !important; /* Keeps the arrow icon pushed nicely to the far right */
+        padding-right: 16px !important;       /* Clean spacing for the arrow icon */
+        
+        flex: 1 0 auto !important;            /* Claims all remaining row space aggressively */
+        min-width: 80px !important;           /* Absolute minimum finger target shield size */
         height: auto !important;
         background: transparent !important;
         pointer-events: auto !important;   
