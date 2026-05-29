@@ -160,16 +160,13 @@
   }
 
   function buildLink(text, href, className) {
-      const link = document.createElement("a");
-      link.href = href;
-      
-      // Explicitly write the text inside the anchor container natively
-      link.textContent = text; 
-      
-      if (className) {
-        link.className = className;
-      }
-      return link;
+    const link = document.createElement("a");
+    link.href = href;
+    link.textContent = text; 
+    if (className) {
+      link.className = className;
+    }
+    return link;
   }
 
   function buildToggleButton(className, label) {
@@ -349,7 +346,7 @@
           href +
           '" class="fandom-caption-link">' +
           convertToTitle(part) +
-          "</a>"
+          '</a>'
         );
       })
       .join(" / ");
@@ -364,7 +361,7 @@
       "</a>";
   }
 
-function renderHeaderNav() {
+  function renderHeaderNav() {
     const header = document.querySelector(".page-header-section");
     if (!header) return;
 
@@ -411,7 +408,7 @@ function renderHeaderNav() {
     });
   }
   
-// 🎯 REFACTORED: High-Performance Debounced Initializer
+  // 🎯 HIGH-PERFORMANCE DEBOUNCED INITIALIZER LOOP
   let navDebounceTimer = null;
   
   function initHeaderNav() {
@@ -419,10 +416,7 @@ function renderHeaderNav() {
     renderHeaderNav();
 
     const observer = new MutationObserver(function () {
-      // Clear out previous pending rendering execution targets
       clearTimeout(navDebounceTimer);
-      
-      // Batch layout queries into a single evaluation frame thread
       navDebounceTimer = setTimeout(renderHeaderNav, 16);
     });
 
@@ -430,5 +424,11 @@ function renderHeaderNav() {
       childList: true,
       subtree: true
     });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initHeaderNav);
+  } else {
+    initHeaderNav();
   }
 })();
