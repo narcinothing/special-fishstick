@@ -28,6 +28,18 @@ main.v-content,
     z-index: 1 !important;
 }
 
+/* ==========================================================================
+   Global Footer Removal Override
+   ========================================================================== */
+footer.v-footer.grey.darken-3,
+footer[data-booted="true"] {
+    display: none !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
 .container,
 .page-col-main {
     background-color: rgba(20, 20, 20, 0.95) !important;
