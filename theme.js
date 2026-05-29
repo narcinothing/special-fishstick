@@ -163,7 +163,6 @@
     const link = document.createElement("a");
     link.href = href;
     
-    // Create a span to capture the dynamic text width on screen
     const textSpan = document.createElement("span");
     textSpan.textContent = text;
     textSpan.className = "fandom-text-target";

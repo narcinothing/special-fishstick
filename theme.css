@@ -590,8 +590,8 @@ header[style*="height: 48px"],
         position: relative !important;
     }
 
-    /* ==========================================================================
-       Button Rows & Tap Target Isolation
+/* ==========================================================================
+       Button Rows & Tap Target Isolation (Fixed Text Align & True Hitbox)
        ========================================================================== */
     .fandom-header-summary-row,
     .fandom-nested-row {
@@ -615,22 +615,34 @@ header[style*="height: 48px"],
         overflow: hidden !important;
     }
 
-    .fandom-header-summary-link,
-    .fandom-nested-link {
-        display: inline-flex !important;
-        justify-content: center !important;
-        align-items: center !important;
+    /* TOP LEVEL HEADER BUTTONS ONLY: Centered text wrapper layout */
+    .fandom-header-summary-link {
+        display: block !important;
+        text-align: center !important;
         width: 100% !important;
-        height: 100% !important;
+        height: auto !important;
+        line-height: 44px !important; /* Vertically centers the text block */
         pointer-events: auto !important;
     }
 
-    /* The new dynamic text target configuration */
+    /* DROPDOWN INTERIOR LINKS ONLY: Force strict left alignment, no flex-centering inheritances */
+    .fandom-nested-link,
+    .fandom-menu-link {
+        display: flex !important;
+        justify-content: flex-start !important; /* Keeps interior menus left-aligned */
+        align-items: center !important;
+        text-align: left !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* The new dynamic text target configuration - True inline bounds */
     .fandom-text-target {
-        display: inline-block !important;
+        display: inline !important; /* Converts to absolute native text bounds */
+        position: relative !important;
         pointer-events: auto !important;
         cursor: pointer !important;
-        padding: 0 6px !important; /* Tiny micro-padding around the text for easier finger taps */
+        padding: 6px 10px !important; /* Adds a clean, pixel-perfect finger buffer around text */
         z-index: 5 !important;
     }
 
