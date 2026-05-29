@@ -344,19 +344,22 @@ header[style*="height: 48px"],
     visibility: hidden !important;
 }
 
+/* ==========================================================================
+    7. Fandom Desktop Layout (🎯 DYNAMIC POSITIONING ENGINE)
+   ========================================================================== */
 .fandom-header-nav {
     position: absolute !important;
-    /* 🎯 SWAP FROM RIGHT TO LEFT EDGE */
-    left: 20px !important; 
-    bottom: 14px !important;
+    /* 🎯 DYNAMIC: Starts at 520px on wide screens, scales down, then snaps to 0 on mobile */
+    left: 520px !important; 
+    bottom: 30px !important;
     z-index: 999 !important;
     display: flex !important;
     flex-wrap: wrap !important;
-    /* 🎯 ALIGN LEFT */
-    justify-content: flex-start !important; 
+    justify-content: flex-start !important; /* Left-aligned */
     align-items: flex-end !important;
     gap: 8px !important;
-    max-width: min(700px, calc(100vw - 48px)) !important;
+    /* Ensure it doesn't push past the right screen edge on medium monitors */
+    max-width: min(600px, calc(100vw - 540px)) !important;
     width: auto !important;
 }
 .fandom-header-nav-shell {
