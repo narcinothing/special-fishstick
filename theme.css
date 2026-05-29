@@ -512,34 +512,21 @@ header[style*="height: 48px"],
         border-radius: 0px !important;
     }
 
-    /* 1. Force the inner toolbar row wrapper to allow horizontal expansion */
-    .v-toolbar__content {
-        display: flex !important;
-        justify-content: flex-start !important;
-        width: 100% !important;
-    }
-
-    /* 2. Make the title block stretch out horizontally as much as possible */
+    /* Allow the title block to stretch completely horizontal across the screen */
     .v-toolbar__title {
-        flex: 1 1 auto !important;          /* Forces it to grow along the main axis */
-        max-width: calc(100vw - 70px) !important; /* Maximizes length while leaving room for the logo */
+        flex: 1 1 auto !important;
+        max-width: calc(100vw - 60px) !important; /* Leaves just enough room for the logo */
         min-width: 0 !important;
         width: 100% !important;
-        overflow: visible !important;
-        text-overflow: clip !important;
     }
 
-    /* 3. Keep the text locked on one line but allow it to occupy the full length */
+    /* Keep it white, clean, and forced onto a single line */
     .v-toolbar__title .subheading {
-        white-space: nowrap !important;     /* Keeps it strictly on one line */
+        white-space: nowrap !important;
         display: inline-block !important;
-        width: max-content !important;      /* Ensures the text box can stretch to its full content width */
-        content: "Dragon Ball Rage Wiki" !important;
-        font-size: 0.95rem !important; /* Restores your original mobile font size */
+        width: max-content !important;
         color: #ffffff !important;
-        font-weight: 500 !important;
-        letter-spacing: normal !important;
-        display: inline-block !important;
+        font-size: 0.95rem !important;
     }
 
     .container.pl-5.pt-4.container--fluid.grid-list-xl,
