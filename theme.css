@@ -748,36 +748,44 @@ header[style*="height: 48px"],
         display: none !important;
     }
 
-    /* ==========================================================================
-       Sub-Menu Buttons (Fixed Click Target & Background Spans)
+ /* ==========================================================================
+       Sub-Menu Buttons (Fixed Cascading Click Targets)
        ========================================================================== */
     .fandom-nested-link,
     .fandom-menu-link {
         border-radius: 0px !important;
         display: flex !important;
-        width: 100% !important; /* Keeps the background wrappers 100% full-width */
+        width: 100% !important;
         justify-content: flex-start !important;
         align-items: center !important;
         text-align: left !important;
         color: #ffffff !important;
         padding: 10px 12px !important;
         box-sizing: border-box !important;
-        
-        /* SAFE ISOLATION: Turning off click-events on the broad link wrapper box.
-          This stops the big dead zones from redirecting pages, letting touches pass straight 
-          through to the .fandom-nested-row wrapper so subcategories pop open smoothly.
-        */
+    }
+
+    /* 1. Target ONLY the main expandable folder links to make their background click-through.
+       This safely excludes flat end-point links (.fandom-menu-link) from losing clicks!
+    */
+    .fandom-nested-folder > .fandom-nested-row > .fandom-nested-link {
         pointer-events: none !important; 
     }
 
-    /* Activate input mapping strictly on the text characters layer inside the block.
-       This preserves the wide button bars but ensures users can only navigate if they
-       explicitly tap the text itself.
-    */
-    .fandom-nested-link::first-line,
-    .fandom-menu-link::first-line {
+    /* 2. Restore touch maps exclusively to the font characters of that folder item */
+    .fandom-nested-folder > .fandom-nested-row > .fandom-nested-link::first-line {
         pointer-events: auto !important; 
         cursor: pointer !important;
+    }
+
+    /* 3. HARD RE-RESET: Force normal, full-width block clicking for flat sub-items 
+       so they are fully interactive across their entire gray box space.
+    */
+    .fandom-header-menu > .fandom-menu-link,
+    .fandom-nested-menu > .fandom-menu-link,
+    .fandom-nested-menu .fandom-menu-link {
+        pointer-events: auto !important;
+        display: flex !important;
+        z-index: 10 !important;
     }
 
     .fandom-nested-toggle {
@@ -786,10 +794,11 @@ header[style*="height: 48px"],
         z-index: 5 !important;
     }
 
+    /* 4. Ensure the dropdown containers themselves explicitly capture pointer actions */
     .fandom-header-menu,
     .fandom-nested-menu {
         border-radius: 0px !important;
-        pointer-events: auto !important; /* Re-opens click maps for internal dropdown cards */
+        pointer-events: auto !important;
     }
 }
 </style>
