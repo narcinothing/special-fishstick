@@ -362,28 +362,9 @@
       '" class="fandom-caption-link">' +
       pageLabel +
       "</a>";
-
-
-    // ==========================================================================
-    // NEW: MOBILE TITLE CLEANUP
-    // ==========================================================================
-    const titleSubheading = document.querySelector(".v-toolbar__title .subheading");
-    if (titleSubheading) {
-      if (window.innerWidth <= 980) {
-        // If on mobile, strip out "Official " to save screen space
-        if (titleSubheading.textContent.includes("Official ")) {
-          titleSubheading.textContent = titleSubheading.textContent.replace("Official ", "");
-        }
-      } else {
-        // Optional: Re-add it on desktop if they resized the window outward
-        if (!titleSubheading.textContent.includes("Official ")) {
-          titleSubheading.textContent = "Official " + titleSubheading.textContent;
-        }
-      }
-    }
   }
 
-  function renderHeaderNav() {
+function renderHeaderNav() {
     const header = document.querySelector(".page-header-section");
     if (!header) return;
 
@@ -393,7 +374,25 @@
     }
 
     placeNav(header, nav);
-    renderCaption(header);
+    renderCaption(header); // Runs your path mapping code safely
+
+    // ==========================================================================
+    // MASTER CORRECTION: RUNS EVERYTIME CODES SHIFT (NO EARLY RETURNS)
+    // ==========================================================================
+    const titleSubheading = document.querySelector(".v-toolbar__title .subheading");
+    if (titleSubheading) {
+      if (window.innerWidth <= 980) {
+        // Strip out "Official " to optimize screen space
+        if (titleSubheading.textContent.includes("Official ")) {
+          titleSubheading.textContent = titleSubheading.textContent.replace("Official ", "");
+        }
+      } else {
+        // Fall back cleanly to desktop title if they scale the browser open
+        if (!titleSubheading.textContent.includes("Official ")) {
+          titleSubheading.textContent = "Official " + titleSubheading.textContent;
+        }
+      }
+    }
   }
 
   function patchHistory() {
