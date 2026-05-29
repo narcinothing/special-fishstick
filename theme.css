@@ -747,6 +747,7 @@ header[style*="height: 48px"],
         .fandom-header-menu,
         .fandom-nested-menu,
         .fandom-menu-link {
+            border-radius: 0px !important;
             pointer-events: auto !important; /* Re-opens click mapping for internal links */
         }
 }
