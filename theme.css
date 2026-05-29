@@ -716,7 +716,7 @@ header[style*="height: 48px"],
         display: none !important;
     }
 
-/* 1. Keep sub-menu links as full-size, stable blocks with proper white coloring */
+/* 1. Keep sub-menu links full-width, stable, and perfectly left-aligned */
     .fandom-nested-link,
     .fandom-menu-link {
         display: flex !important;
@@ -725,30 +725,29 @@ header[style*="height: 48px"],
         align-items: center !important;
         text-align: left !important;
         color: #ffffff !important;
-        position: relative !important;
+        
+        /* CRITICAL: Turn off mouse actions for the entire broad link block.
+           This means clicking the empty gray space will NOT trigger a page redirect,
+           allowing the click to fall straight down to the row container to open subcategories!
+        */
+        pointer-events: none !important; 
     }
 
-    /* 2. Create an invisible barrier over the blank space on the right side of the row.
-       This intercepts clicks on empty space and blocks the link from navigating.
+    /* 2. RE-ENABLE click mapping strictly for the text characters inside the dropdown rows.
+       Because 'pointer-events: auto' is applied here, the mouse will only navigate to the URL
+       if it directly makes contact with the actual letters of the word.
     */
-    .fandom-nested-row::before {
-        content: "" !important;
-        position: absolute !important;
-        top: 0 !important;
-        bottom: 0 !important;
-        right: 0 !important;
-        /* Adjust this width percentage to define how much of the right-hand blank space 
-           ignores the link and acts purely as a dropdown container helper zone */
-        width: 65% !important; 
-        background: transparent !important;
-        z-index: 10 !important; /* Sits over the anchor tag's empty background space */
-        pointer-events: auto !important; /* Catches the mouse clicks */
+    .fandom-nested-link::first-line,
+    .fandom-menu-link::first-line {
+        pointer-events: auto !important; /* Restores link clickability ONLY to the text string */
+        cursor: pointer !important;
     }
 
-    /* 3. Keep your interactive dropdown arrow icons sitting safely above the click barrier */
+    /* 3. Keep your interactive dropdown arrow buttons perfectly clickable */
     .fandom-nested-toggle {
+        pointer-events: auto !important;
         position: relative !important;
-        z-index: 20 !important;
+        z-index: 5 !important;
     }
 }
 
