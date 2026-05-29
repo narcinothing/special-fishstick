@@ -748,53 +748,60 @@ header[style*="height: 48px"],
         display: none !important;
     }
 
- /* ==========================================================================
-       Sub-Menu Buttons (Fixed Cascading Click Targets)
+/* ==========================================================================
+       Sub-Menu Buttons (Fixed Dual-Zone Touch Alignment)
        ========================================================================== */
+    
+    /* 1. Force the row background wrapper to handle the physical full-width button look.
+       By styling the row instead of the link, our button shapes stay immaculate.
+    */
+    .fandom-nested-row {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: stretch !important; /* Forces link and arrow to have the exact same height */
+        box-sizing: border-box !important;
+        background: transparent !important; /* Let the engine's row background show cleanly */
+        cursor: pointer !important;
+    }
+
+    /* 2. Lock the link block to snap directly to its layout space.
+       It stays fully interactive and clickable, but it doesn't take over the arrow space.
+    */
     .fandom-nested-link,
     .fandom-menu-link {
         border-radius: 0px !important;
         display: flex !important;
-        width: 100% !important;
+        flex: 1 1 auto !important;         /* Stretches to fill the available text space naturally */
+        width: auto !important;            /* Discards the hard 100% width lock */
         justify-content: flex-start !important;
         align-items: center !important;
         text-align: left !important;
         color: #ffffff !important;
         padding: 10px 12px !important;
         box-sizing: border-box !important;
+        pointer-events: auto !important;   /* Re-enables bulletproof, normal mobile link touch routing */
+        z-index: 3 !important;
     }
 
-    /* 1. Target ONLY the main expandable folder links to make their background click-through.
-       This safely excludes flat end-point links (.fandom-menu-link) from losing clicks!
+    /* 3. Isolate the toggle arrow into its own dedicated, wide hit-box on the right.
+       Tapping the right side of the row fires the subcategory expansion script safely.
     */
-    .fandom-nested-folder > .fandom-nested-row > .fandom-nested-link {
-        pointer-events: none !important; 
-    }
-
-    /* 2. Restore touch maps exclusively to the font characters of that folder item */
-    .fandom-nested-folder > .fandom-nested-row > .fandom-nested-link::first-line {
-        pointer-events: auto !important; 
-        cursor: pointer !important;
-    }
-
-    /* 3. HARD RE-RESET: Force normal, full-width block clicking for flat sub-items 
-       so they are fully interactive across their entire gray box space.
-    */
-    .fandom-header-menu > .fandom-menu-link,
-    .fandom-nested-menu > .fandom-menu-link,
-    .fandom-nested-menu .fandom-menu-link {
-        pointer-events: auto !important;
-        display: flex !important;
-        z-index: 10 !important;
-    }
-
     .fandom-nested-toggle {
-        pointer-events: auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex: 0 0 50px !important;         /* Generates a generous 50px-wide tap target for fingers */
+        width: 50px !important;
+        min-width: 50px !important;
+        height: auto !important;
+        background: transparent !important;
+        pointer-events: auto !important;   
         position: relative !important;
-        z-index: 5 !important;
+        z-index: 4 !important;
     }
 
-    /* 4. Ensure the dropdown containers themselves explicitly capture pointer actions */
+    /* 4. Keep your dropdown panels functioning normally */
     .fandom-header-menu,
     .fandom-nested-menu {
         border-radius: 0px !important;
