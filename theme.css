@@ -616,7 +616,11 @@ header[style*="height: 48px"],
     }
 
     .fandom-header-summary-link {
-        flex: 1 1 auto !important;
+        flex: 0 0 auto !important;      /* Prevents the box from stretching past content */
+        width: max-content !important;  /* Forces width to tightly track text string length */
+        display: inline-block !important;
+        
+        /*flex: 1 1 auto !important;*/
         white-space: nowrap !important;
         line-height: 1.2 !important;
         min-height: 0 !important;
