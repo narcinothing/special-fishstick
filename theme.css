@@ -692,14 +692,11 @@ header[style*="height: 48px"],
         transform: none !important;
     }
 
-    .fandom-header-summary-link, 
+    .fandom-menu-link,
     .fandom-nested-link {
-        flex: 0 0 auto !important; /* Forces the box to shrink tight to the font */
-        width: auto !important;
-        max-width: fit-content !important;
-        padding: 0 8px !important; /* Gives the text just a tiny bit of breathing room */
-        position: relative !important;
-        z-index: 10 !important; /* Keeps the text clickable above the background row */
+        padding: 9px 10px !important;
+        font-size: 0.9rem !important;
+        border-radius: 0px !important;
     }
     
     .fandom-nested-link {
@@ -720,6 +717,34 @@ header[style*="height: 48px"],
     .fandom-header-dropdown:hover>.fandom-header-menu,
     .fandom-nested-folder:hover>.fandom-nested-menu {
         display: none !important;
+    }
+
+    .fandom-header-summary-link, 
+    .fandom-nested-link {
+        display: inline-flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        position: relative !important;
+        width: 100% !important;
+        height: 100% !important;
+        pointer-events: none !important; /* Clicks pass straight through the box */
+    }
+
+    /* 2. Create the invisible target frame that sits tightly over the text */
+    .fandom-header-summary-link::before,
+    .fandom-nested-link::before {
+        content: "" !important;
+        position: absolute !important;
+        
+        /* Adjust these percentages to change how wide/tall the invisible text frame is */
+        top: 0;
+        bottom: 0;
+        left: 20%;
+        right: 20%;
+        
+        background: transparent !important; /* Keep it invisible */
+        pointer-events: auto !important; /* Re-enable clicks ONLY on this center frame */
+        z-index: 10 !important;
     }
 }
 

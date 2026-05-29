@@ -237,15 +237,6 @@
       isTopLevel ? "fandom-header-summary-link" : "fandom-nested-link"
     );
 
-    // ADD THIS LINE BELOW TO CENTER THE SHRUNK TEXT BOX:
-    rowLink.style.margin = "0 auto";
-
-    rowLink.addEventListener("click", function (event) {
-      if (window.innerWidth <= 980) {
-        event.stopPropagation(); 
-      }
-    });
-
     function toggleFolder(event) {
       event.preventDefault();
       event.stopPropagation();
