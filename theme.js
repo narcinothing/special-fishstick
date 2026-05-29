@@ -160,20 +160,24 @@
   }
 
   function buildLink(text, href, className) {
-      const link = document.createElement("a");
-      link.href = href;
-      
-      // Create a dedicated inner UI element exclusively for the character footprint
-      const textTarget = document.createElement("span");
-      textTarget.className = "fandom-text-target";
-      textTarget.textContent = text;
-      
-      link.appendChild(textTarget);
-      
-      if (className) {
-        link.className = className;
-      }
-      return link;
+    const link = document.createElement("a");
+    link.href = href;
+    
+    if (className) {
+      link.className = className;
+    }
+
+    // Create the isolated UI tracking element
+    const textTarget = document.createElement("span");
+    textTarget.className = "fandom-text-target";
+    
+    // Assign the string to the inner element ONLY
+    textTarget.textContent = text;
+    
+    // Append the child element cleanly into the link tree
+    link.appendChild(textTarget);
+    
+    return link;
   }
 
   function buildToggleButton(className, label) {
