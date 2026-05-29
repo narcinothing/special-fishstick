@@ -174,7 +174,6 @@ header+hr {
     pointer-events: none !important;
     border-radius: 8px !important; 
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85) !important; 
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 
 #root .page-header-section>*,
@@ -610,6 +609,7 @@ header[style*="height: 48px"],
         display: block !important;
         width: 100% !important;
         max-width: 100% !important;
+        border-radius: 0px !important; 
     }
 
     /* 🎯 FIXED: Forces the 30px spacing step between multiple stacked mobile custom wiki containers */
@@ -617,6 +617,7 @@ header[style*="height: 48px"],
     #root .wiki-box + #homepage-media-hub {
         margin-top: 30px !important;
         margin-bottom: 0px !important;
+        border-radius: 0px !important; 
     }
 
     .fandom-nested-toggle::before {
