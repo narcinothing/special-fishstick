@@ -263,11 +263,9 @@
 
     if (textTarget) {
       textTarget.addEventListener("click", function (event) {
-        if (window.innerWidth <= 980) {
-          // Let the click bubble up to the <a> tag natively, 
-          // but STOP it from reaching the row wrapper toggle code.
-          event.stopPropagation(); 
-        }
+        // Stop the link click from bubbling out to the parent row wrapper toggle code
+        // on BOTH desktop and mobile viewports if it's a folder/dropdown item
+        event.stopPropagation(); 
       });
     }
 

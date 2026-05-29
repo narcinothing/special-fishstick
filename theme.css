@@ -502,11 +502,38 @@ header[style*="height: 48px"],
     }
 }
 
+/* ==========================================================================
+   DESKTOP STYLES (Default / Global overrides)
+   ========================================================================== */
+
+/* Turn the wide links into transparent pass-through elements for clicks */
+.fandom-header-dropdown > .fandom-header-summary-row > .fandom-header-summary-link,
+.fandom-nested-folder > .fandom-nested-row > .fandom-nested-link {
+    pointer-events: none !important; /* Clicks pass right through the empty box space */
+}
+
+/* Re-enable input mapping explicitly on the text bounds only */
+.fandom-text-target {
+    display: inline !important; /* Strictly bounds hit detection to character layout width */
+    pointer-events: auto !important; 
+    cursor: pointer !important;
+    padding: 4px 6px !important; /* Small finger/cursor click buffer */
+    z-index: 5 !important;
+}
+
+/* Make sure basic internal page links (without menus) still work normally */
+.fandom-menu-link {
+    pointer-events: auto !important;
+    display: flex !important;
+}
+
+
+/* ==========================================================================
+   MOBILE STYLES (Max-Width: 980px)
+   ========================================================================== */
 @media (max-width: 980px) {
 
-    /* ==========================================================================
-       Main Layout Containers
-       ========================================================================== */
+    /* Main Container Resets */
     .container,
     .page-col-main {
         margin-top: 0px !important;
@@ -521,61 +548,18 @@ header[style*="height: 48px"],
         border-radius: 0px !important;
     }
 
-    /* ==========================================================================
-       Page Headers & Text Components
-       ========================================================================== */
-    .page-header h1,
-    .page-header-title {
-        font-size: 2rem !important;
-    }
-
-    .page-header-section {
-        padding: 16px !important;
-        border-radius: 0px !important;
-    }
-
-    .page-header-section::before {
-        border-radius: 0px !important;
-    }
-
-    .page-header,
-    .page-header-section .page-header {
-        padding-right: 0 !important;
-    }
-
-    .page-header-section .caption,
-    .page-header-section .grey--text.text--darken-1,
-    div.caption.grey--text.text--darken-1 {
-        line-height: 1.45 !important;
-        padding-right: 0 !important;
-    }
-
-    /* ==========================================================================
-       Navigation Shell & Grid System
-       ========================================================================== */
-    .fandom-header-nav-shell {
-        margin: 0 !important;
-        border-radius: 0px !important;
-        display: block !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 0px !important;
-        box-sizing: border-box !important;
-        background: transparent !important;
-    }
-
+    /* Navigation Layout Grid */
     .fandom-header-nav {
         display: grid !important;
         grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
         gap: 3px !important;
         position: relative !important;
-        max-width: 100% !important;
         width: 100% !important;
-        border-radius: 0px !important;
-        box-sizing: border-box !important;
+        max-width: 100% !important;
         right: 0px !important;
         bottom: 0px !important;
         top: 1px !important;
+        box-sizing: border-box !important;
     }
 
     .fandom-header-dropdown {
@@ -590,9 +574,7 @@ header[style*="height: 48px"],
         position: relative !important;
     }
 
-/* ==========================================================================
-       Button Rows & Tap Target Isolation (Fixed Text Align & True Hitbox)
-       ========================================================================== */
+    /* Row Box Settings */
     .fandom-header-summary-row,
     .fandom-nested-row {
         width: 100% !important;
@@ -615,37 +597,31 @@ header[style*="height: 48px"],
         overflow: hidden !important;
     }
 
-    /* TOP LEVEL HEADER BUTTONS ONLY: Centered text wrapper layout */
+    /* Main Grid Buttons - Full size boxes but invisible borders for pass-through clicking */
     .fandom-header-summary-link {
         display: block !important;
         text-align: center !important;
         width: 100% !important;
         height: auto !important;
-        line-height: 44px !important; /* Vertically centers the text block */
-        pointer-events: auto !important;
+        line-height: 44px !important; 
+        background: transparent !important;
     }
 
-    /* DROPDOWN INTERIOR LINKS ONLY: Force strict left alignment, no flex-centering inheritances */
+    /* Dropdown Interior Folders & Flat Links - Left Aligned Layout */
     .fandom-nested-link,
     .fandom-menu-link {
         display: flex !important;
-        justify-content: flex-start !important; /* Keeps interior menus left-aligned */
+        justify-content: flex-start !important;
         align-items: center !important;
         text-align: left !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        padding: 9px 10px !important;
+        font-size: 0.9rem !important;
+        border-radius: 0px !important;
     }
 
-    /* The new dynamic text target configuration - True inline bounds */
-    .fandom-text-target {
-        display: inline !important; /* Converts to absolute native text bounds */
-        position: relative !important;
-        pointer-events: auto !important;
-        cursor: pointer !important;
-        padding: 6px 10px !important; /* Adds a clean, pixel-perfect finger buffer around text */
-        z-index: 5 !important;
-    }
-
+    /* Toggles & Overrides */
     .fandom-header-summary-toggle {
         position: absolute !important;
         top: 0 !important;
@@ -664,11 +640,9 @@ header[style*="height: 48px"],
         border-color: rgba(92, 141, 255, 0.95) !important;
     }
 
-    /* ==========================================================================
-       Dropdown Menus & Sub-menus
-       ========================================================================== */
+    /* Dropdown Component Placement styles */
     .fandom-header-menu {
-        display: none !important; /* Managed explicitly by JS state toggles */
+        display: none !important;
         position: absolute !important; 
         top: 100% !important;
         left: 0px !important;
@@ -678,22 +652,16 @@ header[style*="height: 48px"],
         max-width: 100% !important;
         padding: 6px !important;
         z-index: 99 !important;
-        transform: none !important;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.8) !important;
         border-radius: 0 0 6px 6px !important;
         background: rgba(25, 25, 25, 0.98) !important;
         backdrop-filter: blur(15px) !important;
         margin-top: 2px !important;
         box-sizing: border-box !important;
-    }
-
-    .fandom-header-menu::before,
-    .fandom-nested-menu::before {
-        display: none !important;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.8) !important;
     }
 
     .fandom-nested-menu {
-        display: none !important; /* Managed explicitly by JS state toggles */
+        display: none !important;
         position: static !important;
         width: 100% !important;
         min-width: 100% !important;
@@ -701,39 +669,15 @@ header[style*="height: 48px"],
         margin-top: 4px !important;
         margin-left: 0px !important;
         border-left: 2px solid rgba(36, 96, 235, 1) !important;
-        border-top: none !important;
-        border-right: none !important;
-        border-bottom: none !important;
         background: rgba(15, 15, 15, 0.6) !important;
-        backdrop-filter: none !important;
         padding: 4px 0px 4px 8px !important;
-        box-shadow: none !important;
         transform: none !important;
+        box-shadow: none !important;
     }
 
-    .fandom-menu-link,
-    .fandom-nested-link,
-    .fandom-nested-toggle {
-        border-radius: 0px !important;
-    }
-
-    .fandom-menu-link,
-    .fandom-nested-link {
-        padding: 9px 10px !important;
-        font-size: 0.9rem !important;
-    }
-    
-    .fandom-nested-link {
-        white-space: normal !important;
-    }
-
-    /* ==========================================================================
-       Display Trigger States (Disables Desktop Hover Behavior)
-       ========================================================================== */
+    /* Active Display Rules */
     .fandom-header-dropdown.is-open>.fandom-header-menu,
-    .fandom-nested-folder.is-open>.fandom-nested-menu,
-    .fandom-header-dropdown.is-open:hover>.fandom-header-menu,
-    .fandom-nested-folder.is-open:hover>.fandom-nested-menu {
+    .fandom-nested-folder.is-open>.fandom-nested-menu {
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
@@ -742,21 +686,6 @@ header[style*="height: 48px"],
     .fandom-header-dropdown:hover>.fandom-header-menu,
     .fandom-nested-folder:hover>.fandom-nested-menu {
         display: none !important;
-    }
-
-    /* ==========================================================================
-       Toolbar Layout Adjustments
-       ========================================================================== */
-    .v-toolbar__title {
-        flex: 0 1 auto !important;
-        max-width: calc(100vw - 24px) !important;
-        min-width: 0 !important;
-        overflow: visible !important;
-    }
-
-    .v-toolbar__title .subheading {
-        font-size: 0.95rem !important;
-        white-space: nowrap !important;
     }
 }
 
