@@ -534,6 +534,12 @@ header[style*="height: 48px"],
         white-space: nowrap !important;     /* Keeps it strictly on one line */
         display: inline-block !important;
         width: max-content !important;      /* Ensures the text box can stretch to its full content width */
+        content: "Dragon Ball Rage Wiki" !important;
+        font-size: 0.95rem !important; /* Restores your original mobile font size */
+        color: #ffffff !important;
+        font-weight: 500 !important;
+        letter-spacing: normal !important;
+        display: inline-block !important;
     }
 
     .container.pl-5.pt-4.container--fluid.grid-list-xl,
