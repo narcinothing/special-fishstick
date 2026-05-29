@@ -360,6 +360,7 @@ header[style*="height: 48px"],
     width: auto !important;
 }
 .fandom-header-nav-shell {
+    background: transparent !important;
     width: 100% !important;
     box-sizing: border-box !important;
 }
@@ -703,7 +704,7 @@ header[style*="height: 48px"],
         max-width: 100% !important;
         padding: 0px !important;
         box-sizing: border-box !important;
-        background: transparent !important;
+        background: rgb(20, 20, 20) !important;
     }
 
     /* 🎯 RESTORED: Your original 5-column grid layout for mobile buttons */
