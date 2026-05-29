@@ -512,32 +512,37 @@ header[style*="height: 48px"],
         border-radius: 0px !important;
     }
 
-   /*.v-toolbar__title {
-        flex: 0 1 auto !important;
-        max-width: calc(100vw - 24px) !important;
-        min-width: 0 !important;
-        overflow: visible !important;
+    /* 1. Force the inner toolbar row wrapper to allow horizontal expansion */
+    .v-toolbar__content {
+        display: flex !important;
+        justify-content: flex-start !important;
+        width: 100% !important;
     }
 
-    .v-toolbar__title .subheading {
-        font-size: 0.95rem !important;
-        white-space: nowrap !important;
-    }*/
-
+    /* 2. Make the title block stretch out horizontally as much as possible */
     .v-toolbar__title {
-        flex: 1 1 auto !important;          /* Allows the container to grow to fit content */
-        max-width: none !important;         /* Removes the hard cap clipping the edge */
-        overflow: visible !important;       
+        flex: 1 1 auto !important;          /* Forces it to grow along the main axis */
+        max-width: calc(100vw - 70px) !important; /* Maximizes length while leaving room for the logo */
+        min-width: 0 !important;
+        width: 100% !important;
+        overflow: visible !important;
         text-overflow: clip !important;
-        white-space: normal !important;     /* Prepares the wrapper to handle standard text blocks */
     }
 
-    /* 2. Force the actual title font string to wrap instead of formatting in one line */
+    /* 3. Keep the text locked on one line but allow it to occupy the full length */
     .v-toolbar__title .subheading {
-        white-space: normal !important;     /* Crucial: breaks the rigid single line constraint */
-        word-break: break-word !important;  /* Safe fallback for exceptionally long page titles */
-        line-height: 1.2 !important;        /* Tightens text tracking so multi-line text reads cleanly */
-        display: block !important;
+        white-space: nowrap !important;     /* Keeps it strictly on one line */
+        display: inline-block !important;
+        width: max-content !important;      /* Ensures the text box can stretch to its full content width */
+    }
+
+    .v-toolbar__title .subheading::after {
+        content: "Dragon Ball Rage Wiki" !important;
+        font-size: 0.95rem !important; /* Restores your original mobile font size */
+        color: #ffffff !important;
+        font-weight: 500 !important;
+        letter-spacing: normal !important;
+        display: inline-block !important;
     }
 
     .container.pl-5.pt-4.container--fluid.grid-list-xl,
