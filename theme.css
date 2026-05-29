@@ -32,11 +32,11 @@ main.v-content,
 }
 
 /* ==========================================================================
-    2. Framework Wrapper Overrides (🎯 ROOT-LEVEL SPECIFICITY PATCH)
+    2. Framework Wrapper Overrides (🎯 #ROOT SPECIFICITY FIXED)
    ========================================================================== */
-/* Traces the wrapper back to the absolute root nodes to force full transparency */
-html body #app .v-application .container.grey.darken-4-l3,
-html body #app .v-application .grey.darken-4-l3,
+/* Traces directly through your true #root node to beat the framework's injected styles */
+#root .v-application .container.grey.pa-0.container--fluid.darken-4-l3,
+#root .v-application .grey.darken-4-l3,
 .container.grey.pa-0.container--fluid.darken-4-l3,
 .container,
 .page-col-main,
@@ -45,6 +45,7 @@ html body #app .v-application .grey.darken-4-l3,
     background: transparent !important;
     background-color: transparent !important;
     background-image: none !important;
+    border-color: transparent !important; /* Neutralizes the injected framework borders */
     max-width: 1200px !important;
     width: 100% !important;
     margin-left: auto !important;
@@ -54,7 +55,6 @@ html body #app .v-application .grey.darken-4-l3,
     border: none !important;
     border-radius: 0px !important;
 }
-
 /* ==========================================================================
     Global Footer Removal Override
    ========================================================================== */
