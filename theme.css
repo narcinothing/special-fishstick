@@ -514,17 +514,22 @@ header[style*="height: 48px"],
 
     /* Allow the title block to stretch completely horizontal across the screen */
     .v-toolbar__title {
-        flex: 1 1 auto !important;
-        max-width: calc(100vw - 60px) !important; /* Leaves just enough room for the logo */
-        min-width: 0 !important;
-        width: 100% !important;
+        display: inline-block !important;
+        position: relative !important;
+        overflow: hidden !important; /* Clips anything outside the boundary box */
+        width: calc(100vw - 70px) !important;
+        max-width: calc(100vw - 70px) !important;
+        height: 40px !important;
     }
 
-    /* Keep it white, clean, and forced onto a single line */
+    /* 2. Slide the string to the left exactly far enough to hide "Official " off the screen edge */
     .v-toolbar__title .subheading {
+        display: block !important;
+        position: absolute !important;
+        left: -54px !important; /* Shifts the word "Official " behind the left mask wall */
+        top: 50% !important;
+        transform: translateY(-50%) !important;
         white-space: nowrap !important;
-        display: inline-block !important;
-        width: max-content !important;
         color: #ffffff !important;
         font-size: 0.95rem !important;
     }
