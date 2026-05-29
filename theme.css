@@ -717,6 +717,38 @@ header[style*="height: 48px"],
     }
 
     
+    /* 1. Ensure the container folders and menu rows still span full width */
+    .fandom-header-dropdown,
+    .fandom-nested-folder,
+    .fandom-nested-row {
+        width: 100% !important;
+    }
+
+    .fandom-nested-link,
+    .fandom-menu-link {
+        display: inline-flex !important;  /* Changes the layout model from full-width block to content-bounds */
+        flex: 0 0 auto !important;         /* Explicitly prevents the anchor tag from stretching */
+        width: max-content !important;     /* Snaps the active box edge directly to the last font character */
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        
+        /* Optional: Gives a tiny 4px comfortable hover padding on the left/right of the text strings */
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+    }
+
+    /* 3. Keep interior drop-down link alignments neatly organized on the left */
+    .fandom-header-menu {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important; /* Locks interior items flush to the left boundary edge */
+    }
+    
+    .fandom-nested-menu {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important; /* Keeps sub-folders left-aligned when expanded */
+    }
 }
 
 </style>
