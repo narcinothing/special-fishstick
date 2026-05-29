@@ -611,7 +611,6 @@ header[style*="height: 48px"],
     #root .wiki-box {
         margin-top: 0px !important;
         padding: 24px !important; 
-        box-shadow: none !important;
         background-color: rgba(20, 20, 20, 0.95) !important; 
         display: block !important;
         width: 100% !important;
