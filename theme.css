@@ -696,19 +696,6 @@ header[style*="height: 48px"],
         transform: none !important;
     }
 
-    .fandom-menu-link,
-    .fandom-nested-link {
-        padding: 9px 10px !important;
-        font-size: 0.9rem !important;
-        border-radius: 0px !important;
-    }
-
-    .fandom-nested-link,
-    .fandom-menu-link {
-        width: 100% !important;
-        display: inline-flex !important;
-    }
-
     /* Target ONLY the inner text element to read character width exactly on screen */
     .fandom-text-target {
         flex: 0 0 auto !important;
@@ -734,6 +721,20 @@ header[style*="height: 48px"],
     .fandom-header-dropdown:hover>.fandom-header-menu,
     .fandom-nested-folder:hover>.fandom-nested-menu {
         display: none !important;
+    }
+
+    .fandom-header-summary-link,
+    .fandom-menu-link,
+    .fandom-nested-link {
+        padding: 9px 10px !important;
+        font-size: 0.9rem !important;
+        border-radius: 0px !important;
+    }
+
+    .fandom-nested-link,
+    .fandom-menu-link {
+        width: 100% !important;
+        display: inline-flex !important;
     }
 }
 
