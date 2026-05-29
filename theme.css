@@ -717,37 +717,46 @@ header[style*="height: 48px"],
     }
 
     
-    /* 1. Ensure the container folders and menu rows still span full width */
-    .fandom-header-dropdown,
-    .fandom-nested-folder,
-    .fandom-nested-row {
-        width: 100% !important;
-    }
-
     .fandom-nested-link,
     .fandom-menu-link {
-        display: inline-flex !important;  /* Changes the layout model from full-width block to content-bounds */
-        flex: 0 0 auto !important;         /* Explicitly prevents the anchor tag from stretching */
-        width: max-content !important;     /* Snaps the active box edge directly to the last font character */
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        
-        /* Optional: Gives a tiny 4px comfortable hover padding on the left/right of the text strings */
-        padding-left: 4px !important;
-        padding-right: 4px !important;
+        display: block !important;
+        width: 100% !important;
+        position: relative !important;
+        pointer-events: none !important; /* Make the wide background box completely click-through */
+        color: transparent !important;   /* Hides any fallback text if the framework leaks it */
     }
 
-    /* 3. Keep interior drop-down link alignments neatly organized on the left */
-    .fandom-header-menu {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: flex-start !important; /* Locks interior items flush to the left boundary edge */
+    /* 2. Dynamically generate the visible text target box on screen.
+       This box automatically copies the string from your JavaScript data attribute.
+    */
+    .fandom-nested-link::after,
+    .fandom-menu-link::after {
+        content: attr(data-text) !important; /* Natively extracts the text string */
+        display: inline-block !important;
+        position: absolute !important;
+        
+        /* Absolute positioning anchors it cleanly relative to the button row */
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        
+        width: auto !important;
+        max-width: max-content !important; /* Snaps the hit-box exactly to the character metrics */
+        
+        /* Re-enables clicks/hovers ONLY inside these text character boundaries */
+        pointer-events: auto !important; 
+        cursor: pointer !important;
+        
+        /* Standard design colors */
+        color: #ffffff !important;
+        text-shadow: 0 2px 3px rgba(0, 0, 0, 0.85) !important;
+        font-weight: 500 !important;
     }
-    
-    .fandom-nested-menu {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: flex-start !important; /* Keeps sub-folders left-aligned when expanded */
+
+    /* Dropdown interior menu links left alignment adjustments */
+    .fandom-nested-link::after,
+    .fandom-menu-link::after {
+        left: 12px !important; /* Matches your original left padding offset */
+        font-size: 0.93rem !important;
     }
 }
 

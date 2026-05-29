@@ -163,20 +163,12 @@
     const link = document.createElement("a");
     link.href = href;
     
+    // Assign the text string to a custom data attribute instead of innerText
+    link.setAttribute("data-text", text);
+    
     if (className) {
       link.className = className;
     }
-
-    // Create the isolated UI tracking element
-    const textTarget = document.createElement("span");
-    textTarget.className = "fandom-text-target";
-    
-    // Assign the string to the inner element ONLY
-    textTarget.textContent = text;
-    
-    // Append the child element cleanly into the link tree
-    link.appendChild(textTarget);
-    
     return link;
   }
 
