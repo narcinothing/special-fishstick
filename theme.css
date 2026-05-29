@@ -349,19 +349,19 @@ header[style*="height: 48px"],
    ========================================================================== */
 .fandom-header-nav {
     position: absolute !important;
-    /* 🎯 DYNAMIC: Starts at 520px on wide screens, scales down, then snaps to 0 on mobile */
     left: 520px !important; 
     bottom: 30px !important;
     z-index: 999 !important;
+    /* 🎯 FIX: Changed to nowrap to prevent vertical stacking */
     display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: flex-start !important; /* Left-aligned */
-    align-items: flex-end !important;
+    flex-wrap: nowrap !important; 
+    justify-content: flex-start !important;
+    align-items: center !important;
     gap: 8px !important;
-    /* Ensure it doesn't push past the right screen edge on medium monitors */
-    max-width: min(600px, calc(100vw - 540px)) !important;
+    /* 🎯 FIX: Remove max-width constraint to let the buttons sit in one long line */
     width: auto !important;
 }
+
 .fandom-header-nav-shell {
     width: 100% !important;
     box-sizing: border-box !important;
@@ -705,18 +705,14 @@ header[style*="height: 48px"],
         background: transparent !important;
     }
 
-    .fandom-header-nav {
-        display: grid !important;
-        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-        gap: 3px !important;
-        position: relative !important;
-        max-width: 100% !important;
-        width: 100% !important;
-        border-radius: 0px !important;
-        box-sizing: border-box !important;
-        right: 0px !important;
+.fandom-header-nav {
+        /* 🎯 MOBILE SNAP: Positions flush to the left when the media query triggers */
+        left: 0px !important;
         bottom: 0px !important;
-        top: 1px !important;
+        top: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-content: center !important; /* Keeps buttons balanced on mobile */
     }
 
     .fandom-header-dropdown {
