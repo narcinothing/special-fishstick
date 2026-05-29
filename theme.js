@@ -411,23 +411,24 @@ function renderHeaderNav() {
     });
   }
   
+// 🎯 REFACTORED: High-Performance Debounced Initializer
+  let navDebounceTimer = null;
+  
   function initHeaderNav() {
     patchHistory();
     renderHeaderNav();
 
     const observer = new MutationObserver(function () {
-      renderHeaderNav();
+      // Clear out previous pending rendering execution targets
+      clearTimeout(navDebounceTimer);
+      
+      // Batch layout queries into a single evaluation frame thread
+      navDebounceTimer = setTimeout(renderHeaderNav, 16);
     });
 
     observer.observe(document.body, {
       childList: true,
       subtree: true
     });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initHeaderNav);
-  } else {
-    initHeaderNav();
   }
 })();
