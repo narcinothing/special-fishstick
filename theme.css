@@ -17,6 +17,7 @@ body::before {
     pointer-events: none;
 }
 
+#root,
 #app,
 .v-application,
 .v-application--wrap,
@@ -32,9 +33,9 @@ main.v-content,
 }
 
 /* ==========================================================================
-    2. Framework Wrapper Overrides (🎯 ISOLATED SPECIFICITY FIX)
+    2. Framework Wrapper Overrides (🎯 ROOT-LOCKED AND STRIPPED)
    ========================================================================== */
-/* 🎯 FIX: Targets ONLY the gray framework background strip to force it transparent */
+/* Kills the dark gray system bar background and strips all parent framework box constraints */
 #root .v-application .container.grey.pa-0.container--fluid.darken-4-l3,
 #root .v-application .grey.darken-4-l3,
 .container.grey.pa-0.container--fluid.darken-4-l3 {
@@ -46,10 +47,11 @@ main.v-content,
     border: none !important;
 }
 
-/* General clean layout parameters for normal document containers */
-.container,
-.page-col-main,
-[class*="container--fluid"] {
+/* 🎯 FIXED: Strips all stupid padding variations off system container nodes globally */
+#root .container,
+#root .page-col-main,
+#root .container.pl-5.pt-4.container--fluid.grid-list-xl,
+#root [class*="container--fluid"] {
     display: block !important; 
     background-color: transparent !important;
     background: transparent !important;
@@ -57,7 +59,7 @@ main.v-content,
     width: 100% !important;
     margin-left: auto !important;
     margin-right: auto !important;
-    padding: 0 !important; 
+    padding: 0 !important; /* Zeroes out side padding completely */
     box-shadow: none !important;
     border: none !important;
     border-radius: 0px !important;
@@ -78,7 +80,7 @@ footer[data-booted="true"] {
 /* ==========================================================================
     3. Modular Panel System Layout Structure (.wiki-box)
    ========================================================================== */
-.wiki-box {
+#root .wiki-box {
     background-color: rgba(20, 20, 20, 0.95) !important;
     max-width: 1200px !important;
     width: 100% !important;
@@ -93,26 +95,27 @@ footer[data-booted="true"] {
     display: block !important;
 }
 
-/* Uniform 40px block separation steps across custom desktop panels */
-.wiki-box + .wiki-box,
-.wiki-box + #homepage-media-hub {
+/* 40px vertical separation gap between panels on PC monitors */
+#root .wiki-box + .wiki-box,
+#root .wiki-box + #homepage-media-hub {
     margin-top: 40px !important;
 }
 
 /* ==========================================================================
     4. General Typography & Content Styles
    ========================================================================== */
-/* Clears the default 8px margin/padding alignment shifts on both PC and Mobile globally */
-.contents,
-.contents > div {
+/* 🎯 DESTRUCTIVE FIXED OVERRIDE: Annihilates the 8px default system padding loop entirely on PC and Mobile */
+#root .contents,
+#root .contents > div,
+#root .wiki-box > .contents {
     padding: 0 !important;
     margin: 0 !important;
 }
 
-.page-header,
-.page-header-title,
-main h1:first-of-type,
-.page-header h1 {
+#root .page-header,
+#root .page-header-title,
+#root main h1:first-of-type,
+#root .page-header h1 {
     text-align: center !important;
     display: block !important;
     width: 100% !important;
@@ -144,7 +147,7 @@ header+hr {
 /* ==========================================================================
     5. Page Header Banner Section Layout Specs
    ========================================================================== */
-.page-header-section {
+#root .page-header-section {
     position: relative !important;
     display: block !important;
     box-sizing: border-box !important;
@@ -156,7 +159,7 @@ header+hr {
     background: transparent !important;
 }
 
-.page-header-section::before {
+#root .page-header-section::before {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
@@ -173,17 +176,17 @@ header+hr {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85) !important; 
 }
 
-.page-header-section>*,
-.page-header h1,
-.page-header-title,
-.page-header-section .caption {
+#root .page-header-section>*,
+#root .page-header h1,
+#root .page-header-title,
+#root .page-header-section .caption {
     position: relative !important;
     z-index: 1 !important;
     text-shadow: 0 3px 8px rgba(0, 0, 0, 0.95), 0 1px 3px rgba(0, 0, 0, 0.8) !important;
 }
 
-.page-header h1,
-.page-header-title {
+#root .page-header h1,
+#root .page-header-title {
     color: #ffffff !important;
     font-size: 2.5rem !important;
     font-weight: 700 !important;
@@ -191,8 +194,8 @@ header+hr {
     margin-bottom: 6px !important;
 }
 
-.page-header-section .caption,
-.page-header-section .grey--text.text--darken-1,
+#root .page-header-section .caption,
+#root .page-header-section .grey--text text--darken-1,
 div.caption.grey--text.text--darken-1 {
     display: block !important;
     color: rgba(255, 255, 255, 0.78) !important;
@@ -203,8 +206,8 @@ div.caption.grey--text.text--darken-1 {
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9) !important;
 }
 
-.page-header,
-.page-header-section .page-header {
+#root .page-header,
+#root .page-header-section .page-header {
     position: relative !important;
     z-index: 2 !important;
     max-width: 100% !important;
@@ -569,22 +572,22 @@ header[style*="height: 48px"],
 }
 
 /* ==========================================================================
-    8. RESPONSIVE MEDIA QUERIES (🎯 RE-MAPPED TO SEPARATE DESKTOP/MOBILE BLOCKING)
+    8. RESPONSIVE MOBILE MEDIA QUERIES (🎯 FULL SPECIFICITY PROTECTION)
    ========================================================================== */
 @media (max-width: 1100px) {
-    .page-header,
-    .page-header-section .page-header {
+    #root .page-header,
+    #root .page-header-section .page-header {
         padding-right: 420px !important;
     }
 }
 
 @media (max-width: 980px) {
-    /* 🎯 FIX: Isolated general container mobile scaling resets (No longer hijacked by ID overrides) */
-    .container,
-    .page-col-main,
-    .container.pl-5.pt-4.container--fluid.grid-list-xl,
-    .container.grey.pa-0.container--fluid,
-    [class*="container--fluid"] {
+    /* Hard-clamp the containers down through the root selector to completely block background leaks */
+    #root .container,
+    #root .page-col-main,
+    #root .container.pl-5.pt-4.container--fluid.grid-list-xl,
+    #root .container.grey.pa-0.container--fluid,
+    #root [class*="container--fluid"] {
         display: block !important;
         padding-left: 0px !important;
         padding-right: 0px !important;
@@ -594,7 +597,7 @@ header[style*="height: 48px"],
         margin-right: 0px !important;
     }
 
-    .wiki-box {
+    #root .wiki-box {
         margin-top: 0px !important;
         padding: 24px !important; 
         border: none !important;
@@ -606,9 +609,9 @@ header[style*="height: 48px"],
         max-width: 100% !important;
     }
 
-    /* 🎯 FIX: Forces the 30px vertical separation space explicitly between stacked multi-boxes on mobile layout cards */
-    .wiki-box + .wiki-box,
-    .wiki-box + #homepage-media-hub {
+    /* 🎯 FIXED: Forces the 30px spacing step between multiple stacked mobile custom wiki containers */
+    #root .wiki-box + .wiki-box,
+    #root .wiki-box + #homepage-media-hub {
         margin-top: 30px !important;
         margin-bottom: 0px !important;
     }
@@ -620,7 +623,7 @@ header[style*="height: 48px"],
         color: rgba(255, 255, 255, 0.8) !important;
     }
     
-    .page-header-section {
+    #root .page-header-section {
         padding: 16px !important;
         border-radius: 0px !important;
         margin: 0 auto !important; 
@@ -628,7 +631,7 @@ header[style*="height: 48px"],
         max-width: 100% !important;
     }
     
-    .page-header-section::before {
+    #root .page-header-section::before {
         border-radius: 0px !important;
         background-image:
             linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)),
@@ -673,18 +676,18 @@ header[style*="height: 48px"],
         left: auto !important;
     }
 
-    .page-header h1,
-    .page-header-title {
+    #root .page-header h1,
+    #root .page-header-title {
         font-size: 2rem !important;
     }
 
-    .page-header,
-    .page-header-section .page-header {
+    #root .page-header,
+    #root .page-header-section .page-header {
         padding-right: 0 !important;
     }
 
-    .page-header-section .caption,
-    .page-header-section .grey--text.text--darken-1,
+    #root .page-header-section .caption,
+    #root .page-header-section .grey--text text--darken-1,
     div.caption.grey--text.text--darken-1 {
         line-height: 1.45 !important;
         padding-right: 0 !important;
@@ -917,8 +920,8 @@ header[style*="height: 48px"],
         pointer-events: auto !important;
     }
 
-    .v-main,
-    .v-main__wrap {
+    #root .v-main,
+    #root .v-main__wrap {
         padding-left: 0px !important;
         padding-right: 0px !important;
         width: 100% !important;
