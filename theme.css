@@ -775,6 +775,7 @@ header[style*="height: 48px"],
     .fandom-header-menu > .fandom-menu-link:hover,
     .fandom-nested-menu > .fandom-menu-link:hover,
     .fandom-nested-menu .fandom-menu-link:hover {
+        border-radius: 0px !important;
         background: rgba(36, 96, 235, 1) !important;
     }
 
