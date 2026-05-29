@@ -747,64 +747,86 @@ header[style*="height: 48px"],
     .fandom-nested-folder:hover>.fandom-nested-menu {
         display: none !important;
     }
-
 /* ==========================================================================
-       Sub-Menu Buttons (Maximized Toggle Shield)
+       Sub-Menu Buttons (Isolating Flat Links from Folders)
        ========================================================================== */
     
-    /* 1. Ensure the outer row wrapper is stable and relative */
+    /* 1. Flat Links (Gamepasses, Codes, Titles, Stats, etc.)
+       These do NOT have subcategories. We force them to stay beautifully full-width
+       so their blue hover highlights cover the entire menu background.
+    */
+    .fandom-header-menu > .fandom-menu-link,
+    .fandom-nested-menu > .fandom-menu-link,
+    .fandom-nested-menu .fandom-menu-link {
+        display: flex !important;
+        width: 100% !important; /* Forces full structural width */
+        max-width: 100% !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        text-align: left !important;
+        color: #ffffff !important;
+        padding: 10px 12px !important;
+        box-sizing: border-box !important;
+        pointer-events: auto !important; /* Instantly clickable anywhere on the row */
+        background: transparent !important;
+    }
+
+    /* 2. Folder Rows (Progress, Worlds, Items, Techniques)
+       These container boxes hold both a link text node and a dropdown arrow.
+    */
     .fandom-nested-row {
         width: 100% !important;
         display: flex !important;
-        justify-content: flex-start !important; /* Flush align elements to the left */
+        justify-content: flex-start !important;
         align-items: center !important; 
         box-sizing: border-box !important;
         position: relative !important;
     }
 
-    /* 2. Collapse the link container tightly to the text characters.
-       It stays completely interactive, but has zero empty tail space.
+    /* 3. Folder Text Links Only
+       We snap ONLY the folder text link to content width so it clears the massive
+       invisible toggle plate sitting behind it.
     */
-    .fandom-nested-link,
-    .fandom-menu-link {
+    .fandom-nested-folder > .fandom-nested-row > .fandom-nested-link {
         border-radius: 0px !important;
         display: inline-flex !important;         
-        flex: 0 0 auto !important; /* Prevents the link from stretching out */
-        width: max-content !important; /* Snaps exactly to the width of the words */
-        max-width: calc(100% - 50px) !important; /* Ensures long text doesn't hit the arrow icon */
+        flex: 0 0 auto !important; 
+        width: max-content !important; /* Snaps strictly to the length of the characters */
+        max-width: calc(100% - 50px) !important;
         justify-content: flex-start !important;
         align-items: center !important;
         text-align: left !important;
         color: #ffffff !important;
-        padding: 10px 4px 10px 12px !important; /* Tightened right padding */
+        padding: 10px 4px 10px 12px !important;
         box-sizing: border-box !important;
         pointer-events: auto !important;   
-        z-index: 5 !important; /* Sits above the background toggle shield */
+        z-index: 5 !important; /* Sits cleanly on top of the expanded toggle target */
+        background: transparent !important;
     }
 
-    /* 3. THE CURE: Expand the toggle button to cover the entire remaining row width.
-       It anchors absolutely to the right side and extends leftward, consuming 100% of the dead zone.
+    /* 4. Giant Toggle Shield
+       Expands across the entire row to absorb all empty tap zones outside the text.
     */
     .fandom-nested-toggle {
         display: flex !important;
         align-items: center !important;
-        justify-content: flex-end !important; /* Locks arrow symbol to the far right */
+        justify-content: flex-end !important;
         padding-right: 16px !important;
         
         position: absolute !important;
         top: 0 !important;
         bottom: 0 !important;
         right: 0 !important;
-        left: 0 !important; /* Spans the entire background from pixel 0 to the edge */
+        left: 0 !important; 
         width: 100% !important; 
         height: 100% !important;
         
         background: transparent !important;
         pointer-events: auto !important;   
-        z-index: 3 !important; /* Sits right behind the text link but above the row background */
+        z-index: 3 !important; 
     }
 
-    /* 4. Keep your dropdown panels functioning normally */
+    /* 5. Keep dropdown menus functional */
     .fandom-header-menu,
     .fandom-nested-menu {
         border-radius: 0px !important;
