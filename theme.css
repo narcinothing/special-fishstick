@@ -719,6 +719,7 @@ header[style*="height: 48px"],
     /* 1. Keep sub-menu links full-width, stable, and perfectly left-aligned */
     .fandom-nested-link,
         .fandom-menu-link {
+            border-radius: 0px !important;
             display: flex !important;
             width: 100% !important;
             justify-content: flex-start !important;
