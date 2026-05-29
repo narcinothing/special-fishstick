@@ -583,7 +583,7 @@ header[style*="height: 48px"],
 @media (max-width: 1100px) {
     #root .page-header,
     #root .page-header-section .page-header {
-        padding-right: 420px !important;
+        padding-right: 410px !important;
     }
 
     .fandom-header-nav {
