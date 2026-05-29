@@ -749,56 +749,59 @@ header[style*="height: 48px"],
     }
 
 /* ==========================================================================
-       Sub-Menu Buttons (Expanded Toggle Shield)
+       Sub-Menu Buttons (Maximized Toggle Shield)
        ========================================================================== */
     
-    /* 1. Ensure the outer row wrapper is a tight flex container */
+    /* 1. Ensure the outer row wrapper is stable and relative */
     .fandom-nested-row {
         width: 100% !important;
         display: flex !important;
-        justify-content: space-between !important;
-        align-items: stretch !important; /* Forces the toggle to match the link's exact height */
+        justify-content: flex-start !important; /* Flush align elements to the left */
+        align-items: center !important; 
         box-sizing: border-box !important;
         position: relative !important;
     }
 
-    /* 2. Keep the link box standard and flexible.
-       It will naturally shrink down horizontally when the toggle expands, 
-       preventing any text from slipping into the dead zone.
+    /* 2. Collapse the link container tightly to the text characters.
+       It stays completely interactive, but has zero empty tail space.
     */
     .fandom-nested-link,
     .fandom-menu-link {
         border-radius: 0px !important;
-        display: flex !important;
-        flex: 1 1 auto !important;         
-        width: auto !important;            
+        display: inline-flex !important;         
+        flex: 0 0 auto !important; /* Prevents the link from stretching out */
+        width: max-content !important; /* Snaps exactly to the width of the words */
+        max-width: calc(100% - 50px) !important; /* Ensures long text doesn't hit the arrow icon */
         justify-content: flex-start !important;
         align-items: center !important;
         text-align: left !important;
         color: #ffffff !important;
-        padding: 10px 12px !important;
+        padding: 10px 4px 10px 12px !important; /* Tightened right padding */
         box-sizing: border-box !important;
         pointer-events: auto !important;   
-        z-index: 2 !important;
+        z-index: 5 !important; /* Sits above the background toggle shield */
     }
 
-    /* 3. THE SOLUTION: Make the toggle button absorb all empty space on the right.
-       'flex: 1 0 auto' allows it to aggressively expand inward, while 'min-width: 80px' 
-       guarantees a massive hit-box for mobile fingers.
+    /* 3. THE CURE: Expand the toggle button to cover the entire remaining row width.
+       It anchors absolutely to the right side and extends leftward, consuming 100% of the dead zone.
     */
     .fandom-nested-toggle {
         display: flex !important;
         align-items: center !important;
-        justify-content: flex-end !important; /* Keeps the arrow icon pushed nicely to the far right */
-        padding-right: 16px !important;       /* Clean spacing for the arrow icon */
+        justify-content: flex-end !important; /* Locks arrow symbol to the far right */
+        padding-right: 16px !important;
         
-        flex: 1 0 auto !important;            /* Claims all remaining row space aggressively */
-        min-width: 250px !important;           /* Absolute minimum finger target shield size */
-        height: auto !important;
+        position: absolute !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        left: 0 !important; /* Spans the entire background from pixel 0 to the edge */
+        width: 100% !important; 
+        height: 100% !important;
+        
         background: transparent !important;
         pointer-events: auto !important;   
-        position: relative !important;
-        z-index: 4 !important;
+        z-index: 3 !important; /* Sits right behind the text link but above the row background */
     }
 
     /* 4. Keep your dropdown panels functioning normally */
