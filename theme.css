@@ -1199,57 +1199,83 @@ header[style*="height: 48px"],
 }
 
 /* ==========================================================================
-    9. Native Wiki.js Tabset — repainted to match the nav dropdown styling
+    9. Native Wiki.js Tabset — framed like a .wiki-box, nav-style blue tabs
     --------------------------------------------------------------------------
-    Wiki.js builds a `.tabset > ul > li` tab bar at runtime (active tab gets
-    `li.is-active`). These rules override its default look with the same dark
-    gradient / white-bold / blue-accent language as the header dropdowns.
+    Real markup in this Wiki.js build:
+      .tabset.elevation-2
+        > ul.tabset-tabs > li[role="tab"]        (active tab = li.is-active)
+        > .tabset-content > .tabset-panel.is-active
+    The tabs are bare <li> elements (NO inner <a>) — that's why a-based rules
+    did nothing. The whole .tabset is the framed element; the shadow lives on
+    it (not on the tab bar).
    ========================================================================== */
-#root .tabset > ul {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 6px !important;
-    list-style: none !important;
-    margin: 0 0 18px 0 !important;
-    padding: 8px !important;
+/* Whole tabset = one wiki-box frame, single shadow on the entire element */
+#root .tabset {
+    background-color: rgba(20, 20, 20, 0.95) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 8px !important;
-    background-color: rgba(20, 20, 20, 0.95) !important;   /* flat, like .wiki-box */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;  /* same shadow as .wiki-box */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;  /* overrides .elevation-2 */
+    overflow: hidden !important;
+    margin: 16px 0 !important;
 }
-#root .tabset > ul > li {
+/* Tab bar: full-width strip; tabs share the space */
+#root .tabset > .tabset-tabs {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    list-style: none !important;
     margin: 0 !important;
     padding: 0 !important;
-    list-style: none !important;
-    border: none !important;
     background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
-#root .tabset > ul > li::before,
-#root .tabset > ul > li::marker {
+/* Tabs (li, no <a>): widen to fill, strip default colors */
+#root .tabset > .tabset-tabs > li {
+    flex: 1 1 auto !important;
+    margin: 0 !important;
+    padding: 13px 20px !important;
+    list-style: none !important;
+    text-align: center !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.2 !important;
+    cursor: pointer !important;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 2px solid transparent !important;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
+}
+#root .tabset > .tabset-tabs > li::before,
+#root .tabset > .tabset-tabs > li::marker {
     content: none !important;
 }
-#root .tabset > ul > li > a {
-    display: block !important;
-    padding: 9px 16px !important;
-    border-radius: 6px !important;
+/* Blue hover — matches the card tabs and the nav dropdowns */
+#root .tabset > .tabset-tabs > li:hover {
+    background: rgba(36, 96, 235, 0.6) !important;
     color: #ffffff !important;
-    font-weight: 700 !important;
-    font-size: 0.94rem !important;
-    line-height: 1 !important;
-    text-decoration: none !important;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.85) !important;
-    border: none !important;
+}
+/* Active tab */
+#root .tabset > .tabset-tabs > li.is-active {
+    background: rgba(36, 96, 235, 1) !important;
+    color: #ffffff !important;
+}
+/* Content region is transparent; its inner card supplies the body look */
+#root .tabset > .tabset-content,
+#root .tabset > .tabset-content > .tabset-panel {
     background: transparent !important;
-    transition: background 0.18s ease, color 0.18s ease !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
 }
-#root .tabset > ul > li > a:hover {
-    background: rgba(36, 96, 235, 0.6) !important;   /* blue hover */
-    color: #ffffff !important;
+/* A card inside a tabset blends into the frame (no panel-in-panel double border) */
+#root .tabset .tabset-panel > .sf-card {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
 }
-#root .tabset > ul > li.is-active > a {
-    background: rgba(36, 96, 235, 1) !important;     /* solid blue when active */
-    color: #ffffff !important;
-    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.6) !important;
+.toc-anchor {
+  display: none !important;
 }
-
 </style>
