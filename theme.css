@@ -749,7 +749,7 @@ header[style*="height: 48px"],
         flex: 1 1 auto !important;
         position: relative !important;
         width: 100% !important;
-        max-width: calc(100vw - 80px) !important;
+        max-width: calc(100% - 80px) !important;
         min-width: 0 !important;
         overflow: hidden; 
         margin-left: 8px !important;
@@ -1028,6 +1028,15 @@ header[style*="height: 48px"],
         padding-left: 0px !important;
         padding-right: 0px !important;
         width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Safety net: kill any phantom horizontal scroll (the ~10px right gap).
+       Nothing visible is wider than the viewport here, so this only clips the
+       off-screen overflow that the scrollbar gutter / a stray element creates. */
+    html,
+    body {
+        overflow-x: hidden !important;
         max-width: 100% !important;
     }
 }
