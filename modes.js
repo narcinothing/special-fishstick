@@ -36,21 +36,22 @@
 .sf-card{background:rgba(30,30,30,.6);border:1px solid rgba(255,255,255,.10);border-radius:8px;overflow:hidden;margin:16px 0;color:#fff;font-family:"Roboto",sans-serif;font-size:15px;}
 .sf-body{display:flex;}
 
-/* Left Column Sizing and Formatting */
-.sf-left{width:280px;flex-shrink:0;padding:18px;border-right:1px solid rgba(255,255,255,.10);display:flex;flex-direction:column;align-items:stretch;gap:14px;}
+/* Left Column Styling Adjustments */
+.sf-left{width:265px;flex-shrink:0;padding:16px;border-right:1px solid rgba(255,255,255,.10);display:flex;flex-direction:column;align-items:center;gap:14px;}
 
-/* Fandom Style Header Styling rules */
-.sf-card-title {font-size:22px !important;font-weight:600 !important;color:#fff !important;margin:0 0 4px 0 !important;padding:0 !important;border:none !important;text-align:left;line-height:1.2;}
+/* Header Inside left panel layout boundary alignment */
+.sf-header{display:block; width:100%; padding:0 0 10px 0; background:transparent; border-bottom:1px solid rgba(255,255,255,.10); text-align:left;}
+.sf-title{font-size:20px;font-weight:600;color:#fff;}
 
-/* Fandom-Style Multi-Image Tab Selector Menu */
-.sf-img-tabs {display:flex;flex-wrap:wrap;gap:4px;width:100%;background:rgba(0,0,0,0.2);padding:4px;border-radius:4px;border:1px solid rgba(255,255,255,0.05);}
-.sf-img-btn {background:transparent !important;border:none !important;color:rgba(255,255,255,0.6) !important;padding:6px 10px;font-size:12px;font-weight:600;text-transform:uppercase;cursor:pointer;flex:1;text-align:center;border-radius:3px;transition:all 0.15s ease;white-space:nowrap;}
-.sf-img-btn:hover {color:#fff !important;background:rgba(255,255,255,0.05) !important;}
-.sf-img-btn.active {color:#fff !important;background:rgba(36, 96, 235, 1) !important;box-shadow:0 1px 3px rgba(0,0,0,0.3);}
+/* Fandom-Style Multi-Image Tab Selector Menu Frame */
+.sf-image-switcher {display:flex; flex-wrap:wrap; width:100%; background:rgba(0,0,0,0.2); padding:3px; border-radius:4px; gap:2px; border:1px solid rgba(255,255,255,0.05); margin-top:2px;}
+.sf-image-btn {background:transparent !important; border:none !important; color:rgba(255,255,255,0.5) !important; padding:5px 8px; font-size:11px; font-weight:600; text-transform:uppercase; cursor:pointer; flex:1; text-align:center; border-radius:3px; transition:all 0.15s ease; white-space:nowrap; outline:none !important; box-shadow:none !important; margin:0 !important;}
+.sf-image-btn:hover {color:#fff !important; background:rgba(255,255,255,0.06) !important;}
+.sf-image-btn.active {color:#fff !important; background:rgba(36, 96, 235, 1) !important; text-shadow:0 1px 2px rgba(0,0,0,0.6);}
 
-/* Explicit Icon Card Constraints (Fixes Stretching bugs) */
-.sf-main-link-wrap {display:block;width:100%;line-height:0;}
-.sf-main-display-img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border:1px solid rgba(255,255,255,.10);border-radius:8px;display:block;}
+/* Profile Display Sizing Controls */
+.sf-main-img-wrap {width:100%; display:block; line-height:0;}
+.sf-left .sf-display-image{width:100%; height:auto; aspect-ratio:1/1; object-fit:cover; border:1px solid rgba(255,255,255,.10); border-radius:8px; display:block;}
 
 .stat-list{width:100%;display:flex;flex-direction:column;}
 .stat-line{display:flex;justify-content:space-between;align-items:center;padding:6px 2px;border-bottom:1px solid rgba(255,255,255,.08);}
@@ -67,9 +68,8 @@
 .sf-panel{display:none;flex:1;padding:16px 18px;max-height:360px;overflow-y:auto;scrollbar-width:thin;}
 .sf-panel.active{display:block;}
 
-/* Layout elements */
 .sf-row{display:flex;gap:10px;margin-bottom:11px;align-items:baseline;line-height:1.5;}
-.sf-lbl{min-width:100px;flex-shrink:0;color:rgba(255,255,255,.5);font-weight:500;}
+.sf-lbl{min-width:100px;flex-shrink:0;color:rgba(255,255,255,.5);}
 .sf-val{color:#fff;}
 .sf-danger{color:#ff6b6b;}
 .imgs-row{display:flex;flex-wrap:wrap;gap:12px;}
@@ -82,16 +82,12 @@
 /* CSS Global Resets targeting Wiki external hooks */
 .sf-card a[target="_blank"]::before,.sf-card a[target="_blank"]::after,.sf-card .is-external-link::before,.sf-card .is-external-link::after,.sf-tab::before,.sf-tab::after{content:none!important;}
 
-/* Mobile Optimization: Centers header, collapses layout columns stack vertically */
-@media (max-width:640px){
+/* Mobile Optimization: Centers header text, collapses layout grid stack vertically */
+@media (max-width:600px){
   .sf-body{flex-direction:column;}
   .sf-left{width:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,.10);align-items:center;}
-  .sf-card-title {text-align:center !important; width:100%; margin-bottom:10px !important;}
-  .sf-main-link-wrap {max-width:240px; margin:0 auto;}
-  .sf-img-tabs {max-width:280px; margin:0 auto;}
-  .stat-list {max-width:280px; margin-top:6px;}
-  .stat-line .sl{font-size:14px;}
-  .stat-line .sv{font-size:16px;}
+  .sf-header{text-align:center !important;}
+  .sf-left img{max-width:240px;}
 }
 `;
     document.head.appendChild(style);
@@ -99,12 +95,12 @@
 
   injectModeStyles();
 
-  // ---- 2. Unified Click Handlers (Delegated Execution Scopes) -------------------
+  // ---- 2. Tab switching & Image Flipping Engine (Delegated Operations) -----
   if (!window.__sfTabsInit) {
     window.__sfTabsInit = true;
     
     document.addEventListener('click', function (e) {
-      // Handle Right Side Panel Tab Changes
+      // 1. Handle Content Tab Switching (Right Side)
       var tab = e.target.closest('.sf-tab');
       if (tab) {
         var card = tab.closest('.sf-card');
@@ -115,22 +111,23 @@
         return;
       }
 
-      // Handle Left Side Fandom Image Switches
-      var imgBtn = e.target.closest('.sf-img-btn');
+      // 2. Handle Fandom Image Swapping Buttons (Left Side)
+      var imgBtn = e.target.closest('.sf-image-btn');
       if (imgBtn) {
-        var leftPanel = imgBtn.closest('.sf-left');
-        if (!leftPanel) return;
+        var switcher = imgBtn.closest('.sf-left');
+        if (!switcher) return;
         
-        // Toggle Active State styles across siblings
-        leftPanel.querySelectorAll('.sf-img-btn').forEach(btn => btn.classList.toggle('active', btn === imgBtn));
+        // Remove active class from sibling buttons and add to clicked button
+        switcher.querySelectorAll('.sf-image-btn').forEach(btn => btn.classList.remove('active'));
+        imgBtn.classList.add('active');
         
-        // Pull target URL value and update display tags inside frame
-        var targetSrc = imgBtn.getAttribute('data-img-src');
-        var displayImg = leftPanel.querySelector('.sf-main-display-img');
-        var linkWrap = leftPanel.querySelector('.sf-main-link-wrap');
+        // Extract the target source URL and swap out the image tags live
+        var newImgUrl = imgBtn.getAttribute('data-img-target');
+        var displayImg = switcher.querySelector('.sf-display-image');
+        var parentLink = switcher.querySelector('.sf-main-img-wrap');
         
-        if (displayImg) displayImg.setAttribute('src', targetSrc);
-        if (linkWrap) linkWrap.setAttribute('href', targetSrc);
+        if (displayImg) displayImg.setAttribute('src', newImgUrl);
+        if (parentLink) parentLink.setAttribute('href', newImgUrl);
       }
     });
   }
