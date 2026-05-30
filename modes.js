@@ -38,8 +38,8 @@
 
 /* Left Column - Locked to center everything perfectly on PC and Mobile */
 .sf-left {
-  width: 272px; 
-  flex-shrink: 0; 
+  width: calc(var(--sf-w, 240px) + 32px);   /* inner width + 16px padding each side */
+  flex-shrink: 0;
   padding: 16px; 
   border-right: 1px solid rgba(255,255,255,.10); 
   display: flex; 
@@ -50,7 +50,7 @@
 /* Header Title - Centered seamlessly above the switcher */
 .sf-header {
   width: 100%; 
-  max-width: 240px; 
+  max-width: var(--sf-w, 240px); 
   padding: 0 0 12px 0; 
   background: transparent; 
   border-bottom: 1px solid rgba(255,255,255,.10); 
@@ -64,7 +64,7 @@
   display: flex; 
   flex-wrap: wrap; 
   width: 100%; 
-  max-width: 240px; 
+  max-width: var(--sf-w, 240px); 
   background: rgba(0,0,0,0.25); 
   padding: 3px; 
   border-radius: 6px 6px 0 0; 
@@ -100,7 +100,7 @@
   display: flex;
   justify-content: center;
   width: 100%; 
-  max-width: 240px; 
+  max-width: var(--sf-w, 240px); 
   margin-bottom: 14px; 
   box-sizing: border-box;
 }
@@ -115,7 +115,7 @@
 }
 
 /* Stat Matrix */
-.stat-list { width: 100%; max-width: 240px; display: flex; flex-direction: column; }
+.stat-list { width: 100%; max-width: var(--sf-w, 240px); display: flex; flex-direction: column; }
 .stat-line { display: flex; justify-content: space-between; align-items: center; padding: 6px 2px; border-bottom: 1px solid rgba(255,255,255,.08); }
 .stat-line:last-child { border-bottom: none; }
 .stat-line .sl { font-size: 12px; color: rgba(255,255,255,.55); text-transform: uppercase; letter-spacing: .04em; }
@@ -142,6 +142,14 @@
 .sf-card .sf-link { color: #fff!important; text-decoration: underline!important; text-underline-offset: 3px; }
 
 .sf-card a[target="_blank"]::before, .sf-card a[target="_blank"]::after, .sf-card .is-external-link::before, .sf-card .is-external-link::after, .sf-tab::before, .sf-tab::after { content: none!important; }
+
+/* Dynamic left column: widen sf-left (and everything in it) as the image
+   switcher gains buttons, capped at 5+. --sf-w drives both sf-left's width and
+   the inner elements' max-width, so they scale together. <=2 buttons = default.
+   (Uses :has(); needs a 2023+ browser.) */
+.sf-left:has(.sf-image-switcher .sf-image-btn:nth-child(3)) { --sf-w: 280px; }
+.sf-left:has(.sf-image-switcher .sf-image-btn:nth-child(4)) { --sf-w: 320px; }
+.sf-left:has(.sf-image-switcher .sf-image-btn:nth-child(5)) { --sf-w: 350px; }  /* cap */
 
 /* Responsive Breakpoint Overrides (< 980px viewports) */
 @media (max-width:980px){
