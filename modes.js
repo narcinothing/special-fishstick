@@ -36,22 +36,22 @@
 .sf-card{background:rgba(30,30,30,.6);border:1px solid rgba(255,255,255,.10);border-radius:8px;overflow:hidden;margin:16px 0;color:#fff;font-family:"Roboto",sans-serif;font-size:15px;}
 .sf-body{display:flex;}
 
-/* Left Column Styling Adjustments */
-.sf-left{width:265px;flex-shrink:0;padding:16px;border-right:1px solid rgba(255,255,255,.10);display:flex;flex-direction:column;align-items:center;gap:14px;}
+/* Left Column - Removed default flex gaps to handle tight custom alignment spacing */
+.sf-left{width:265px;flex-shrink:0;padding:16px;border-right:1px solid rgba(255,255,255,.10);display:flex;flex-direction:column;align-items:stretch;}
 
-/* Header Inside left panel layout boundary alignment */
-.sf-header{display:block; width:100%; padding:0 0 10px 0; background:transparent; border-bottom:1px solid rgba(255,255,255,.10); text-align:left;}
+/* Header Title - Fully Centered by Default on PC and Mobile layouts */
+.sf-header{display:block; width:100%; padding:0 0 12px 0; background:transparent; border-bottom:1px solid rgba(255,255,255,.10); text-align:center; margin-bottom:12px;}
 .sf-title{font-size:20px;font-weight:600;color:#fff;}
 
-/* Fandom-Style Multi-Image Tab Selector Menu Frame */
-.sf-image-switcher {display:flex; flex-wrap:wrap; width:100%; background:rgba(0,0,0,0.2); padding:3px; border-radius:4px; gap:2px; border:1px solid rgba(255,255,255,0.05); margin-top:2px;}
-.sf-image-btn {background:transparent !important; border:none !important; color:rgba(255,255,255,0.5) !important; padding:5px 8px; font-size:11px; font-weight:600; text-transform:uppercase; cursor:pointer; flex:1; text-align:center; border-radius:3px; transition:all 0.15s ease; white-space:nowrap; outline:none !important; box-shadow:none !important; margin:0 !important;}
+/* Fandom-Style Multi-Image Tab Selector Menu Frame (Fuses directly down to the image) */
+.sf-image-switcher {display:flex; flex-wrap:wrap; width:100%; background:rgba(0,0,0,0.25); padding:3px; border-radius:6px 6px 0 0; gap:2px; border:1px solid rgba(255,255,255,.10); border-bottom:none; margin-bottom:0;}
+.sf-image-btn {background:transparent !important; border:none !important; color:rgba(255,255,255,0.5) !important; padding:5px 8px; font-size:11px; font-weight:600; text-transform:uppercase; cursor:pointer; flex:1; text-align:center; border-radius:4px 4px 0 0; transition:all 0.15s ease; white-space:nowrap; outline:none !important; box-shadow:none !important; margin:0 !important;}
 .sf-image-btn:hover {color:#fff !important; background:rgba(255,255,255,0.06) !important;}
 .sf-image-btn.active {color:#fff !important; background:rgba(36, 96, 235, 1) !important; text-shadow:0 1px 2px rgba(0,0,0,0.6);}
 
-/* Profile Display Sizing Controls */
-.sf-main-img-wrap {width:100%; display:block; line-height:0;}
-.sf-left .sf-display-image{width:100%; height:auto; aspect-ratio:1/1; object-fit:cover; border:1px solid rgba(255,255,255,.10); border-radius:8px; display:block;}
+/* Showcase Image Wrapper (Fuses cleanly up to the button switcher panel) */
+.sf-main-img-wrap {width:100%; display:block; line-height:0; margin-bottom:14px;}
+.sf-left .sf-display-image{width:100%; height:auto; aspect-ratio:1/1; object-fit:cover; border:1px solid rgba(255,255,255,.10); border-radius:0 0 8px 8px; display:block;}
 
 .stat-list{width:100%;display:flex;flex-direction:column;}
 .stat-line{display:flex;justify-content:space-between;align-items:center;padding:6px 2px;border-bottom:1px solid rgba(255,255,255,.08);}
@@ -79,15 +79,21 @@
 .img-cap{margin-top:4px;font-size:13px;color:rgba(255,255,255,.6);text-align:center;}
 .sf-card .sf-link{color:#fff!important;text-decoration:underline!important;text-underline-offset:3px;}
 
-/* CSS Global Resets targeting Wiki external hooks */
 .sf-card a[target="_blank"]::before,.sf-card a[target="_blank"]::after,.sf-card .is-external-link::before,.sf-card .is-external-link::after,.sf-tab::before,.sf-tab::after{content:none!important;}
 
-/* Mobile Optimization: Centers header text, collapses layout grid stack vertically */
-@media (max-width:600px){
+/* Modified Responsive Breakpoint: Triggers at < 980px wide viewports */
+@media (max-width:980px){
   .sf-body{flex-direction:column;}
-  .sf-left{width:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,.10);align-items:center;}
-  .sf-header{text-align:center !important;}
-  .sf-left img{max-width:240px;}
+  .sf-left{width:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,.10);align-items:center;padding:20px;}
+  .sf-header{text-align:center !important; width:100%;}
+  
+  /* Lock sizing boundaries cleanly on tablet layout parameters */
+  .sf-left img.sf-display-image{max-width:280px;}
+  .sf-image-switcher {max-width:280px;}
+  .stat-list {max-width:280px;}
+  
+  /* Makes buttons thicker on tablets/mobile screen interactions */
+  .sf-image-btn { padding:10px 12px; font-size:12px; }
 }
 `;
     document.head.appendChild(style);
@@ -95,12 +101,11 @@
 
   injectModeStyles();
 
-  // ---- 2. Tab switching & Image Flipping Engine (Delegated Operations) -----
+  // ---- 2. Tab switching & Image Flipping Engine ---------------------------
   if (!window.__sfTabsInit) {
     window.__sfTabsInit = true;
     
     document.addEventListener('click', function (e) {
-      // 1. Handle Content Tab Switching (Right Side)
       var tab = e.target.closest('.sf-tab');
       if (tab) {
         var card = tab.closest('.sf-card');
@@ -111,17 +116,14 @@
         return;
       }
 
-      // 2. Handle Fandom Image Swapping Buttons (Left Side)
       var imgBtn = e.target.closest('.sf-image-btn');
       if (imgBtn) {
         var switcher = imgBtn.closest('.sf-left');
         if (!switcher) return;
         
-        // Remove active class from sibling buttons and add to clicked button
         switcher.querySelectorAll('.sf-image-btn').forEach(btn => btn.classList.remove('active'));
         imgBtn.classList.add('active');
         
-        // Extract the target source URL and swap out the image tags live
         var newImgUrl = imgBtn.getAttribute('data-img-target');
         var displayImg = switcher.querySelector('.sf-display-image');
         var parentLink = switcher.querySelector('.sf-main-img-wrap');
