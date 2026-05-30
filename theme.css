@@ -1293,6 +1293,22 @@ header[style*="height: 48px"],
         flex-basis: auto !important;
     }
 }
+
+/* PC-only tab modifiers (>1100px). On mobile they do nothing, where the bigger
+   text / no animation isn't an issue. Add the class to the wrapper or .tabset. */
+@media (min-width: 1101px) {
+    /* "tabs-no-grow": the clicked tab no longer widens — it stays equal width */
+    #root .tabs-no-grow .tabset > .tabset-tabs > li.is-active,
+    #root .tabset.tabs-no-grow > .tabset-tabs > li.is-active {
+        flex-grow: 1 !important;
+    }
+    /* "tabs-small": shrink the tab label text (tweak the size to taste) */
+    #root .tabs-small .tabset > .tabset-tabs > li,
+    #root .tabset.tabs-small > .tabset-tabs > li {
+        font-size: 0.82rem !important;
+    }
+}
+
 /* Content region is transparent; its inner card supplies the body look */
 #root .tabset > .tabset-content,
 #root .tabset > .tabset-content > .tabset-panel {
