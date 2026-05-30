@@ -695,6 +695,7 @@ header[style*="height: 48px"],
         content: "Dragon Ball Rage Wiki" !important; /* Change this to your preferred title */
         font-size: 0.95rem !important; /* Match your existing font size */
         display: inline-block !important;
+        z-index: 999 !important;
     }
 
     #root .page-header h1,
