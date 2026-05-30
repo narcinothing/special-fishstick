@@ -1031,13 +1031,12 @@ header[style*="height: 48px"],
         max-width: 100% !important;
     }
 
-    /* Safety net: kill any phantom horizontal scroll (the ~10px right gap).
-       Nothing visible is wider than the viewport here, so this only clips the
-       off-screen overflow that the scrollbar gutter / a stray element creates. */
-    html,
-    body {
-        overflow-x: hidden !important;
-        max-width: 100% !important;
+    /* Safety net: clip any phantom horizontal overflow WITHOUT turning html/body
+       into a scroll container. overflow-x:hidden on body/html creates a scroll
+       container and causes janky / "stuck" touch scrolling on mobile; clip does
+       not, and leaves vertical scrolling completely normal. */
+    html {
+        overflow-x: clip !important;
     }
 }
 
