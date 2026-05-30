@@ -1227,6 +1227,7 @@ header[style*="height: 48px"],
     padding: 0 !important;
     background: transparent !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+     box-shadow: none !important;
 }
 /* Tabs (li, no <a>): widen to fill, strip default colors */
 #root .tabset > .tabset-tabs > li {
@@ -1240,7 +1241,7 @@ header[style*="height: 48px"],
     font-size: 0.95rem !important;
     line-height: 1.2 !important;
     cursor: pointer !important;
-    background: transparent !important;
+    background-color: rgba(0,0,0,.25) !important;
     border: none !important;
     border-bottom: 2px solid transparent !important;
     transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
@@ -1251,7 +1252,7 @@ header[style*="height: 48px"],
 }
 /* Blue hover — matches the card tabs and the nav dropdowns */
 #root .tabset > .tabset-tabs > li:hover {
-    background: rgba(92, 92, 92, 0.6) !important;
+    background: rgba(92, 92, 92, 0.356) !important;
     color: #ffffff !important;
 }
 /* Active tab */
