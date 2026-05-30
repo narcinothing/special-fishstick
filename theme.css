@@ -1244,7 +1244,8 @@ header[style*="height: 48px"],
     background-color: rgba(0,0,0,.25) !important;
     border: none !important;
     border-bottom: 2px solid transparent !important;
-    transition: flex-grow 0.28s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
+    position: relative !important;
+    transition: padding 0.16s ease, margin 0.16s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
     text-shadow: 0 0px 0px rgba(0, 0, 0, 0) !important;
 }
 #root .tabset > .tabset-tabs > li::before,
@@ -1256,9 +1257,14 @@ header[style*="height: 48px"],
     background: rgba(92, 92, 92, 0.356) !important;
     color: #ffffff !important;
 }
-/* Active tab */
+/* Active tab — grows symmetrically over both neighbours (padding out, equal
+   negative margin in, so the others don't shift and it expands on BOTH sides) */
 #root .tabset > .tabset-tabs > li.is-active {
-    flex-grow: 1.8 !important;   /* clicked tab grows wider; others ease back */
+    padding-left: 38px !important;    /* 20 base + 18 each side */
+    padding-right: 38px !important;
+    margin-left: -18px !important;    /* cancels the padding so neighbours stay put */
+    margin-right: -18px !important;
+    z-index: 2 !important;            /* sit above the neighbours it overlaps */
     background: rgba(36, 96, 235, 1) !important;
     color: #ffffff !important;
     text-shadow: 0 1px 3px rgb(0, 0, 0) !important
