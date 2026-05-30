@@ -1277,7 +1277,11 @@ header[style*="height: 48px"],
     flex-basis: 0 !important;              /* equal share of the row */
     flex-shrink: 1 !important;             /* shrink to fit instead of wrapping out */
     min-width: 0 !important;
-    white-space: normal !important;        /* long label wraps inside the tab */
+    white-space: nowrap !important;        /* never more than one line */
+    overflow: hidden !important;           /* clip rather than overflow if extreme */
+    display: flex !important;              /* centre the label both ways */
+    align-items: center !important;
+    justify-content: center !important;
 }
 @media (max-width: 1100px) {
     #root .tabs-row .tabset > .tabset-tabs,
