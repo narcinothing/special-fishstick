@@ -1263,16 +1263,31 @@ header[style*="height: 48px"],
     color: #ffffff !important;
     text-shadow: 0 1px 3px rgb(0, 0, 0) !important
 }
-/* Modifier: shrink a tabset's tabs to their label width instead of stretching
-   to fill. Wrap the tabset in <div class="tabs-fit"> … </div>  (also works if
-   the class lands directly on the .tabset element). Tabs left-align and wrap. */
-#root .tabs-fit .tabset > .tabset-tabs,
-#root .tabset.tabs-fit > .tabset-tabs {
-    justify-content: flex-start !important;
+/* Modifier: keep ALL tabs on ONE row — they shrink to share the width, and a
+   long label wraps inside its own tab rather than pushing the tab onto a new
+   line. Below 1100px viewports they're allowed to stack. Wrap the tabset in
+   <div class="tabs-row"> … </div>  (also works on the .tabset element itself).
+   Leaves the active-tab grow animation intact. */
+#root .tabs-row .tabset > .tabset-tabs,
+#root .tabset.tabs-row > .tabset-tabs {
+    flex-wrap: nowrap !important;          /* never stack */
 }
-#root .tabs-fit .tabset > .tabset-tabs > li,
-#root .tabset.tabs-fit > .tabset-tabs > li {
-    flex: 0 0 auto !important;   /* size to content, not full-width */
+#root .tabs-row .tabset > .tabset-tabs > li,
+#root .tabset.tabs-row > .tabset-tabs > li {
+    flex-basis: 0 !important;              /* equal share of the row */
+    flex-shrink: 1 !important;             /* shrink to fit instead of wrapping out */
+    min-width: 0 !important;
+    white-space: normal !important;        /* long label wraps inside the tab */
+}
+@media (max-width: 1100px) {
+    #root .tabs-row .tabset > .tabset-tabs,
+    #root .tabset.tabs-row > .tabset-tabs {
+        flex-wrap: wrap !important;        /* exception: allow stacking when too narrow */
+    }
+    #root .tabs-row .tabset > .tabset-tabs > li,
+    #root .tabset.tabs-row > .tabset-tabs > li {
+        flex-basis: auto !important;
+    }
 }
 /* Content region is transparent; its inner card supplies the body look */
 #root .tabset > .tabset-content,

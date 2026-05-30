@@ -424,94 +424,6 @@
     // ==========================================================================
     // 💎 PARSER LOGIC: Reads HTML elements and compiles Infoboxes dynamically
     // ==========================================================================
-    function scanAndRenderCards() {
-      const components = document.querySelectorAll('.sf-mode-infobox:not([data-ready])');
-      components.forEach(function (el) {
-        el.setAttribute('data-ready', 'true');
-        el.style.display = 'block';
-
-        const title = el.getAttribute('data-title') || '';
-        const hp = el.getAttribute('data-hp') || '1x';
-        const dmg = el.getAttribute('data-dmg') || '1x';
-        const training = el.getAttribute('data-training') || '1x';
-        const requirement = el.getAttribute('data-requirement') || '';
-        const replacedName = el.getAttribute('data-replaced-name') || '';
-        const replacedUrl = el.getAttribute('data-replaced-url') || '#';
-
-        const triviaEl = el.querySelector('.sf-data-trivia');
-        const trivia = triviaEl ? triviaEl.innerHTML : '';
-        
-        const descEl = el.querySelector('.sf-data-description');
-        const description = descEl ? descEl.innerHTML : '';
-
-        var switcherImages = [];
-        el.querySelectorAll('.sf-data-images a').forEach(function (a) {
-          switcherImages.push({ label: a.textContent.trim(), url: a.getAttribute('href') });
-        });
-
-        var mediaItems = [];
-        el.querySelectorAll('.sf-data-media a').forEach(function (a) {
-          mediaItems.push({ caption: a.textContent.trim(), url: a.getAttribute('href') });
-        });
-
-        if (switcherImages.length === 0) return;
-
-        var switcherHtml = '';
-        switcherImages.forEach(function (img, idx) {
-          var activeClass = idx === 0 ? 'active' : '';
-          switcherHtml += '<button type="button" class="sf-image-btn ' + activeClass + '" data-img-target="' + img.url + '">' + img.label + '</button>';
-        });
-
-        var mediaHtml = '';
-        mediaItems.forEach(function (item) {
-          mediaHtml += '<div><a href="' + item.url + '"><img class="img-th" src="' + item.url + '" alt="' + item.caption + '" loading="lazy"></a><div class="img-cap">' + item.caption + '</div></div>';
-        });
-
-        var template = 
-        '<div class="sf-card">' +
-          '<div class="sf-body">' +
-            '<div class="sf-left">' +
-              '<div class="sf-header"><span class="sf-title">' + title + '</span></div>' +
-              '<div class="sf-image-switcher">' + switcherHtml + '</div>' +
-              '<a href="' + switcherImages[0].url + '" class="sf-main-img-wrap">' +
-                '<img src="' + switcherImages[0].url + '" alt="' + title + '" class="sf-display-image">' +
-              '</a>' +
-              '<div class="stat-list">' +
-                '<div class="stat-line"><span class="sl">HP</span><span class="sv">' + hp + '</span></div>' +
-                '<div class="stat-line"><span class="sl">DMG</span><span class="sv">' + dmg + '</span></div>' +
-                '<div class="stat-line"><span class="sl">Training</span><span class="sv">' + training + '</span></div>' +
-              '</div>' +
-            '</div>' +
-            '<div class="sf-right">' +
-              '<div class="sf-tabs">' +
-                '<button type="button" class="sf-tab active" data-sf-tab="0">Overview</button>' +
-                '<button type="button" class="sf-tab" data-sf-tab="1">Media</button>' +
-              '</div>' +
-              '<div class="sf-panel active" data-sf-panel="0">' +
-                '<div class="sf-sub-section overview-sec">' +
-                  '<div class="sf-sub-section trivia-sec">' +
-                    '<div class="sf-row"><span class="sf-lbl">Trivia</span><span class="sf-val">' + trivia + '</span></div>' +
-                  '</div>' +
-                  '<div class="sf-row"><span class="sf-lbl">Description</span><span class="sf-val">' + description + '</span></div>' +
-                  '<div class="sf-row"><span class="sf-lbl">Requirement</span><span class="sf-val">' + requirement + '</span></div>' +
-                  '<div class="sf-row"><span class="sf-lbl">Replaced by</span><span class="sf-val"><a href="' + replacedUrl + '" class="sf-link" style="font-weight:bold;">' + replacedName + '</a></span></div>' +
-                '</div>' +
-              '</div>' +
-              '<div class="sf-panel" data-sf-panel="1">' +
-                '<div style="font-size:13px;color:rgba(255,255,255,.55);margin-bottom:10px;">Click any image to open full size.</div>' +
-                '<div class="imgs-row">' + mediaHtml + '</div>' +
-              '</div>' +
-            '</div>' +
-          '</div>' +
-        '</div>';
-
-        el.innerHTML = template;
-      });
-    }
-
-    // ==========================================================================
-    // 💎 MODAL PREVIEW ENGINE: Generates and handles screen preview canvas overlays
-    // ==========================================================================
     function createPreviewModal() {
       var modal = document.getElementById('sf-preview-overlay');
       if (modal) return modal;
@@ -573,7 +485,6 @@
       var style = document.createElement('style');
       style.id = 'modes-styles';
       style.textContent = `
-  /* 🎯 Font-family rules updated to inherit native site typography flawlessly */
   .sf-card{background:rgba(30,30,30,.6);border:0px solid rgba(255,255,255,0);border-radius:8px;overflow:hidden;margin:0px 0;color:#fff;font-family:inherit !important;font-size:15px;}
   .sf-body{display:flex;}
   .sf-left{width:272px;flex-shrink:0;padding:16px;border-right:1px solid rgba(255,255,255,.10);display:flex;flex-direction:column;align-items:center;}
@@ -609,7 +520,6 @@
   .sf-card .sf-link{color:#fff!important;text-decoration:underline!important;text-underline-offset:3px;}
   .sf-card a[target="_blank"]::before,.sf-card a[target="_blank"]::after,.sf-card .is-external-link::before,.sf-card .is-external-link::after,.sf-tab::before,.sf-tab::after{content:none!important;}
 
-  /* 🔔 Preview Overlay UI Typography Fixes */
   .sf-preview-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:999999 !important;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s ease;box-sizing:border-box;font-family:inherit !important;}
   .sf-preview-overlay.active{opacity:1;}
   .sf-preview-box{background:#1e1f22;border:1px solid #2b2d31;border-radius:12px;padding:24px;max-width:85vw;max-height:85vh;display:flex;flex-direction:column;align-items:center;position:relative;box-shadow:0 20px 40px rgba(0,0,0,0.6);box-sizing:border-box;}
@@ -642,7 +552,7 @@
 
     injectModeStyles();
 
-    // Attach master unified event delegation handlers (Using a unique v4 identifier loop namespace)
+    // Attach master unified event delegation handlers
     if (!window.__sfMasterPreviewAttached_v4) {
       window.__sfMasterPreviewAttached_v4 = true;
       document.addEventListener('click', function (e) {
@@ -660,7 +570,7 @@
           return;
         }
 
-        // 2. Handle card tab toggling (ES5 pure loop tracking safety)
+        // 2. Handle card tab toggling
         var tab = target.closest('.sf-tab');
         if (tab) {
           var card = tab.closest('.sf-card');
