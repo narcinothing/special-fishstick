@@ -1,12 +1,3 @@
-The reason your markdown formatting (`` and `*`) breaks inside those tags is a classic layout rule conflict. When you write text directly inside raw HTML tags like `<div>`, the Wiki.js markdown engine completely ignores it and treats it as a raw string. When our JavaScript grabs that text, it just reads the literal asterisks on your screen instead of compiled elements.
-
-To fix this, we can build a lightweight **Inline Markdown Parser** right into your card renderer. It scans the text for formatting syntax like `bold` or `*italics*` and transforms them into proper browser elements on the fly.
-
-Here is your updated, fully supported `theme.js` file:
-
-### Updated `theme.js`
-
-```javascript
 (function () {
   // 🎯 SAFETY WRAPPER: Prevents script stalls by waiting for the Wiki.js core to mount
   function bootstrapFandomNav() {
@@ -741,5 +732,3 @@ Here is your updated, fully supported `theme.js` file:
   // Kickstart the safety loop execution sequence
   bootstrapFandomNav();
 })();
-
-```
