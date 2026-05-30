@@ -1226,7 +1226,7 @@ header[style*="height: 48px"],
     margin: 0 !important;
     padding: 0 !important;
     background: transparent !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-bottom: transparent !important;
      box-shadow: none !important;
 }
 /* Tabs (li, no <a>): widen to fill, strip default colors */
