@@ -519,6 +519,7 @@
       modal = document.createElement('div');
       modal.id = 'sf-preview-overlay';
       modal.className = 'sf-preview-overlay';
+      modal.style.display = 'none'; 
       modal.innerHTML = 
         '<div class="sf-preview-box">' +
           '<button type="button" class="sf-preview-x" aria-label="Close preview">&times;</button>' +
@@ -531,7 +532,10 @@
       
       document.body.appendChild(modal);
 
-      var dismiss = function() { modal.classList.remove('active'); };
+      var dismiss = function() { 
+        modal.classList.remove('active'); 
+        setTimeout(function() { modal.style.display = 'none'; }, 200);
+      };
       modal.querySelector('.sf-preview-x').addEventListener('click', dismiss);
       document.getElementById('sf-preview-close-btn').addEventListener('click', dismiss);
       modal.addEventListener('click', function(e) { if(e.target === modal) dismiss(); });
@@ -559,6 +563,8 @@
           '</div>';
       }
 
+      modal.style.display = 'flex';
+      modal.offsetHeight; // Force layout updates smoothly
       modal.classList.add('active');
     }
 
@@ -567,13 +573,14 @@
       var style = document.createElement('style');
       style.id = 'modes-styles';
       style.textContent = `
-  .sf-card{background:rgba(30,30,30,.6);border:0px solid rgba(255,255,255,0);border-radius:8px;overflow:hidden;margin:0px 0;color:#fff;font-family:"Roboto",sans-serif;font-size:15px;}
+  /* 🎯 Font-family rules updated to inherit native site typography flawlessly */
+  .sf-card{background:rgba(30,30,30,.6);border:0px solid rgba(255,255,255,0);border-radius:8px;overflow:hidden;margin:0px 0;color:#fff;font-family:inherit !important;font-size:15px;}
   .sf-body{display:flex;}
   .sf-left{width:272px;flex-shrink:0;padding:16px;border-right:1px solid rgba(255,255,255,.10);display:flex;flex-direction:column;align-items:center;}
   .sf-header{width:100%;max-width:240px;padding:0 0 12px 0;background:transparent;border-bottom:1px solid rgba(255,255,255,.10);text-align:center;margin-bottom:12px;}
-  .sf-title{font-size:20px;font-weight:600;color:#fff;}
+  .sf-title{font-size:20px;font-weight:600;color:#fff;font-family:inherit !important;}
   .sf-image-switcher{display:flex;flex-wrap:wrap;width:100%;max-width:240px;background:rgba(0,0,0,0.25);padding:3px;border-radius:6px 6px 0 0;gap:2px;border:1px solid rgba(255,255,255,.10);border-bottom:none;margin-bottom:0;box-sizing:border-box;}
-  .sf-image-btn{background:transparent !important;border:none !important;color:rgba(255,255,255,0.5) !important;padding:5px 8px;font-size:11px;font-weight:600;text-transform:uppercase;cursor:pointer;flex:1;text-align:center;border-radius:4px 4px 0 0;transition:all 0.15s ease;white-space:nowrap;outline:none !important;box-shadow:none !important;margin:0 !important;}
+  .sf-image-btn{background:transparent !important;border:none !important;color:rgba(255,255,255,0.5) !important;padding:5px 8px;font-size:11px;font-weight:600;text-transform:uppercase;cursor:pointer;flex:1;text-align:center;border-radius:4px 4px 0 0;transition:all 0.15s ease;white-space:nowrap;outline:none !important;box-shadow:none !important;margin:0 !important;font-family:inherit !important;}
   .sf-image-btn:hover{color:#fff !important;background:rgba(255,255,255,0.06) !important;}
   .sf-image-btn.active{color:#fff !important;background:rgba(36, 96, 235, 1) !important;text-shadow:0 1px 2px rgba(0,0,0,0.6);}
   .sf-main-img-wrap{display:flex;justify-content:center;width:100%;max-width:240px;margin-bottom:14px;box-sizing:border-box;}
@@ -581,30 +588,30 @@
   .stat-list{width:100%;max-width:240px;display:flex;flex-direction:column;}
   .stat-line{display:flex;justify-content:space-between;align-items:center;padding:6px 2px;border-bottom:1px solid rgba(255,255,255,.08);}
   .stat-line:last-child{border-bottom:none;}
-  .stat-line .sl{font-size:12px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.04em;}
-  .stat-line .sv{font-size:15px;font-weight:600;color:#fff;}
+  .stat-line .sl{font-size:12px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.04em;font-family:inherit !important;}
+  .stat-line .sv{font-size:15px;font-weight:600;color:#fff;font-family:inherit !important;}
   .sf-right{flex:1;min-width:0;display:flex;flex-direction:column;}
   .sf-tabs{display:flex;width:100%;border-bottom:1px solid rgba(255,255,255,.10);}
-  .sf-tab{appearance:none!important;-webkit-appearance:none!important;background:transparent!important;border:none!important;border-bottom:2px solid transparent!important;border-radius:0!important;box-shadow:none!important;outline:none!important;text-shadow:none!important;margin:0!important;flex:1;text-align:center;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:500;white-space:nowrap;cursor:pointer;color:rgba(255,255,255,.55)!important;transition:background .15s ease,color .15s ease,border-color .15s ease;}
+  .sf-tab{appearance:none!important;-webkit-appearance:none!important;background:transparent!important;border:none!important;border-bottom:2px solid transparent!important;border-radius:0!important;box-shadow:none!important;outline:none!important;text-shadow:none!important;margin:0!important;flex:1;text-align:center;padding:11px 18px;font-family:inherit !important;font-size:15px;font-weight:500;white-space:nowrap;cursor:pointer;color:rgba(255,255,255,.55)!important;transition:background .15s ease,color .15s ease,border-color .15s ease;}
   .sf-tab:hover{background:rgba(92, 92, 92, 0.356)!important;color:#fff!important;}
   .sf-tab.active{color:#fff!important;background:rgba(36, 96, 235, 1) !important;text-shadow:0 1px 3px rgb(0, 0, 0) !important}
   .sf-panel{display:none;flex:1;padding:16px 18px;max-height:360px;overflow-y:auto;scrollbar-width:thin;}
   .sf-panel.active{display:block;}
   .sf-row{display:flex;gap:10px;margin-bottom:11px;align-items:baseline;line-height:1.5;}
-  .sf-lbl{min-width:100px;flex-shrink:0;color:rgba(255,255,255,.5);}
-  .sf-val{color:#fff;}
+  .sf-lbl{min-width:100px;flex-shrink:0;color:rgba(255,255,255,.5);font-family:inherit !important;}
+  .sf-val{color:#fff;font-family:inherit !important;}
   .sf-danger{color:#ff6b6b;}
   .imgs-row{display:flex;flex-wrap:wrap;gap:12px;}
   .imgs-row a{display:block;line-height:0;}
   .imgs-row>div{flex:1 1 0;min-width:110px;}
   .img-th{width:100%;height:auto;aspect-ratio:1;object-fit:cover;border:1px solid rgba(255,255,255,.10);border-radius:8px;display:block;}
-  .img-cap{margin-top:4px;font-size:13px;color:rgba(255,255,255,.6);text-align:center;}
+  .img-cap{margin-top:4px;font-size:13px;color:rgba(255,255,255,.6);text-align:center;font-family:inherit !important;}
   .sf-card .sf-link{color:#fff!important;text-decoration:underline!important;text-underline-offset:3px;}
   .sf-card a[target="_blank"]::before,.sf-card a[target="_blank"]::after,.sf-card .is-external-link::before,.sf-card .is-external-link::after,.sf-tab::before,.sf-tab::after{content:none!important;}
 
-  /* 🔔 HIGH-PRIORITY PREVIEW OVERLAY SYSTEM CLASS DEFINITIONS */
-  .sf-preview-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:999999 !important;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s ease;box-sizing:border-box;}
-  .sf-preview-overlay.active{opacity:1;pointer-events:auto;}
+  /* 🔔 Preview Overlay UI Typography Fixes */
+  .sf-preview-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:999999 !important;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s ease;box-sizing:border-box;font-family:inherit !important;}
+  .sf-preview-overlay.active{opacity:1;}
   .sf-preview-box{background:#1e1f22;border:1px solid #2b2d31;border-radius:12px;padding:24px;max-width:85vw;max-height:85vh;display:flex;flex-direction:column;align-items:center;position:relative;box-shadow:0 20px 40px rgba(0,0,0,0.6);box-sizing:border-box;}
   .sf-preview-x{position:absolute;top:12px;right:16px;background:transparent!important;border:none!important;color:rgba(255,255,255,0.5)!important;font-size:24px;cursor:pointer;outline:none!important;padding:0!important;margin:0!important;line-height:1;}
   .sf-preview-x:hover{color:#fff!important;}
@@ -612,10 +619,10 @@
   .sf-preview-img{max-width:100%;max-height:55vh;object-fit:contain;border-radius:6px;border:1px solid rgba(255,255,255,0.1);display:block;}
   .sf-preview-link-card{text-align:center;padding:20px;background:rgba(0,0,0,0.2);border-radius:8px;border:1px solid rgba(255,255,255,0.05);width:100%;box-sizing:border-box;}
   .sf-preview-link-icon{font-size:32px;margin-bottom:8px;}
-  .sf-preview-link-title{font-size:16px;font-weight:600;color:#fff;margin-bottom:6px;}
-  .sf-preview-link-url{font-size:13px;color:#00a2ff;word-break:break-all;text-decoration:underline;}
+  .sf-preview-link-title{font-size:16px;font-weight:600;color:#fff;margin-bottom:6px;font-family:inherit !important;}
+  .sf-preview-link-url{font-size:13px;color:#00a2ff;word-break:break-all;text-decoration:underline;font-family:inherit !important;}
   .sf-preview-actions{display:flex;gap:12px;width:100%;justify-content:center;}
-  .sf-preview-btn{appearance:none!important;-webkit-appearance:none!important;padding:10px 20px;font-size:14px;font-weight:600;border-radius:6px;cursor:pointer;text-decoration:none!important;text-align:center;transition:all 0.15s ease;outline:none!important;box-shadow:none!important;margin:0!important;}
+  .sf-preview-btn{appearance:none!important;-webkit-appearance:none!important;padding:10px 20px;font-size:14px;font-weight:600;border-radius:6px;cursor:pointer;text-decoration:none!important;text-align:center;transition:all 0.15s ease;outline:none!important;box-shadow:none!important;margin:0 !important;font-family:inherit !important;}
   .sf-btn-primary{background:#2460eb!important;color:#fff!important;border:none!important;}
   .sf-btn-primary:hover{background:#3b71f7!important;}
   .sf-btn-secondary{background:transparent!important;color:rgba(255,255,255,0.6)!important;border:1px solid rgba(255,255,255,0.2)!important;}
@@ -635,48 +642,55 @@
 
     injectModeStyles();
 
-    // Attach master unified event delegation handlers (Using clear unique namespace token)
-    if (!window.__sfMasterPreviewAttached_v3) {
-      window.__sfMasterPreviewAttached_v3 = true;
+    // Attach master unified event delegation handlers (Using a unique v4 identifier loop namespace)
+    if (!window.__sfMasterPreviewAttached_v4) {
+      window.__sfMasterPreviewAttached_v4 = true;
       document.addEventListener('click', function (e) {
+        var target = e.target;
         
-        // 1. Intercept target redirect triggers inside custom cards using robust link mapping
-        var anchor = e.target.closest('a');
-        if (anchor) {
-          if (anchor.classList.contains('sf-main-img-wrap') || anchor.classList.contains('sf-link') || anchor.closest('.imgs-row')) {
+        // 1. Intercept ANY link anchor that sits inside a .sf-card component layout
+        var anchor = target.closest('a');
+        if (anchor && anchor.closest('.sf-card')) {
+          var targetUrl = anchor.getAttribute('href');
+          if (targetUrl && targetUrl !== '#') {
             e.preventDefault();
-            var targetUrl = anchor.getAttribute('href');
-            if (targetUrl && targetUrl !== '#') {
-              triggerLinkPreview(targetUrl);
-            }
-            return;
+            e.stopPropagation();
+            triggerLinkPreview(targetUrl);
           }
+          return;
         }
 
-        // 2. Handle card tab toggling (ES5 compiler safe syntax format)
-        var tab = e.target.closest('.sf-tab');
+        // 2. Handle card tab toggling (ES5 pure loop tracking safety)
+        var tab = target.closest('.sf-tab');
         if (tab) {
           var card = tab.closest('.sf-card');
           if (!card) return;
           var idx = tab.getAttribute('data-sf-tab');
-          card.querySelectorAll('.sf-tab').forEach(function (t) {
-            t.classList.toggle('active', t === tab);
-          });
-          card.querySelectorAll('.sf-panel').forEach(function (p) {
-            p.classList.toggle('active', p.getAttribute('data-sf-panel') === idx);
-          });
+          
+          var tabs = card.querySelectorAll('.sf-tab');
+          for (var i = 0; i < tabs.length; i++) {
+            tabs[i].classList.toggle('active', tabs[i] === tab);
+          }
+          
+          var panels = card.querySelectorAll('.sf-panel');
+          for (var j = 0; j < panels.length; j++) {
+            panels[j].classList.toggle('active', panels[j].getAttribute('data-sf-panel') === idx);
+          }
           return;
         }
 
         // 3. Handle image variant switching buttons
-        var imgBtn = e.target.closest('.sf-image-btn');
+        var imgBtn = target.closest('.sf-image-btn');
         if (imgBtn) {
           var switcher = imgBtn.closest('.sf-left');
           if (!switcher) return;
-          switcher.querySelectorAll('.sf-image-btn').forEach(function (btn) {
-            btn.classList.remove('active');
-          });
+          
+          var buttons = switcher.querySelectorAll('.sf-image-btn');
+          for (var k = 0; k < buttons.length; k++) {
+            buttons[k].classList.remove('active');
+          }
           imgBtn.classList.add('active');
+          
           var newImgUrl = imgBtn.getAttribute('data-img-target');
           var displayImg = switcher.querySelector('.sf-display-image');
           var parentLink = switcher.querySelector('.sf-main-img-wrap');
