@@ -1,8 +1,13 @@
 <!--
   HOME / MAIN PAGE loader.
   Paste this into the Wiki.js page's "Scripts" (HTML/JS injection) field.
-  It pulls home.css + home.js straight from GitHub (via raw.githack) on the
-  live site, or from a local dev server when you're testing off-domain.
+  It pulls home.js straight from GitHub (via raw.githack) on the live site, or
+  from a local dev server when you're testing off-domain.
+
+  NOTE: we do NOT load home.css with a <link> — the site's content-security
+  policy blocks external stylesheets. home.js injects the carousel CSS itself
+  as an inline <style>, which the CSP allows. home.css is kept in the repo only
+  as a readable mirror of those rules.
 -->
 <script>
   (function () {
@@ -16,13 +21,7 @@
       ? 'http://localhost:8080/'
       : 'https://raw.githack.com/narcinothing/special-fishstick/main/';
 
-    // 3. Inject the page-specific stylesheet
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = base + 'home.css';
-    document.head.appendChild(link);
-
-    // 4. Inject the page-specific script (defer = run after parse)
+    // 3. Inject the page-specific script (it injects its own CSS)
     var script = document.createElement('script');
     script.src = base + 'home.js';
     script.defer = true;

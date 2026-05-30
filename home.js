@@ -10,6 +10,78 @@
                              #homepage-media-hub
    ========================================================================== */
 (function () {
+  // --------------------------------------------------------------------------
+  // Inject the carousel CSS as an inline <style>. External <link> stylesheets
+  // from GitHub are blocked by the site's content-security policy, but inline
+  // styles are allowed (this is the same technique injectMediaHub() uses).
+  // This is the single source of truth for the carousel styling — home.css is
+  // just a mirror kept for reference / non-CSP environments.
+  // --------------------------------------------------------------------------
+  function injectHomeStyles() {
+    if (document.getElementById('home-page-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'home-page-styles';
+    style.textContent = `
+      .master-carousel ul {
+        display: grid !important;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        align-items: center;
+        justify-content: center;
+      }
+      .m-slide {
+        grid-area: 1/1/2/2 !important;
+        position: relative !important;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
+        z-index: 1;
+        width: 100%;
+        text-align: center;
+      }
+      .active-slide {
+        opacity: 1 !important;
+        visibility: visible !important;
+        z-index: 2 !important;
+      }
+      .m-slide img {
+        margin: 0 auto !important;
+        display: block !important;
+      }
+      a.slide-arrow {
+        position: absolute;
+        top: 50% !important;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, .6) !important;
+        color: #fff !important;
+        font-size: 24px;
+        font-weight: 700;
+        padding: 12px 18px;
+        text-decoration: none !important;
+        border-radius: 4px;
+        z-index: 10;
+        transition: background .2s ease, top .2s ease;
+        user-select: none;
+      }
+      a.slide-arrow:hover {
+        background: rgba(0, 0, 0, .9) !important;
+        color: #fff !important;
+      }
+      .left-arrow { left: 10px; }
+      .right-arrow { right: 10px; }
+      @media (max-width: 768px) {
+        a.slide-arrow { top: 50% !important; font-size: 20px; padding: 8px 12px; }
+      }
+      @media (max-width: 480px) {
+        a.slide-arrow { top: 50% !important; }
+      }
+      .m-slide:first-child { margin-top: 7px !important; }
+    `;
+    document.head.appendChild(style);
+  }
+
+  injectHomeStyles();
+
   let ageUpdated = false;
 
   function updateGameAge() {
