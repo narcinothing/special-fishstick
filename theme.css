@@ -1226,7 +1226,7 @@ header[style*="height: 48px"],
     margin: 0 !important;
     padding: 0 !important;
     background: transparent !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.11) !important;
      box-shadow: none !important;
 }
 /* Tabs (li, no <a>): widen to fill, strip default colors */
@@ -1254,11 +1254,13 @@ header[style*="height: 48px"],
 #root .tabset > .tabset-tabs > li:hover {
     background: rgba(92, 92, 92, 0.356) !important;
     color: #ffffff !important;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.85) !important;
 }
 /* Active tab */
 #root .tabset > .tabset-tabs > li.is-active {
     background: rgba(36, 96, 235, 1) !important;
     color: #ffffff !important;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.85) !important;
 }
 /* Content region is transparent; its inner card supplies the body look */
 #root .tabset > .tabset-content,
