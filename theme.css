@@ -161,6 +161,28 @@ footer[data-booted="true"] {
 #root .wiki-row > .span-11 { grid-column: span 11; }
 #root .wiki-row > .span-12 { grid-column: span 12; }
 
+/* Center a single partial-width box: add the "center" class alongside its span.
+   e.g. <div class="wiki-box span-8 center">. The box claims the full row as its
+   centering area, then auto-margins to the middle at its span's width. Intended
+   for a row holding ONE box — works with any span, even or odd. */
+#root .wiki-row > .wiki-box.center {
+    grid-column: 1 / -1 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+#root .wiki-row > .span-1.center  { width: 8.3333%  !important; }
+#root .wiki-row > .span-2.center  { width: 16.6667% !important; }
+#root .wiki-row > .span-3.center  { width: 25%      !important; }
+#root .wiki-row > .span-4.center  { width: 33.3333% !important; }
+#root .wiki-row > .span-5.center  { width: 41.6667% !important; }
+#root .wiki-row > .span-6.center  { width: 50%      !important; }
+#root .wiki-row > .span-7.center  { width: 58.3333% !important; }
+#root .wiki-row > .span-8.center  { width: 66.6667% !important; }
+#root .wiki-row > .span-9.center  { width: 75%      !important; }
+#root .wiki-row > .span-10.center { width: 83.3333% !important; }
+#root .wiki-row > .span-11.center { width: 91.6667% !important; }
+#root .wiki-row > .span-12.center { width: 100%     !important; }
+
 /* ==========================================================================
     4. General Typography & Content Styles
    ========================================================================== */
@@ -698,6 +720,11 @@ header[style*="height: 48px"],
     #root .wiki-row > .wiki-box,
     #root .wiki-row > [class*="span-"] {
         grid-column: span 1 !important;
+    }
+
+    /* A centered box drops back to full width when stacked, like the rest */
+    #root .wiki-row > .wiki-box.center {
+        width: 100% !important;
     }
 
     #root .wiki-row + .wiki-row,
