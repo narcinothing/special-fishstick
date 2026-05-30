@@ -517,7 +517,7 @@
       var style = document.createElement('style');
       style.id = 'modes-styles';
       style.textContent = `
-  .sf-card{background:rgba(30,30,30,.6);border:1px solid rgba(255,255,255,.10);border-radius:8px;overflow:hidden;margin:0px 0;color:#fff;font-family:"Roboto",sans-serif;font-size:15px;}
+  .sf-card{background:rgba(30,30,30,.6);border:0px solid rgba(255,255,255,0);border-radius:8px;overflow:hidden;margin:0px 0;color:#fff;font-family:"Roboto",sans-serif;font-size:15px;}
   .sf-body{display:flex;}
   .sf-left{width:272px;flex-shrink:0;padding:16px;border-right:1px solid rgba(255,255,255,.10);display:flex;flex-direction:column;align-items:center;}
   .sf-header{width:100%;max-width:240px;padding:0 0 12px 0;background:transparent;border-bottom:1px solid rgba(255,255,255,.10);text-align:center;margin-bottom:12px;}
