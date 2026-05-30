@@ -1244,7 +1244,7 @@ header[style*="height: 48px"],
     background-color: rgba(0,0,0,.25) !important;
     border: none !important;
     border-bottom: 2px solid transparent !important;
-    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
+    transition: flex-grow 0.28s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
     text-shadow: 0 0px 0px rgba(0, 0, 0, 0) !important;
 }
 #root .tabset > .tabset-tabs > li::before,
@@ -1255,10 +1255,10 @@ header[style*="height: 48px"],
 #root .tabset > .tabset-tabs > li:hover {
     background: rgba(92, 92, 92, 0.356) !important;
     color: #ffffff !important;
-    text-shadow: 0 1px 3px rgb(0, 0, 0) !important
 }
 /* Active tab */
 #root .tabset > .tabset-tabs > li.is-active {
+    flex-grow: 1.8 !important;   /* clicked tab grows wider; others ease back */
     background: rgba(36, 96, 235, 1) !important;
     color: #ffffff !important;
     text-shadow: 0 1px 3px rgb(0, 0, 0) !important

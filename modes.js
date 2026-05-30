@@ -54,7 +54,7 @@
 .sf-tabs{display:flex;width:100%;border-bottom:1px solid rgba(255,255,255,.10);}
 .sf-tab{appearance:none!important;-webkit-appearance:none!important;background:transparent!important;border:none!important;border-bottom:2px solid transparent!important;border-radius:0!important;box-shadow:none!important;outline:none!important;text-shadow:none!important;margin:0!important;flex:1;text-align:center;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:500;white-space:nowrap;cursor:pointer;color:rgba(255,255,255,.55)!important;transition:background .15s ease,color .15s ease,border-color .15s ease;}
 .sf-tab:hover{background:rgba(92, 92, 92, 0.356)!important;color:#fff!important;}
-.sf-tab.active{color:#fff!important; background: rgba(36, 96, 235, 1) !important;}
+.sf-tab.active{color:#fff!important; background: rgba(36, 96, 235, 1) !important; text-shadow: 0 1px 3px rgb(0, 0, 0) !important}
 .sf-panel{display:none;flex:1;padding:16px 18px;max-height:360px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent;}
 .sf-panel.active{display:block;}
 .sf-panel::-webkit-scrollbar{width:8px;}
