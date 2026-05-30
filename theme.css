@@ -234,10 +234,12 @@ footer[data-booted="true"] {
     width: var(--box-width) !important;
 }
 
-/* "right": push a fit / fixed-width box to the right edge of the row (the
-   mirror of "center"). Pair it with fit, e.g. "wiki-box span-8 fit right". */
+/* "right": right-align a fit / fixed-width box WITHIN its own span columns
+   (unlike "center", it does NOT claim the whole row, so it's safe to use on a
+   box that shares a row with others). Pair it with fit, e.g.
+   "wiki-box span-8 fit right". For a lone box that should hug the screen's
+   right edge, give it the full width to align inside: "span-12 fit right". */
 #root .wiki-row > .wiki-box.right {
-    grid-column: 1 / -1 !important;
     justify-self: end !important;
     margin-left: auto !important;
     margin-right: 0 !important;
