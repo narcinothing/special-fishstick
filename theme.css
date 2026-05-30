@@ -1263,6 +1263,17 @@ header[style*="height: 48px"],
     color: #ffffff !important;
     text-shadow: 0 1px 3px rgb(0, 0, 0) !important
 }
+/* Modifier: shrink a tabset's tabs to their label width instead of stretching
+   to fill. Wrap the tabset in <div class="tabs-fit"> … </div>  (also works if
+   the class lands directly on the .tabset element). Tabs left-align and wrap. */
+#root .tabs-fit .tabset > .tabset-tabs,
+#root .tabset.tabs-fit > .tabset-tabs {
+    justify-content: flex-start !important;
+}
+#root .tabs-fit .tabset > .tabset-tabs > li,
+#root .tabset.tabs-fit > .tabset-tabs > li {
+    flex: 0 0 auto !important;   /* size to content, not full-width */
+}
 /* Content region is transparent; its inner card supplies the body look */
 #root .tabset > .tabset-content,
 #root .tabset > .tabset-content > .tabset-panel {
@@ -1281,5 +1292,27 @@ header[style*="height: 48px"],
 }
 .toc-anchor {
   display: none !important;
+}
+
+/* ==========================================================================
+   10. Header underline (H1 ::after) — thin grey by default, easily overridable
+   --------------------------------------------------------------------------
+   Replaces Wiki.js's blue gradient under H1 with a clean 1px grey line.
+   To customise per page, redefine the variables in your page editor — no
+   !important needed, they feed straight into the rule below:
+     #root .contents h1 { --h1-line: linear-gradient(90deg, #64b5f6, #2196f3); }
+     #root .contents h1 { --h1-line-height: 2px; }
+   ========================================================================== */
+#root .contents h1 {
+    position: relative;
+}
+#root .contents h1::after {
+    content: "" !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: var(--h1-line-height, 1px) !important;
+    background: var(--h1-line, rgba(255, 255, 255, 0.18)) !important;
 }
 </style>
