@@ -1198,4 +1198,57 @@ header[style*="height: 48px"],
     }
 }
 
+/* ==========================================================================
+    9. Native Wiki.js Tabset — repainted to match the nav dropdown styling
+    --------------------------------------------------------------------------
+    Wiki.js builds a `.tabset > ul > li` tab bar at runtime (active tab gets
+    `li.is-active`). These rules override its default look with the same dark
+    gradient / white-bold / blue-accent language as the header dropdowns.
+   ========================================================================== */
+#root .tabset > ul {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    list-style: none !important;
+    margin: 0 0 18px 0 !important;
+    padding: 6px !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    border-radius: 8px !important;
+    background: linear-gradient(to bottom, rgba(38, 38, 38, 0.88), rgba(18, 18, 18, 0.94)) !important;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45) !important;
+}
+#root .tabset > ul > li {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    border: none !important;
+    background: transparent !important;
+}
+#root .tabset > ul > li::before,
+#root .tabset > ul > li::marker {
+    content: none !important;
+}
+#root .tabset > ul > li > a {
+    display: block !important;
+    padding: 9px 16px !important;
+    border-radius: 6px !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 0.94rem !important;
+    line-height: 1 !important;
+    text-decoration: none !important;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.85) !important;
+    border: none !important;
+    background: transparent !important;
+    transition: background 0.18s ease, color 0.18s ease !important;
+}
+#root .tabset > ul > li > a:hover {
+    background: linear-gradient(to bottom, rgba(58, 58, 58, 0.92), rgba(26, 26, 26, 0.96)) !important;
+}
+#root .tabset > ul > li.is-active > a {
+    background: rgba(36, 96, 235, 1) !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.6) !important;
+}
+
 </style>
