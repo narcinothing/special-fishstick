@@ -1227,7 +1227,7 @@ header[style*="height: 48px"],
     padding: 0 !important;
     background: transparent !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.11) !important;
-     box-shadow: none !important;
+    box-shadow: none !important;
 }
 /* Tabs (li, no <a>): widen to fill, strip default colors */
 #root .tabset > .tabset-tabs > li {
@@ -1245,6 +1245,7 @@ header[style*="height: 48px"],
     border: none !important;
     border-bottom: 2px solid transparent !important;
     transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
+    text-shadow: 0 0px 0px rgba(0, 0, 0, 0) !important;
 }
 #root .tabset > .tabset-tabs > li::before,
 #root .tabset > .tabset-tabs > li::marker {
@@ -1254,13 +1255,13 @@ header[style*="height: 48px"],
 #root .tabset > .tabset-tabs > li:hover {
     background: rgba(92, 92, 92, 0.356) !important;
     color: #ffffff !important;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.85) !important;
+    text-shadow: 0 1px 3px rgb(0, 0, 0) !important
 }
 /* Active tab */
 #root .tabset > .tabset-tabs > li.is-active {
     background: rgba(36, 96, 235, 1) !important;
     color: #ffffff !important;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.85) !important;
+    text-shadow: 0 1px 3px rgb(0, 0, 0) !important
 }
 /* Content region is transparent; its inner card supplies the body look */
 #root .tabset > .tabset-content,
