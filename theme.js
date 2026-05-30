@@ -432,9 +432,9 @@
 
         // Read structural configurations values
         const title = el.getAttribute('data-title') || '';
-        const hp = el.getAttribute('data-hp') || '1×';
-        const dmg = el.getAttribute('data-dmg') || '1×';
-        const training = el.getAttribute('data-training') || '1×';
+        const hp = el.getAttribute('data-hp') || '1x';
+        const dmg = el.getAttribute('data-dmg') || '1x';
+        const training = el.getAttribute('data-training') || '1x';
         const requirement = el.getAttribute('data-requirement') || '';
         const replacedName = el.getAttribute('data-replaced-name') || '';
         const replacedUrl = el.getAttribute('data-replaced-url') || '#';
@@ -467,7 +467,7 @@
 
         var mediaHtml = '';
         mediaItems.forEach(function (item) {
-          mediaHtml += '<div><a href="' + item.url + '" target="_blank"><img class="img-th" src="' + item.url + '" alt="' + item.caption + '" loading="lazy"></a><div class="img-cap">' + item.caption + '</div></div>';
+          mediaHtml += '<div><a href="' + item.url + '"><img class="img-th" src="' + item.url + '" alt="' + item.caption + '" loading="lazy"></a><div class="img-cap">' + item.caption + '</div></div>';
         });
 
         var template = 
@@ -476,7 +476,7 @@
             '<div class="sf-left">' +
               '<div class="sf-header"><span class="sf-title">' + title + '</span></div>' +
               '<div class="sf-image-switcher">' + switcherHtml + '</div>' +
-              '<a href="' + switcherImages[0].url + '" target="_blank" class="sf-main-img-wrap">' +
+              '<a href="' + switcherImages[0].url + '" class="sf-main-img-wrap">' +
                 '<img src="' + switcherImages[0].url + '" alt="' + title + '" class="sf-display-image">' +
               '</a>' +
               '<div class="stat-list">' +
@@ -510,6 +510,60 @@
 
         el.innerHTML = template;
       });
+    }
+
+    // ==========================================================================
+    // 💎 MODAL PREVIEW ENGINE: Generates and handles screen preview canvas overlays
+    // ==========================================================================
+    function createPreviewModal() {
+      var modal = document.getElementById('sf-preview-overlay');
+      if (modal) return modal;
+
+      modal = document.createElement('div');
+      modal.id = 'sf-preview-overlay';
+      modal.className = 'sf-preview-overlay';
+      modal.innerHTML = 
+        '<div class="sf-preview-box">' +
+          '<button type="button" class="sf-preview-x" aria-label="Close preview">&times;</button>' +
+          '<div id="sf-preview-body"></div>' +
+          '<div class="sf-preview-actions">' +
+            '<a id="sf-preview-tab-link" href="#" target="_blank" class="sf-preview-btn sf-btn-primary">Open in New Tab</a>' +
+            '<button type="button" id="sf-preview-close-btn" class="sf-preview-btn sf-btn-secondary">Cancel</button>' +
+          '</div>' +
+        '</div>';
+      
+      document.body.appendChild(modal);
+
+      var dismiss = function() { modal.classList.remove('active'); };
+      modal.querySelector('.sf-preview-x').addEventListener('click', dismiss);
+      document.getElementById('sf-preview-close-btn').addEventListener('click', dismiss);
+      modal.addEventListener('click', function(e) { if(e.target === modal) dismiss(); });
+
+      return modal;
+    }
+
+    function triggerLinkPreview(url) {
+      var modal = createPreviewModal();
+      var body = document.getElementById('sf-preview-body');
+      var tabLink = document.getElementById('sf-preview-tab-link');
+      
+      tabLink.setAttribute('href', url);
+
+      // Simple image asset check (handles direct image paths and trello download triggers)
+      var isImage = /\.(jpg|jpeg|png|gif|webp|svg)/i.test(url) || url.indexOf('/download/') !== -1;
+
+      if (isImage) {
+        body.innerHTML = '<img src="' + url + '" class="sf-preview-img" alt="Preview Showcase Element">';
+      } else {
+        body.innerHTML = 
+          '<div class="sf-preview-link-card">' +
+            '<div class="sf-preview-link-icon">🔗</div>' +
+            '<div class="sf-preview-link-title">Navigation Directory Redirect</div>' +
+            '<div class="sf-preview-link-url">' + url + '</div>' +
+          '</div>';
+      }
+
+      modal.classList.add('active');
     }
 
     function injectModeStyles() {
@@ -552,12 +606,32 @@
   .sf-card .sf-link{color:#fff!important;text-decoration:underline!important;text-underline-offset:3px;}
   .sf-card a[target="_blank"]::before,.sf-card a[target="_blank"]::after,.sf-card .is-external-link::before,.sf-card .is-external-link::after,.sf-tab::before,.sf-tab::after{content:none!important;}
 
+  /* Modal Screen Preview System Overlay Styles */
+  .sf-preview-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:999999 !important;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s ease;box-sizing:border-box;}
+  .sf-preview-overlay.active{opacity:1;pointer-events:auto;}
+  .sf-preview-box{background:#1e1f22;border:1px solid #2b2d31;border-radius:12px;padding:24px;max-width:85vw;max-height:85vh;display:flex;flex-direction:column;align-items:center;position:relative;box-shadow:0 20px 40px rgba(0,0,0,0.6);box-sizing:border-box;}
+  .sf-preview-x{position:absolute;top:12px;right:16px;background:transparent!important;border:none!important;color:rgba(255,255,255,0.5)!important;font-size:24px;cursor:pointer;outline:none!important;padding:0!important;margin:0!important;line-height:1;}
+  .sf-preview-x:hover{color:#fff!important;}
+  #sf-preview-body{width:100%;display:flex;justify-content:center;align-items:center;margin-bottom:20px;min-width:280px;}
+  .sf-preview-img{max-width:100%;max-height:55vh;object-fit:contain;border-radius:6px;border:1px solid rgba(255,255,255,0.1);display:block;}
+  .sf-preview-link-card{text-align:center;padding:20px;background:rgba(0,0,0,0.2);border-radius:8px;border:1px solid rgba(255,255,255,0.05);width:100%;box-sizing:border-box;}
+  .sf-preview-link-icon{font-size:32px;margin-bottom:8px;}
+  .sf-preview-link-title{font-size:16px;font-weight:600;color:#fff;margin-bottom:6px;}
+  .sf-preview-link-url{font-size:13px;color:#00a2ff;word-break:break-all;text-decoration:underline;}
+  .sf-preview-actions{display:flex;gap:12px;width:100%;justify-content:center;}
+  .sf-preview-btn{appearance:none!important;-webkit-appearance:none!important;padding:10px 20px;font-size:14px;font-weight:600;border-radius:6px;cursor:pointer;text-decoration:none!important;text-align:center;transition:all 0.15s ease;outline:none!important;box-shadow:none!important;margin:0!important;}
+  .sf-btn-primary{background:#2460eb!important;color:#fff!important;border:none!important;}
+  .sf-btn-primary:hover{background:#3b71f7!important;}
+  .sf-btn-secondary{background:transparent!important;color:rgba(255,255,255,0.6)!important;border:1px solid rgba(255,255,255,0.2)!important;}
+  .sf-btn-secondary:hover{color:#fff!important;background:rgba(255,255,255,0.05)!important;border-color:rgba(255,255,255,0.4)!important;}
+
   @media (max-width:980px){
     .sf-body{flex-direction:column;}
     .sf-left{width:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,.10);padding:20px;}
     .sf-header,.sf-image-switcher,.sf-main-img-wrap,.stat-list{max-width:280px !important;}
     .sf-header{text-align:center !important;}
     .sf-image-btn{padding:10px 12px;font-size:12px;}
+    .sf-preview-box{width:90vw;padding:16px;}
   }
   `;
       document.head.appendChild(style);
@@ -569,6 +643,19 @@
     if (!window.__sfGlobalHandlersAttached) {
       window.__sfGlobalHandlersAttached = true;
       document.addEventListener('click', function (e) {
+        
+        // 1. Intercept target redirect triggers inside custom cards
+        var previewLink = e.target.closest('.sf-main-img-wrap, .imgs-row a, .sf-link');
+        if (previewLink) {
+          e.preventDefault();
+          var targetUrl = previewLink.getAttribute('href');
+          if (targetUrl && targetUrl !== '#') {
+            triggerLinkPreview(targetUrl);
+          }
+          return;
+        }
+
+        // 2. Handle card tab toggling
         var tab = e.target.closest('.sf-tab');
         if (tab) {
           var card = tab.closest('.sf-card');
@@ -583,6 +670,7 @@
           return;
         }
 
+        // 3. Handle image variant switching buttons
         var imgBtn = e.target.closest('.sf-image-btn');
         if (imgBtn) {
           var switcher = imgBtn.closest('.sf-left');
