@@ -145,7 +145,7 @@ footer[data-booted="true"] {
    ========================================================================== */
 #root .wiki-row {
     display: grid !important;
-    grid-template-columns: repeat(12, 1fr) !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
     gap: 40px !important;
     align-items: stretch !important; /* boxes in the same row share equal height */
     max-width: 1200px !important;
@@ -781,7 +781,7 @@ header[style*="height: 48px"],
 
     /* Grid rows collapse to a single stacked column on mobile */
     #root .wiki-row {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: minmax(0, 1fr) !important;
         gap: 30px !important;
         width: 100% !important;
         max-width: 100% !important;
