@@ -77,9 +77,9 @@
 .sf-image-btn {
   background: transparent !important; 
   border: none !important; 
-  color: rgba(255,255,255,0.5) !important;
-  padding: 8px 10px;
-  font-size: 11px;
+  color: rgba(255,255,255,0.5) !important; 
+  padding: 5px 8px; 
+  font-size: 11px; 
   font-weight: 600; 
   text-transform: uppercase; 
   cursor: pointer; 
@@ -127,7 +127,7 @@
 .sf-tab { appearance: none!important; -webkit-appearance: none!important; background: transparent!important; border: none!important; border-bottom: 2px solid transparent!important; border-radius: 0!important; box-shadow: none!important; outline: none!important; text-shadow: none!important; margin: 0!important; flex: 1; text-align: center; padding: 11px 18px; font-family: inherit; font-size: 15px; font-weight: 500; white-space: nowrap; cursor: pointer; color: rgba(255,255,255,.55)!important; transition: background .15s ease, color .15s ease, border-color .15s ease; }
 .sf-tab:hover { background: rgba(92, 92, 92, 0.356)!important; color: #fff!important; }
 .sf-tab.active { color: #fff!important; background: rgba(36, 96, 235, 1) !important; text-shadow: 0 1px 3px rgb(0, 0, 0) !important }
-.sf-panel { display: none; flex: 1; min-height: 0; padding: 16px 18px; overflow-y: auto; scrollbar-width: thin; }
+.sf-panel { display: none; flex: 1; padding: 16px 18px; max-height: 360px; overflow-y: auto; scrollbar-width: thin; }
 .sf-panel.active { display: block; }
 
 .sf-row { display: flex; gap: 10px; margin-bottom: 11px; align-items: baseline; line-height: 1.5; }
@@ -147,9 +147,9 @@
    switcher gains buttons, capped at 5+. --sf-w drives both sf-left's width and
    the inner elements' max-width, so they scale together. <=2 buttons = default.
    (Uses :has(); needs a 2023+ browser.) */
-.sf-left:has(.sf-image-switcher .sf-image-btn:nth-child(3)) { --sf-w: 280px; }
-.sf-left:has(.sf-image-switcher .sf-image-btn:nth-child(4)) { --sf-w: 320px; }
-.sf-left:has(.sf-image-switcher .sf-image-btn:nth-child(5)) { --sf-w: 350px; }  /* cap */
+.sf-left:has(.sf-image-switcher .sf-image-btn:nth-child(3)) { --sf-w: 270px; }
+.sf-left:has(.sf-image-switcher .sf-image-btn:nth-child(4)) { --sf-w: 300px; }
+.sf-left:has(.sf-image-switcher .sf-image-btn:nth-child(5)) { --sf-w: 330px; }  /* cap */
 
 /* Responsive Breakpoint Overrides (< 980px viewports) */
 @media (max-width:980px){
