@@ -1251,7 +1251,7 @@ header[style*="height: 48px"],
 }
 /* Blue hover — matches the card tabs and the nav dropdowns */
 #root .tabset > .tabset-tabs > li:hover {
-    background: rgba(36, 96, 235, 0.6) !important;
+    background: rgba(92, 92, 92, 0.6) !important;
     color: #ffffff !important;
 }
 /* Active tab */
