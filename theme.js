@@ -437,6 +437,67 @@
     });
   }
 
+  window.createModeCard = function (targetId, config) {
+    var targetEl = document.getElementById(targetId);
+    if (!targetEl) return;
+
+    // Generate Image switcher buttons loop
+    var switcherHtml = '';
+    config.switcherImages.forEach(function (img, idx) {
+    var activeClass = idx === 0 ? 'active' : '';
+    switcherHtml += '<button type="button" class="sf-image-btn ' + activeClass + '" data-img-target="' + img.url + '">' + img.label + '</button>';
+    });
+
+    // Generate Stat tracking rows loop
+    var statsHtml = '';
+    config.stats.forEach(function (stat) {
+    statsHtml += '<div class="stat-line"><span class="sl">' + stat.label + '</span><span class="sv">' + stat.value + '</span></div>';
+    });
+
+    // Generate Media tabs preview items loop
+    var mediaHtml = '';
+    config.media.forEach(function (item) {
+    mediaHtml += '<div><a href="' + item.url + '" target="_blank"><img class="img-th" src="' + item.url + '" alt="' + item.caption + '" loading="lazy"></a><div class="img-cap">' + item.caption + '</div></div>';
+    });
+
+    // Construct final component template shell string
+    var template = 
+    '<div class="sf-card">' +
+    '<div class="sf-body">' +
+    '<div class="sf-left">' +
+    '<div class="sf-header"><span class="sf-title">' + config.title + '</span></div>' +
+    '<div class="sf-image-switcher">' + switcherHtml + '</div>' +
+    '<a href="' + config.switcherImages[0].url + '" target="_blank" class="sf-main-img-wrap">' +
+    '<img src="' + config.switcherImages[0].url + '" alt="' + config.title + '" class="sf-display-image">' +
+    '</a>' +
+    '<div class="stat-list">' + statsHtml + '</div>' +
+    '</div>' +
+    '<div class="sf-right">' +
+    '<div class="sf-tabs">' +
+    '<button type="button" class="sf-tab active" data-sf-tab="0">Overview</button>' +
+    '<button type="button" class="sf-tab" data-sf-tab="1">Media</button>' +
+    '</div>' +
+    '<div class="sf-panel active" data-sf-panel="0">' +
+    '<div class="sf-sub-section overview-sec">' +
+    '<div class="sf-sub-section trivia-sec">' +
+    '<div class="sf-row"><span class="sf-lbl">Trivia</span><span class="sf-val">' + config.trivia + '</span></div>' +
+    '</div>' +
+    '<div class="sf-row"><span class="sf-lbl">Description</span><span class="sf-val">' + config.description + '</span></div>' +
+    '<div class="sf-row"><span class="sf-lbl">Requirement</span><span class="sf-val">' + config.requirement + '</span></div>' +
+    '<div class="sf-row"><span class="sf-lbl">Replaced by</span><span class="sf-val"><a href="' + config.replacedBy.url + '" class="sf-link" style="font-weight:bold;">' + config.replacedBy.name + '</a></span></div>' +
+    '</div>' +
+    '</div>' +
+    '<div class="sf-panel" data-sf-panel="1">' +
+    '<div style="font-size:13px;color:rgba(255,255,255,.55);margin-bottom:10px;">Click any image to open full size.</div>' +
+    '<div class="imgs-row">' + mediaHtml + '</div>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '</div>';
+
+    targetEl.innerHTML = template;
+  };
+
   // Kickstart the safety loop execution sequence
   bootstrapFandomNav();
 })();
