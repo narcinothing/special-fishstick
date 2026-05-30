@@ -102,6 +102,66 @@ footer[data-booted="true"] {
 }
 
 /* ==========================================================================
+    3b. Dynamic Wiki Box Grid System (.wiki-row + .span-N)
+    --------------------------------------------------------------------------
+    Wrap any number of .wiki-box panels in a .wiki-row to lay them out on a
+    12-column grid. Tag each box with span-1 .. span-12 to set how many of the
+    12 columns it occupies. The grid handles every width, wrap and gap — no
+    pixel sizes or positions needed. Boxes with no span default to full width.
+    Examples:
+      span-6 + span-6            -> two equal halves
+      span-8 + span-4            -> 2/3 and 1/3
+      span-4 + span-4 + span-4   -> three equal thirds
+   ========================================================================== */
+#root .wiki-row {
+    display: grid !important;
+    grid-template-columns: repeat(12, 1fr) !important;
+    gap: 40px !important;
+    align-items: stretch !important; /* boxes in the same row share equal height */
+    max-width: 1200px !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+}
+
+/* Vertical gap between rows, or a row next to a standalone panel */
+#root .wiki-row + .wiki-row,
+#root .wiki-box + .wiki-row,
+#root .wiki-row + .wiki-box,
+#root .wiki-row + #homepage-media-hub {
+    margin-top: 40px !important;
+}
+
+/* A box living inside a row: drop the standalone centering/full-width rules so
+   the grid can size it. Defaults to the full 12 columns until a span-N is set. */
+#root .wiki-row > .wiki-box {
+    grid-column: span 12;
+    max-width: none !important;
+    width: auto !important;
+    margin: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Neutralise the standalone "+ .wiki-box" top-margin when boxes sit in a grid */
+#root .wiki-row > .wiki-box + .wiki-box {
+    margin-top: 0 !important;
+}
+
+#root .wiki-row > .span-1  { grid-column: span 1; }
+#root .wiki-row > .span-2  { grid-column: span 2; }
+#root .wiki-row > .span-3  { grid-column: span 3; }
+#root .wiki-row > .span-4  { grid-column: span 4; }
+#root .wiki-row > .span-5  { grid-column: span 5; }
+#root .wiki-row > .span-6  { grid-column: span 6; }
+#root .wiki-row > .span-7  { grid-column: span 7; }
+#root .wiki-row > .span-8  { grid-column: span 8; }
+#root .wiki-row > .span-9  { grid-column: span 9; }
+#root .wiki-row > .span-10 { grid-column: span 10; }
+#root .wiki-row > .span-11 { grid-column: span 11; }
+#root .wiki-row > .span-12 { grid-column: span 12; }
+
+/* ==========================================================================
     4. General Typography & Content Styles
    ========================================================================== */
 /* 🎯 DESTRUCTIVE FIXED OVERRIDE: Annihilates the 8px default system padding loop entirely on PC and Mobile */
@@ -623,7 +683,28 @@ header[style*="height: 48px"],
     #root .wiki-box + #homepage-media-hub {
         margin-top: 30px !important;
         margin-bottom: 0px !important;
-        border-radius: 0px !important; 
+        border-radius: 0px !important;
+    }
+
+    /* Grid rows collapse to a single stacked column on mobile */
+    #root .wiki-row {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Every span ignores its column count and goes full width when stacked */
+    #root .wiki-row > .wiki-box,
+    #root .wiki-row > [class*="span-"] {
+        grid-column: span 1 !important;
+    }
+
+    #root .wiki-row + .wiki-row,
+    #root .wiki-box + .wiki-row,
+    #root .wiki-row + .wiki-box,
+    #root .wiki-row + #homepage-media-hub {
+        margin-top: 30px !important;
     }
 
     .fandom-nested-toggle::before {

@@ -1,0 +1,31 @@
+<!--
+  HOME / MAIN PAGE loader.
+  Paste this into the Wiki.js page's "Scripts" (HTML/JS injection) field.
+  It pulls home.css + home.js straight from GitHub (via raw.githack) on the
+  live site, or from a local dev server when you're testing off-domain.
+-->
+<script>
+  (function () {
+    // 1. Environment check — anything that isn't the live domain is "local"
+    var host = window.location.hostname;
+    var isLocal = host !== 'dragonballrage.wiki' &&
+                  host !== 'www.dragonballrage.wiki';
+
+    // 2. Resolve the base path once
+    var base = isLocal
+      ? 'http://localhost:8080/'
+      : 'https://raw.githack.com/narcinothing/special-fishstick/main/';
+
+    // 3. Inject the page-specific stylesheet
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = base + 'home.css';
+    document.head.appendChild(link);
+
+    // 4. Inject the page-specific script (defer = run after parse)
+    var script = document.createElement('script');
+    script.src = base + 'home.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  })();
+</script>
