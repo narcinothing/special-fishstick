@@ -1211,11 +1211,11 @@ header[style*="height: 48px"],
     gap: 6px !important;
     list-style: none !important;
     margin: 0 0 18px 0 !important;
-    padding: 6px !important;
-    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    padding: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 8px !important;
-    background: linear-gradient(to bottom, rgba(38, 38, 38, 0.88), rgba(18, 18, 18, 0.94)) !important;
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45) !important;
+    background-color: rgba(20, 20, 20, 0.95) !important;   /* flat, like .wiki-box */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;  /* same shadow as .wiki-box */
 }
 #root .tabset > ul > li {
     margin: 0 !important;
@@ -1243,10 +1243,11 @@ header[style*="height: 48px"],
     transition: background 0.18s ease, color 0.18s ease !important;
 }
 #root .tabset > ul > li > a:hover {
-    background: linear-gradient(to bottom, rgba(58, 58, 58, 0.92), rgba(26, 26, 26, 0.96)) !important;
+    background: rgba(36, 96, 235, 0.6) !important;   /* blue hover */
+    color: #ffffff !important;
 }
 #root .tabset > ul > li.is-active > a {
-    background: rgba(36, 96, 235, 1) !important;
+    background: rgba(36, 96, 235, 1) !important;     /* solid blue when active */
     color: #ffffff !important;
     text-shadow: 0 2px 3px rgba(0, 0, 0, 0.6) !important;
 }
