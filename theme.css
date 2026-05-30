@@ -1211,10 +1211,10 @@ header[style*="height: 48px"],
    ========================================================================== */
 /* Whole tabset = one wiki-box frame, single shadow on the entire element */
 #root .tabset {
-    background-color: rgba(20, 20, 20, 0.95) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background-color: rgba(48, 48, 48, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0) !important;
     border-radius: 8px !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;  /* overrides .elevation-2 */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8) !important;  /* overrides .elevation-2 */
     overflow: hidden !important;
     margin: 16px 0 !important;
 }
