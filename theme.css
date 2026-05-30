@@ -130,6 +130,9 @@ footer[data-booted="true"] {
                          its span (left-aligned, content-height). Best for
                          a short line / image / button.
 
+    .right               Push a fit / fixed-width box to the row's right
+                         edge (mirror of .center). Pair with .fit.
+
     --box-width          Pin an exact width on a .fit box (needed for long
                          text, which has no natural width):
                          <div class="wiki-box span-4 fit" style="--box-width: 260px">
@@ -231,6 +234,15 @@ footer[data-booted="true"] {
     width: var(--box-width) !important;
 }
 
+/* "right": push a fit / fixed-width box to the right edge of the row (the
+   mirror of "center"). Pair it with fit, e.g. "wiki-box span-8 fit right". */
+#root .wiki-row > .wiki-box.right {
+    grid-column: 1 / -1 !important;
+    justify-self: end !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
 /* "wiki-col": a vertical stack of boxes occupying a single span, so you can put
    several small boxes in a column beside a taller box. Give the col a span-N for
    its width; put plain .wiki-box panels inside it — they stack top-to-bottom
@@ -253,6 +265,46 @@ footer[data-booted="true"] {
     max-width: 100% !important;
     margin: 0 !important;
 }
+
+/* --------------------------------------------------------------------------
+    Compact social link buttons — a vertical stack of branded buttons that
+    fits neatly inside a narrow box. Usage:
+      <div class="social-stack">
+        <a class="social-btn social-discord" href="..." target="_blank">…Discord</a>
+        ...
+      </div>
+   -------------------------------------------------------------------------- */
+#root .social-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+}
+#root .social-btn {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 11px 14px !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    line-height: 1 !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    transition: transform .15s ease, filter .15s ease !important;
+}
+#root .social-btn:hover {
+    transform: translateY(-2px) !important;
+    filter: brightness(1.12) !important;
+    color: #fff !important;
+}
+#root .social-btn svg {
+    flex: 0 0 auto !important;
+}
+#root .social-discord { background: #5865F2 !important; }
+#root .social-x       { background: #000000 !important; border-color: rgba(255, 255, 255, 0.25) !important; }
+#root .social-youtube { background: #FF0000 !important; }
+#root .social-trello  { background: #0079BF !important; }
 
 /* ==========================================================================
     4. General Typography & Content Styles
@@ -793,8 +845,9 @@ header[style*="height: 48px"],
         grid-column: span 1 !important;
     }
 
-    /* A centered box drops back to full width when stacked, like the rest */
-    #root .wiki-row > .wiki-box.center {
+    /* A centered / right-aligned box drops back to full width when stacked */
+    #root .wiki-row > .wiki-box.center,
+    #root .wiki-row > .wiki-box.right {
         width: 100% !important;
     }
 
