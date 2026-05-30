@@ -677,13 +677,24 @@ header[style*="height: 48px"],
     .v-toolbar__title .subheading {
         display: block !important;
         position: relative !important;
-        margin-left: -53px !important; 
         white-space: nowrap !important;
         color: #ffffff !important;
         font-size: 0.95rem !important;
         transform: none !important;
         top: auto !important;
         left: auto !important;
+    }
+
+    
+    .v-toolbar__title .subheading {
+        font-size: 0 !important;
+    }
+
+    /* Restores the remaining text (if any) or inserts your desired text */
+    .v-toolbar__title .subheading::after {
+        content: "Dragon Ball Rage Wiki" !important; /* Change this to your preferred title */
+        font-size: 0.95rem !important; /* Match your existing font size */
+        display: inline-block !important;
     }
 
     #root .page-header h1,
