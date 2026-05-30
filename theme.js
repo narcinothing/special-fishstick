@@ -430,7 +430,6 @@
         el.setAttribute('data-ready', 'true');
         el.style.display = 'block';
 
-        // Read structural configurations values
         const title = el.getAttribute('data-title') || '';
         const hp = el.getAttribute('data-hp') || '1x';
         const dmg = el.getAttribute('data-dmg') || '1x';
@@ -445,13 +444,11 @@
         const descEl = el.querySelector('.sf-data-description');
         const description = descEl ? descEl.innerHTML : '';
 
-        // Map layout toggle buttons 
         var switcherImages = [];
         el.querySelectorAll('.sf-data-images a').forEach(function (a) {
           switcherImages.push({ label: a.textContent.trim(), url: a.getAttribute('href') });
         });
 
-        // Map bottom media components gallery grid items
         var mediaItems = [];
         el.querySelectorAll('.sf-data-media a').forEach(function (a) {
           mediaItems.push({ caption: a.textContent.trim(), url: a.getAttribute('href') });
@@ -549,7 +546,6 @@
       
       tabLink.setAttribute('href', url);
 
-      // Simple image asset check (handles direct image paths and trello download triggers)
       var isImage = /\.(jpg|jpeg|png|gif|webp|svg)/i.test(url) || url.indexOf('/download/') !== -1;
 
       if (isImage) {
@@ -606,8 +602,8 @@
   .sf-card .sf-link{color:#fff!important;text-decoration:underline!important;text-underline-offset:3px;}
   .sf-card a[target="_blank"]::before,.sf-card a[target="_blank"]::after,.sf-card .is-external-link::before,.sf-card .is-external-link::after,.sf-tab::before,.sf-tab::after{content:none!important;}
 
-  /* Modal Screen Preview System Overlay Styles */
-  .sf-preview-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:99 !important;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s ease;box-sizing:border-box;}
+  /* 🔔 HIGH-PRIORITY PREVIEW OVERLAY SYSTEM CLASS DEFINITIONS */
+  .sf-preview-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:999999 !important;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s ease;box-sizing:border-box;}
   .sf-preview-overlay.active{opacity:1;pointer-events:auto;}
   .sf-preview-box{background:#1e1f22;border:1px solid #2b2d31;border-radius:12px;padding:24px;max-width:85vw;max-height:85vh;display:flex;flex-direction:column;align-items:center;position:relative;box-shadow:0 20px 40px rgba(0,0,0,0.6);box-sizing:border-box;}
   .sf-preview-x{position:absolute;top:12px;right:16px;background:transparent!important;border:none!important;color:rgba(255,255,255,0.5)!important;font-size:24px;cursor:pointer;outline:none!important;padding:0!important;margin:0!important;line-height:1;}
@@ -639,23 +635,25 @@
 
     injectModeStyles();
 
-    // Attach master unified event delegation handlers
-    if (!window.__sfGlobalHandlersAttached) {
-      window.__sfGlobalHandlersAttached = true;
+    // Attach master unified event delegation handlers (Using clear unique namespace token)
+    if (!window.__sfMasterPreviewAttached_v3) {
+      window.__sfMasterPreviewAttached_v3 = true;
       document.addEventListener('click', function (e) {
         
-        // 1. Intercept target redirect triggers inside custom cards
-        var previewLink = e.target.closest('.sf-main-img-wrap, .imgs-row a, .sf-link');
-        if (previewLink) {
-          e.preventDefault();
-          var targetUrl = previewLink.getAttribute('href');
-          if (targetUrl && targetUrl !== '#') {
-            triggerLinkPreview(targetUrl);
+        // 1. Intercept target redirect triggers inside custom cards using robust link mapping
+        var anchor = e.target.closest('a');
+        if (anchor) {
+          if (anchor.classList.contains('sf-main-img-wrap') || anchor.classList.contains('sf-link') || anchor.closest('.imgs-row')) {
+            e.preventDefault();
+            var targetUrl = anchor.getAttribute('href');
+            if (targetUrl && targetUrl !== '#') {
+              triggerLinkPreview(targetUrl);
+            }
+            return;
           }
-          return;
         }
 
-        // 2. Handle card tab toggling
+        // 2. Handle card tab toggling (ES5 compiler safe syntax format)
         var tab = e.target.closest('.sf-tab');
         if (tab) {
           var card = tab.closest('.sf-card');
