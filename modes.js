@@ -36,64 +36,124 @@
 .sf-card{background:rgba(30,30,30,.6);border:1px solid rgba(255,255,255,.10);border-radius:8px;overflow:hidden;margin:16px 0;color:#fff;font-family:"Roboto",sans-serif;font-size:15px;}
 .sf-body{display:flex;}
 
-/* Left Column - Removed default flex gaps to handle tight custom alignment spacing */
-.sf-left{width:265px;flex-shrink:0;padding:16px;border-right:1px solid rgba(255,255,255,.10);display:flex;flex-direction:column;align-items:stretch;}
+/* Left Column - Locked to center everything perfectly on PC and Mobile */
+.sf-left {
+  width: 272px; 
+  flex-shrink: 0; 
+  padding: 16px; 
+  border-right: 1px solid rgba(255,255,255,.10); 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+}
 
-/* Header Title - Fully Centered by Default on PC and Mobile layouts */
-.sf-header{display:block; width:100%; padding:0 0 12px 0; background:transparent; border-bottom:1px solid rgba(255,255,255,.10); text-align:center; margin-bottom:12px;}
-.sf-title{font-size:20px;font-weight:600;color:#fff;}
+/* Header Title - Centered seamlessly above the switcher */
+.sf-header {
+  width: 100%; 
+  max-width: 240px; 
+  padding: 0 0 12px 0; 
+  background: transparent; 
+  border-bottom: 1px solid rgba(255,255,255,.10); 
+  text-align: center; 
+  margin-bottom: 12px;
+}
+.sf-title { font-size: 20px; font-weight: 600; color: #fff; }
 
-/* Fandom-Style Multi-Image Tab Selector Menu Frame (Fuses directly down to the image) */
-.sf-image-switcher {display:flex; flex-wrap:wrap; width:100%; background:rgba(0,0,0,0.25); padding:3px; border-radius:6px 6px 0 0; gap:2px; border:1px solid rgba(255,255,255,.10); border-bottom:none; margin-bottom:0;}
-.sf-image-btn {background:transparent !important; border:none !important; color:rgba(255,255,255,0.5) !important; padding:5px 8px; font-size:11px; font-weight:600; text-transform:uppercase; cursor:pointer; flex:1; text-align:center; border-radius:4px 4px 0 0; transition:all 0.15s ease; white-space:nowrap; outline:none !important; box-shadow:none !important; margin:0 !important;}
-.sf-image-btn:hover {color:#fff !important; background:rgba(255,255,255,0.06) !important;}
-.sf-image-btn.active {color:#fff !important; background:rgba(36, 96, 235, 1) !important; text-shadow:0 1px 2px rgba(0,0,0,0.6);}
+/* Image Tab Switcher - Tied cleanly to the image block geometry */
+.sf-image-switcher {
+  display: flex; 
+  flex-wrap: wrap; 
+  width: 100%; 
+  max-width: 240px; 
+  background: rgba(0,0,0,0.25); 
+  padding: 3px; 
+  border-radius: 6px 6px 0 0; 
+  gap: 2px; 
+  border: 1px solid rgba(255,255,255,.10); 
+  border-bottom: none; 
+  margin-bottom: 0;
+  box-sizing: border-box;
+}
+.sf-image-btn {
+  background: transparent !important; 
+  border: none !important; 
+  color: rgba(255,255,255,0.5) !important; 
+  padding: 5px 8px; 
+  font-size: 11px; 
+  font-weight: 600; 
+  text-transform: uppercase; 
+  cursor: pointer; 
+  flex: 1; 
+  text-align: center; 
+  border-radius: 4px 4px 0 0; 
+  transition: all 0.15s ease; 
+  white-space: nowrap; 
+  outline: none !important; 
+  box-shadow: none !important; 
+  margin: 0 !important;
+}
+.sf-image-btn:hover { color: #fff !important; background: rgba(255,255,255,0.06) !important; }
+.sf-image-btn.active { color: #fff !important; background: rgba(36, 96, 235, 1) !important; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
 
-/* Showcase Image Wrapper (Fuses cleanly up to the button switcher panel) */
-.sf-main-img-wrap {width:100%; display:block; line-height:0; margin-bottom:14px;}
-.sf-left .sf-display-image{width:100%; height:auto; aspect-ratio:1/1; object-fit:cover; border:1px solid rgba(255,255,255,.10); border-radius:0 0 8px 8px; display:block;}
+/* Main Display Frame - Fused flawlessly up into the switcher box with matching edges */
+.sf-main-img-wrap { 
+  display: flex;
+  justify-content: center;
+  width: 100%; 
+  max-width: 240px; 
+  margin-bottom: 14px; 
+  box-sizing: border-box;
+}
+.sf-left .sf-display-image {
+  width: 100%; 
+  height: auto; 
+  aspect-ratio: 1/1; 
+  object-fit: cover; 
+  border: 1px solid rgba(255,255,255,.10); 
+  border-radius: 0 0 8px 8px; 
+  display: block;
+}
 
-.stat-list{width:100%;display:flex;flex-direction:column;}
-.stat-line{display:flex;justify-content:space-between;align-items:center;padding:6px 2px;border-bottom:1px solid rgba(255,255,255,.08);}
-.stat-line:last-child{border-bottom:none;}
-.stat-line .sl{font-size:12px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.04em;}
-.stat-line .sv{font-size:15px;font-weight:600;color:#fff;}
+/* Stat Matrix */
+.stat-list { width: 100%; max-width: 240px; display: flex; flex-direction: column; }
+.stat-line { display: flex; justify-content: space-between; align-items: center; padding: 6px 2px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.stat-line:last-child { border-bottom: none; }
+.stat-line .sl { font-size: 12px; color: rgba(255,255,255,.55); text-transform: uppercase; letter-spacing: .04em; }
+.stat-line .sv { font-size: 15px; font-weight: 600; color: #fff; }
 
-/* Right column: tabs + panels */
-.sf-right{flex:1;min-width:0;display:flex;flex-direction:column;}
-.sf-tabs{display:flex;width:100%;border-bottom:1px solid rgba(255,255,255,.10);}
-.sf-tab{appearance:none!important;-webkit-appearance:none!important;background:transparent!important;border:none!important;border-bottom:2px solid transparent!important;border-radius:0!important;box-shadow:none!important;outline:none!important;text-shadow:none!important;margin:0!important;flex:1;text-align:center;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:500;white-space:nowrap;cursor:pointer;color:rgba(255,255,255,.55)!important;transition:background .15s ease,color .15s ease,border-color .15s ease;}
-.sf-tab:hover{background:rgba(92, 92, 92, 0.356)!important;color:#fff!important;}
-.sf-tab.active{color:#fff!important; background: rgba(36, 96, 235, 1) !important; text-shadow: 0 1px 3px rgb(0, 0, 0) !important}
-.sf-panel{display:none;flex:1;padding:16px 18px;max-height:360px;overflow-y:auto;scrollbar-width:thin;}
-.sf-panel.active{display:block;}
+/* Right Content Area Configurations */
+.sf-right { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.sf-tabs { display: flex; width: 100%; border-bottom: 1px solid rgba(255,255,255,.10); }
+.sf-tab { appearance: none!important; -webkit-appearance: none!important; background: transparent!important; border: none!important; border-bottom: 2px solid transparent!important; border-radius: 0!important; box-shadow: none!important; outline: none!important; text-shadow: none!important; margin: 0!important; flex: 1; text-align: center; padding: 11px 18px; font-family: inherit; font-size: 15px; font-weight: 500; white-space: nowrap; cursor: pointer; color: rgba(255,255,255,.55)!important; transition: background .15s ease, color .15s ease, border-color .15s ease; }
+.sf-tab:hover { background: rgba(92, 92, 92, 0.356)!important; color: #fff!important; }
+.sf-tab.active { color: #fff!important; background: rgba(36, 96, 235, 1) !important; text-shadow: 0 1px 3px rgb(0, 0, 0) !important }
+.sf-panel { display: none; flex: 1; padding: 16px 18px; max-height: 360px; overflow-y: auto; scrollbar-width: thin; }
+.sf-panel.active { display: block; }
 
-.sf-row{display:flex;gap:10px;margin-bottom:11px;align-items:baseline;line-height:1.5;}
-.sf-lbl{min-width:100px;flex-shrink:0;color:rgba(255,255,255,.5);}
-.sf-val{color:#fff;}
-.sf-danger{color:#ff6b6b;}
-.imgs-row{display:flex;flex-wrap:wrap;gap:12px;}
-.imgs-row a{display:block;line-height:0;}
-.imgs-row>div{flex:1 1 0;min-width:110px;}
-.img-th{width:100%;height:auto;aspect-ratio:1;object-fit:cover;border:1px solid rgba(255,255,255,.10);border-radius:8px;display:block;}
-.img-cap{margin-top:4px;font-size:13px;color:rgba(255,255,255,.6);text-align:center;}
-.sf-card .sf-link{color:#fff!important;text-decoration:underline!important;text-underline-offset:3px;}
+.sf-row { display: flex; gap: 10px; margin-bottom: 11px; align-items: baseline; line-height: 1.5; }
+.sf-lbl { min-width: 100px; flex-shrink: 0; color: rgba(255,255,255,.5); }
+.sf-val { color: #fff; }
+.sf-danger { color: #ff6b6b; }
+.imgs-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.imgs-row a { display: block; line-height: 0; }
+.imgs-row>div { flex: 1 1 0; min-width: 110px; }
+.img-th { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border: 1px solid rgba(255,255,255,.10); border-radius: 8px; display: block; }
+.img-cap { margin-top: 4px; font-size: 13px; color: rgba(255,255,255,.6); text-align: center; }
+.sf-card .sf-link { color: #fff!important; text-decoration: underline!important; text-underline-offset: 3px; }
 
-.sf-card a[target="_blank"]::before,.sf-card a[target="_blank"]::after,.sf-card .is-external-link::before,.sf-card .is-external-link::after,.sf-tab::before,.sf-tab::after{content:none!important;}
+.sf-card a[target="_blank"]::before, .sf-card a[target="_blank"]::after, .sf-card .is-external-link::before, .sf-card .is-external-link::after, .sf-tab::before, .sf-tab::after { content: none!important; }
 
-/* Modified Responsive Breakpoint: Triggers at < 980px wide viewports */
+/* Responsive Breakpoint Overrides (< 980px viewports) */
 @media (max-width:980px){
-  .sf-body{flex-direction:column;}
-  .sf-left{width:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,.10);align-items:center;padding:20px;}
-  .sf-header{text-align:center !important; width:100%;}
+  .sf-body { flex-direction: column; }
+  .sf-left { width: auto; border-right: none; border-bottom: 1px solid rgba(255,255,255,.10); padding: 20px; }
   
-  /* Lock sizing boundaries cleanly on tablet layout parameters */
-  .sf-left img.sf-display-image{max-width:280px;}
-  .sf-image-switcher {max-width:280px;}
-  .stat-list {max-width:280px;}
+  /* Elevate structural constraints to scale wider and thicker on mobile screens */
+  .sf-header, .sf-image-switcher, .sf-main-img-wrap, .stat-list { max-width: 280px !important; }
+  .sf-header { text-align: center !important; }
   
-  /* Makes buttons thicker on tablets/mobile screen interactions */
-  .sf-image-btn { padding:10px 12px; font-size:12px; }
+  /* Scale button padding for enhanced mobile touch accuracy */
+  .sf-image-btn { padding: 10px 12px; font-size: 12px; }
 }
 `;
     document.head.appendChild(style);
