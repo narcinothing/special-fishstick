@@ -1350,4 +1350,24 @@ header[style*="height: 48px"],
     height: var(--h1-line-height, 1px) !important;
     background: var(--h1-line, rgba(255, 255, 255, 0.18)) !important;
 }
+
+/* ==========================================================================
+   11. Overlay / dialog / lightbox font fix
+   --------------------------------------------------------------------------
+   Vuetify renders overlays (image lightbox, dialogs, menus) in a portal that
+   sits outside .contents, so they never inherit the site's Roboto and fall
+   back to the browser's serif default. Force the site font onto them.
+   ========================================================================== */
+.v-application,
+.v-overlay,
+.v-overlay__content,
+.v-overlay__content *,
+.v-dialog,
+.v-dialog *,
+.v-menu__content,
+.v-menu__content *,
+[role="dialog"],
+[role="dialog"] * {
+    font-family: "Roboto", sans-serif !important;
+}
 </style>

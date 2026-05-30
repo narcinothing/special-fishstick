@@ -732,3 +732,50 @@
   // Kickstart the safety loop execution sequence
   bootstrapFandomNav();
 })();
+
+/* ==========================================================================
+   Same-site link de-externaliser
+   --------------------------------------------------------------------------
+   Absolute URLs pointing at this site (e.g. https://dragonballrage.wiki/…) get
+   flagged by Wiki.js as EXTERNAL — new tab, external-link icon, and the
+   "you're leaving the site" confirmation. This rewrites those to relative
+   paths so Wiki.js treats them as normal internal links: no confirmation, no
+   external icon, and SPA-routed. Genuinely external links are left alone.
+   ========================================================================== */
+(function () {
+  if (window.__sameSiteLinkFix) return;
+  window.__sameSiteLinkFix = true;
+
+  var SITE_HOSTS = ["dragonballrage.wiki", "www.dragonballrage.wiki"];
+
+  function isSameSite(host) {
+    return host === location.hostname || SITE_HOSTS.indexOf(host) !== -1;
+  }
+
+  function cleanLinks(root) {
+    var links = (root || document).querySelectorAll('a[href^="http"]');
+    Array.prototype.forEach.call(links, function (a) {
+      var raw = a.getAttribute("href") || "";
+      if (!/^https?:\/\//i.test(raw)) return;        // only absolute URLs
+      var url;
+      try { url = new URL(raw, location.href); } catch (e) { return; }
+      if (!isSameSite(url.hostname)) return;          // leave external links alone
+      a.classList.remove("is-external-link");
+      if (a.getAttribute("target") === "_blank") a.removeAttribute("target");
+      a.setAttribute("href", url.pathname + url.search + url.hash); // -> relative
+    });
+  }
+
+  function boot() {
+    var root = document.getElementById("root") || document.body;
+    if (!root) { setTimeout(boot, 100); return; }
+    cleanLinks(root);
+    var timer = null;
+    new MutationObserver(function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () { cleanLinks(root); }, 60);
+    }).observe(root, { childList: true, subtree: true });
+  }
+
+  boot();
+})();
