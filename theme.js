@@ -520,6 +520,61 @@
     }
 
     // ==========================================================================
+    // 💎 PARSER LOGIC: Item / legacy "profile + detail rows" infobox
+    // --------------------------------------------------------------------------
+    // Author it the same way as the mode infobox — a hidden data block:
+    //   <div class="sf-item-infobox" data-title="Angel" data-image="URL">
+    //     <div class="sf-data-row" data-label="Original Price">650 Robux <em>(...)</em></div>
+    //     <div class="sf-data-row" data-label="Compensation Pass"><a href="URL">Pass</a></div>
+    //     ...
+    //   </div>
+    // Each .sf-data-row becomes a label/value row. The image and any links inside
+    // are routed through the shared preview modal (it renders into a .sf-card).
+    // ==========================================================================
+    function scanAndRenderItemCards() {
+      const components = document.querySelectorAll('.sf-item-infobox:not([data-ready])');
+      components.forEach(function (el) {
+        el.setAttribute('data-ready', 'true');
+        el.style.display = 'block';
+
+        const title = el.getAttribute('data-title') || '';
+        const image = el.getAttribute('data-image') || '';
+
+        var rowsHtml = '';
+        el.querySelectorAll('.sf-data-row').forEach(function (row) {
+          var label = row.getAttribute('data-label') || '';
+          var value = parseInlineMarkdown(row.innerHTML);
+          rowsHtml +=
+            '<div class="sf-item-row">' +
+              '<div class="sf-item-label">' + label + '</div>' +
+              '<div class="sf-item-value">' + value + '</div>' +
+            '</div>';
+        });
+
+        if (!rowsHtml) return;
+
+        var imageHtml = image
+          ? '<a href="' + image + '" class="sf-item-img-wrap">' +
+              '<img src="' + image + '" alt="' + title + '" class="sf-item-image">' +
+            '</a>'
+          : '';
+
+        var template =
+        '<div class="sf-card sf-item-card">' +
+          '<div class="sf-item-body">' +
+            '<div class="sf-item-profile">' +
+              (title ? '<div class="sf-item-title">' + title + '</div>' : '') +
+              imageHtml +
+            '</div>' +
+            '<div class="sf-item-details">' + rowsHtml + '</div>' +
+          '</div>' +
+        '</div>';
+
+        el.innerHTML = template;
+      });
+    }
+
+    // ==========================================================================
     // 💎 MODAL PREVIEW ENGINE: Generates and handles screen preview canvas overlays
     // ==========================================================================
     function createPreviewModal() {
@@ -618,6 +673,20 @@
   .sf-card .sf-link{color:#fff!important;text-decoration:underline!important;text-underline-offset:3px;}
   .sf-card a[target="_blank"]::before,.sf-card a[target="_blank"]::after,.sf-card .is-external-link::before,.sf-card .is-external-link::after,.sf-tab::before,.sf-tab::after{content:none!important;}
 
+  /* Item / legacy infobox — profile column + detail rows, same dark shell as .sf-card */
+  .sf-item-card .sf-item-body{display:flex;flex-direction:row;}
+  .sf-item-card .sf-item-profile{flex:0 0 180px;padding:20px;text-align:center;border-right:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .sf-item-card .sf-item-title{font-size:20px;font-weight:600;color:#fff;margin-bottom:12px;font-family:inherit !important;}
+  .sf-item-card .sf-item-img-wrap{display:block;width:100%;max-width:140px;line-height:0;}
+  .sf-item-card .sf-item-image{width:100%;height:auto;border:1px solid rgba(255,255,255,.10);border-radius:6px;display:block;box-shadow:0 1px 3px rgba(0,0,0,.4);}
+  .sf-item-card .sf-item-details{flex:1;min-width:0;display:flex;flex-direction:column;}
+  .sf-item-card .sf-item-row{display:flex;border-bottom:1px solid rgba(255,255,255,.10);min-height:45px;}
+  .sf-item-card .sf-item-row:last-child{border-bottom:none;}
+  .sf-item-card .sf-item-label{flex:0 0 160px;padding:12px 15px;font-weight:600;font-size:14px;color:rgba(255,255,255,.55);background:rgba(0,0,0,.12);border-right:1px solid rgba(255,255,255,.10);display:flex;align-items:center;font-family:inherit !important;}
+  .sf-item-card .sf-item-value{flex:1;padding:12px 15px;font-size:14px;line-height:1.5;color:#fff;display:flex;align-items:center;font-family:inherit !important;}
+  .sf-item-card .sf-item-value em{color:rgba(255,255,255,.6);font-style:italic;margin-left:5px;}
+  .sf-item-card .sf-item-value a{color:#fff !important;font-weight:600;text-decoration:underline !important;text-underline-offset:3px;}
+
   .sf-preview-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:999999 !important;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s ease;box-sizing:border-box;font-family:inherit !important;}
   .sf-preview-overlay.active{opacity:1;}
   .sf-preview-box{background:#1e1f22;border:1px solid #2b2d31;border-radius:12px;padding:24px;max-width:85vw;max-height:85vh;display:flex;flex-direction:column;align-items:center;position:relative;box-shadow:0 20px 40px rgba(0,0,0,0.6);box-sizing:border-box;}
@@ -643,6 +712,12 @@
     .sf-header{text-align:center !important;}
     .sf-image-btn{padding:10px 12px;font-size:12px;}
     .sf-preview-box{width:90vw;padding:16px;}
+    .sf-item-card .sf-item-body{flex-direction:column;}
+    .sf-item-card .sf-item-profile{flex:1;border-right:none;border-bottom:1px solid rgba(255,255,255,.10);padding:24px 20px;}
+    .sf-item-card .sf-item-img-wrap{max-width:180px;}
+    .sf-item-card .sf-item-row{flex-direction:column;}
+    .sf-item-card .sf-item-label{flex:1;background:rgba(0,0,0,.22);border-right:none;padding:8px 15px;font-size:13px;}
+    .sf-item-card .sf-item-value{padding:10px 15px 15px 15px;}
   }
   `;
       document.head.appendChild(style);
@@ -709,17 +784,47 @@
     }
 
     let navDebounceTimer = null;
-    
+    let navFirstScheduled = 0;
+
+    function renderAll() {
+      renderHeaderNav();
+      scanAndRenderCards();      // Transforms custom mode data blocks live
+      scanAndRenderItemCards();  // Transforms custom item data blocks live
+    }
+
     patchHistory();
-    renderHeaderNav();
-    scanAndRenderCards(); // Run on initial content load
+    createPreviewModal(); // Build the overlay up-front so the first tap on mobile is instant (no lazy injection lag)
+    renderAll();
+
+    // Extra render passes for slow mobile SPA mounts: the content/header can
+    // land AFTER our first pass, and the observer's debounce below can be
+    // starved by a burst of hydration mutations — so nothing would render until
+    // the user happens to tap. These timed retries + lifecycle hooks catch the
+    // late mount without needing an interaction. renderAll() is idempotent
+    // (cards guard on [data-ready], nav reuses its existing node), so re-running
+    // is cheap and safe.
+    [50, 150, 400, 800, 1500].forEach(function (ms) { setTimeout(renderAll, ms); });
+    document.addEventListener('DOMContentLoaded', renderAll);
+    window.addEventListener('load', renderAll);
 
     // This observer intercepts internal SPA route renders cleanly
     const observer = new MutationObserver(function () {
+      const now = Date.now();
+      if (!navFirstScheduled) navFirstScheduled = now;
       clearTimeout(navDebounceTimer);
-      navDebounceTimer = setTimeout(function() {
-        renderHeaderNav();
-        scanAndRenderCards(); // Automatically transforms custom data blocks live
+
+      // Max-wait guard: if a continuous burst of mutations keeps resetting the
+      // debounce (common during mobile hydration), force a render after 250ms so
+      // the nav/cards can't be starved until the user taps the screen.
+      if (now - navFirstScheduled >= 250) {
+        navFirstScheduled = 0;
+        renderAll();
+        return;
+      }
+
+      navDebounceTimer = setTimeout(function () {
+        navFirstScheduled = 0;
+        renderAll();
       }, 16);
     });
 
