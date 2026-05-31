@@ -744,6 +744,46 @@
   .sf-item-card .sf-item-value li{margin:3px 0;font-family:inherit !important;}
   .sf-item-card .sf-item-value li::marker{color:rgba(255,255,255,.5);}
 
+  /* ── Event / GUI card ─────────────────────────────────────────────────────
+     A self-contained card: a topbar (title + badges) over the shared
+     .sf-tabs/.sf-panel engine (Overview / Content / Shop / …), panels scroll.
+     To switch between events, drop ONE card per tab into a Wiki.js NATIVE
+     <tabset> — that replaces the old sidebar. Inside a .tabset the card goes
+     frameless to blend into the native frame; standalone it keeps its own. */
+  .sf-event-card{display:flex;flex-direction:column;background:rgba(30,30,30,.6);border:1px solid rgba(255,255,255,.10);border-radius:8px;overflow:hidden;color:#fff;font-family:inherit !important;--sf-event-h:340px;}
+  .tabset .sf-event-card{background:transparent;border:none;border-radius:0;}
+  .sf-event-top{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.10);}
+  .sf-event-title{font-size:16px;font-weight:600;color:#fff;font-family:inherit !important;margin-right:2px;}
+  .sf-event-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.10);color:rgba(255,255,255,.75);white-space:nowrap;font-family:inherit !important;}
+  .sf-badge-green{background:rgba(60,180,90,.18) !important;color:#86e0a0 !important;}
+  .sf-badge-blue{background:rgba(36,96,235,.26) !important;color:#9cc0ff !important;}
+  .sf-badge-amber{background:rgba(220,150,40,.20) !important;color:#f1c479 !important;}
+  .sf-badge-red{background:rgba(220,70,70,.20) !important;color:#ff9d9d !important;}
+  .sf-badge-gray{background:rgba(255,255,255,.10) !important;color:rgba(255,255,255,.7) !important;}
+  .sf-event-card .sf-panel{max-height:var(--sf-event-h, 340px);}
+  .sf-event-card .sf-panel p{font-size:13px;color:rgba(255,255,255,.72);line-height:1.6;margin:0 0 12px;}
+  .sf-event-card .sf-panel p:last-child{margin-bottom:0;}
+  .sf-event-img{width:100%;max-height:180px;object-fit:cover;border-radius:6px;border:1px solid rgba(255,255,255,.10);margin-bottom:12px;display:block;}
+  .sf-section-head{font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.04em;margin:14px 0 8px;padding-top:12px;border-top:1px solid rgba(255,255,255,.10);font-family:inherit !important;}
+  .sf-section-head:first-child{margin-top:0;padding-top:0;border-top:none;}
+  .sf-list{list-style:none;margin:0;padding:0;}
+  .sf-list li{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;line-height:1.5;align-items:baseline;}
+  .sf-list li:last-child{border-bottom:none;}
+  .sf-list li::before{content:"•";color:rgba(255,255,255,.4);flex-shrink:0;}
+  .sf-list-name{font-weight:600;color:#fff;min-width:120px;flex-shrink:0;}
+  .sf-list-desc{color:rgba(255,255,255,.7);}
+  .sf-event-card .sf-list-desc em,.sf-event-card .sf-panel em{color:#fff;font-style:italic;}
+  .sf-shop-section{margin-bottom:12px;}
+  .sf-shop-section:last-child{margin-bottom:0;}
+  .sf-shop-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
+  .sf-shop-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;color:#fff;}
+  .sf-shop-row:last-child{border-bottom:none;}
+  .sf-price{color:rgba(255,255,255,.6);white-space:nowrap;}
+  .sf-title-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .sf-title-card{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;}
+  .sf-title-name{font-weight:600;font-size:13px;color:#fff;}
+  .sf-title-how{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px;}
+
   .sf-preview-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:999999 !important;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s ease;box-sizing:border-box;font-family:"Roboto",sans-serif !important;}
   .sf-preview-overlay.active{opacity:1;}
   .sf-preview-box{background:#1e1f22;border:1px solid #2b2d31;border-radius:12px;padding:24px;max-width:85vw;max-height:85vh;display:flex;flex-direction:column;align-items:center;position:relative;box-shadow:0 20px 40px rgba(0,0,0,0.6);box-sizing:border-box;}
@@ -776,6 +816,12 @@
     .sf-item-card .sf-item-row{flex-direction:column;}
     .sf-item-card .sf-item-label{flex:1;background:rgba(0,0,0,.22);border-right:none;padding:8px 15px;font-size:13px;}
     .sf-item-card .sf-item-value{padding:10px 15px 15px 15px;}
+    /* Event card: drop the inner scroll (let the page scroll), stack grids/rows */
+    .sf-event-card .sf-panel{max-height:none;}
+    .sf-event-title{font-size:15px;}
+    .sf-title-grid{grid-template-columns:1fr;}
+    .sf-list li{flex-wrap:wrap;}
+    .sf-list-name{min-width:0;}
   }
   `;
       document.head.appendChild(style);
@@ -804,7 +850,7 @@
         // 2. Handle card tab toggling
         var tab = target.closest('.sf-tab');
         if (tab) {
-          var card = tab.closest('.sf-card');
+          var card = tab.closest('.sf-card, .sf-event-card');
           if (!card) return;
           var idx = tab.getAttribute('data-sf-tab');
           
@@ -862,11 +908,27 @@
       });
     }
 
+    // Event cards: auto-number the inner tabs/panels so the shared .sf-tab click
+    // engine drives them — author the tabs and panels in matching order and this
+    // wires data-sf-tab/data-sf-panel + activates the first if none is marked.
+    function scanAndRenderEventCards() {
+      document.querySelectorAll('.sf-event-card:not([data-ready])').forEach(function (card) {
+        card.setAttribute('data-ready', 'true');
+        var tabs = card.querySelectorAll('.sf-tabs .sf-tab');
+        var panels = card.querySelectorAll('.sf-panel');
+        tabs.forEach(function (t, i) { t.setAttribute('data-sf-tab', String(i)); });
+        panels.forEach(function (p, i) { p.setAttribute('data-sf-panel', String(i)); });
+        if (tabs.length && !card.querySelector('.sf-tabs .sf-tab.active')) tabs[0].classList.add('active');
+        if (panels.length && !card.querySelector('.sf-panel.active')) panels[0].classList.add('active');
+      });
+    }
+
     function renderAll() {
       renderHeaderNav();
-      scanAndRenderCards();      // Transforms custom mode data blocks live
-      scanAndRenderItemCards();  // Transforms custom item data blocks live
-      syncPanelHeights();        // Cap mode-card panels to the left column height (PC)
+      scanAndRenderCards();       // Transforms custom mode data blocks live
+      scanAndRenderItemCards();   // Transforms custom item data blocks live
+      scanAndRenderEventCards();  // Wires up event/GUI card tabs
+      syncPanelHeights();         // Cap mode-card panels to the left column height (PC)
     }
 
     patchHistory();
