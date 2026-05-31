@@ -638,18 +638,18 @@
       var style = document.createElement('style');
       style.id = 'modes-styles';
       style.textContent = `
-  .sf-card{background:rgba(30,30,30,.6);border:0px solid rgba(255,255,255,0);border-radius:8px;overflow:hidden;margin:0px 0;color:#fff;font-family:inherit !important;font-size:15px;}
+  .sf-card{background:rgba(30,30,30,.6);border:0px solid rgba(255,255,255,0);border-radius:8px;overflow:hidden;margin:0px 0;color:#fff;font-family:inherit !important;font-size:15px;--sf-w:265px;}
   .sf-body{display:flex;}
-  .sf-left{width:272px;flex-shrink:0;padding:16px;border-right:1px solid rgba(255,255,255,.10);display:flex;flex-direction:column;align-items:center;}
-  .sf-header{width:100%;max-width:240px;padding:0 0 12px 0;background:transparent;border-bottom:1px solid rgba(255,255,255,.10);text-align:center;margin-bottom:12px;}
+  .sf-left{width:calc(var(--sf-w, 240px) + 32px);flex-shrink:0;padding:16px;border-right:1px solid rgba(255,255,255,.10);display:flex;flex-direction:column;align-items:center;}
+  .sf-header{width:100%;max-width:var(--sf-w, 240px);padding:0 0 12px 0;background:transparent;border-bottom:1px solid rgba(255,255,255,.10);text-align:center;margin-bottom:12px;}
   .sf-title{font-size:20px;font-weight:600;color:#fff;font-family:inherit !important;}
-  .sf-image-switcher{display:flex;flex-wrap:wrap;width:100%;max-width:240px;background:rgba(0,0,0,0.25);padding:3px;border-radius:6px 6px 0 0;gap:2px;border:1px solid rgba(255,255,255,.10);border-bottom:none;margin-bottom:0;box-sizing:border-box;}
+  .sf-image-switcher{display:flex;flex-wrap:wrap;width:100%;max-width:var(--sf-w, 240px);background:rgba(0,0,0,0.25);padding:3px;border-radius:6px 6px 0 0;gap:2px;border:1px solid rgba(255,255,255,.10);border-bottom:none;margin-bottom:0;box-sizing:border-box;}
   .sf-image-btn{background:transparent !important;border:none !important;color:rgba(255,255,255,0.5) !important;padding:5px 8px;font-size:11px;font-weight:600;text-transform:uppercase;cursor:pointer;flex:1;text-align:center;border-radius:4px 4px 0 0;transition:all 0.15s ease;white-space:nowrap;outline:none !important;box-shadow:none !important;margin:0 !important;font-family:inherit !important;}
   .sf-image-btn:hover{color:#fff !important;background:rgba(255,255,255,0.06) !important;}
   .sf-image-btn.active{color:#fff !important;background:rgba(36, 96, 235, 1) !important;text-shadow:0 1px 2px rgba(0,0,0,0.6);}
-  .sf-main-img-wrap{display:flex;justify-content:center;width:100%;max-width:240px;margin-bottom:14px;box-sizing:border-box;}
+  .sf-main-img-wrap{display:flex;justify-content:center;width:100%;max-width:var(--sf-w, 240px);margin-bottom:14px;box-sizing:border-box;}
   .sf-left .sf-display-image{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border:1px solid rgba(255,255,255,.10);border-radius:0 0 8px 8px;display:block;}
-  .stat-list{width:100%;max-width:240px;display:flex;flex-direction:column;}
+  .stat-list{width:100%;max-width:var(--sf-w, 240px);display:flex;flex-direction:column;}
   .stat-line{display:flex;justify-content:space-between;align-items:center;padding:6px 2px;border-bottom:1px solid rgba(255,255,255,.08);}
   .stat-line:last-child{border-bottom:none;}
   .stat-line .sl{font-size:12px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.04em;font-family:inherit !important;}
@@ -659,7 +659,7 @@
   .sf-tab{appearance:none!important;-webkit-appearance:none!important;background:transparent!important;border:none!important;border-bottom:2px solid transparent!important;border-radius:0!important;box-shadow:none!important;outline:none!important;text-shadow:none!important;margin:0!important;flex:1;text-align:center;padding:11px 18px;font-family:inherit !important;font-size:15px;font-weight:500;white-space:nowrap;cursor:pointer;color:rgba(255,255,255,.55)!important;transition:background .15s ease,color .15s ease,border-color .15s ease;}
   .sf-tab:hover{background:rgba(92, 92, 92, 0.356)!important;color:#fff!important;}
   .sf-tab.active{color:#fff!important;background:rgba(36, 96, 235, 1) !important;text-shadow:0 1px 3px rgb(0, 0, 0) !important}
-  .sf-panel{display:none;flex:1;padding:16px 18px;max-height:360px;overflow-y:auto;scrollbar-width:thin;}
+  .sf-panel{display:none;flex:1;min-height:0;box-sizing:border-box;padding:16px 18px;overflow-y:auto;scrollbar-width:thin;}
   .sf-panel.active{display:block;}
   .sf-row{display:flex;gap:10px;margin-bottom:11px;align-items:baseline;line-height:1.5;}
   .sf-lbl{min-width:100px;flex-shrink:0;color:rgba(255,255,255,.5);font-family:inherit !important;}
@@ -667,18 +667,25 @@
   .sf-danger{color:#ff6b6b;}
   .imgs-row{display:flex;flex-wrap:wrap;gap:12px;}
   .imgs-row a{display:block;line-height:0;}
-  .imgs-row>div{flex:1 1 0;min-width:110px;}
+  .imgs-row>div{flex:1 1 100px;min-width:0;max-width:calc((100% - 24px) / 3);}
   .img-th{width:100%;height:auto;aspect-ratio:1;object-fit:cover;border:1px solid rgba(255,255,255,.10);border-radius:8px;display:block;}
   .img-cap{margin-top:4px;font-size:13px;color:rgba(255,255,255,.6);text-align:center;font-family:inherit !important;}
   .sf-card .sf-link{color:#fff!important;text-decoration:underline!important;text-underline-offset:3px;}
   .sf-card a[target="_blank"]::before,.sf-card a[target="_blank"]::after,.sf-card .is-external-link::before,.sf-card .is-external-link::after,.sf-tab::before,.sf-tab::after{content:none!important;}
+
+  /* Dynamic left column: widen sf-left (and everything in it) as the image
+     switcher gains buttons, capped at 5+. --sf-w drives both sf-left's width and
+     the inner elements' max-width, so they scale together. (Uses :has(); 2023+ browser.) */
+  .sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(3)){--sf-w:300px;}
+  .sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(4)){--sf-w:320px;}
+  .sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(5)){--sf-w:340px;}
 
   /* Item / legacy infobox — profile column + detail rows, same dark shell as .sf-card */
   .sf-item-card .sf-item-body{display:flex;flex-direction:row;}
   .sf-item-card .sf-item-profile{flex:0 0 190px;padding:5px;text-align:center;border-right:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;}
   .sf-item-card .sf-item-title{width:100%;text-align:center;font-size:20px;font-weight:600;color:#fff;padding:0 0 12px 0;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,.10);font-family:inherit !important;}
   .sf-item-card .sf-item-img-wrap{display:block;width:100%;max-width:100%;line-height:0;}
-  .sf-item-card .sf-item-image{width:100%;height:auto;border:1px solid rgba(255,255,255,.10);border-radius:6px;display:block;box-shadow:0 1px 3px rgba(0,0,0,.4);}
+  .sf-item-card .sf-item-image{width:100%;height:auto;border:0px solid rgba(255,255,255,.10);border-radius:6px;display:block;box-shadow:0 1px 3px rgba(0,0,0,.4);}
   .sf-item-card .sf-item-details{flex:1;min-width:0;display:flex;flex-direction:column;}
   .sf-item-card .sf-item-row{display:flex;border-bottom:1px solid rgba(255,255,255,.10);min-height:45px;}
   .sf-item-card .sf-item-row:last-child{border-bottom:none;flex:1 1 auto;}
@@ -787,10 +794,29 @@
     let navDebounceTimer = null;
     let navFirstScheduled = 0;
 
+    // Make each mode-card panel exactly as tall as its left column (PC only):
+    // the right column stretches to the left's height, so this caps the panel to
+    // that height so it fills to the bottom of .sf-right and scrolls past it,
+    // instead of stopping short. On mobile the columns stack, so we clear it.
+    function syncPanelHeights() {
+      var pc = window.innerWidth > 980;
+      document.querySelectorAll('.sf-card').forEach(function (card) {
+        var left = card.querySelector('.sf-left');
+        var right = card.querySelector('.sf-right');
+        if (!left || !right) return;
+        var panels = card.querySelectorAll('.sf-panel');
+        if (!pc) { panels.forEach(function (p) { p.style.maxHeight = ''; }); return; }
+        var tabs = right.querySelector('.sf-tabs');
+        var avail = left.offsetHeight - (tabs ? tabs.offsetHeight : 0);
+        panels.forEach(function (p) { p.style.maxHeight = avail > 0 ? avail + 'px' : ''; });
+      });
+    }
+
     function renderAll() {
       renderHeaderNav();
       scanAndRenderCards();      // Transforms custom mode data blocks live
       scanAndRenderItemCards();  // Transforms custom item data blocks live
+      syncPanelHeights();        // Cap mode-card panels to the left column height (PC)
     }
 
     patchHistory();
@@ -807,6 +833,13 @@
     [50, 150, 400, 800, 1500].forEach(function (ms) { setTimeout(renderAll, ms); });
     document.addEventListener('DOMContentLoaded', renderAll);
     window.addEventListener('load', renderAll);
+
+    // Re-fit mode-card panel heights when the viewport changes (debounced).
+    var panelResizeTimer = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(panelResizeTimer);
+      panelResizeTimer = setTimeout(syncPanelHeights, 100);
+    });
 
     // This observer intercepts internal SPA route renders cleanly
     const observer = new MutationObserver(function () {
