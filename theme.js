@@ -689,6 +689,7 @@
   .sf-item-card .sf-item-details{flex:1;min-width:0;display:flex;flex-direction:column;}
   .sf-item-card .sf-item-row{display:flex;border-bottom:1px solid rgba(255,255,255,.10);min-height:45px;}
   .sf-item-card .sf-item-row:last-child{border-bottom:none;flex:1 1 auto;}
+  .sf-item-card .sf-item-row:last-child .sf-item-label,.sf-item-card .sf-item-row:last-child .sf-item-value{align-items:flex-start;}
   .sf-item-card .sf-item-label{flex:0 0 160px;padding:12px 15px;font-weight:600;font-size:14px;color:rgba(255,255,255,.55);background:rgba(0,0,0,.12);border-right:1px solid rgba(255,255,255,.10);display:flex;align-items:center;font-family:inherit !important;}
   .sf-item-card .sf-item-value{flex:1;padding:12px 15px;font-size:14px;line-height:1.5;color:#fff;display:flex;align-items:center;font-family:inherit !important;}
   .sf-item-card .sf-item-value em{color:rgba(255,255,255,.6);font-style:italic;margin-left:5px;}
