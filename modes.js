@@ -33,7 +33,7 @@
     var style = document.createElement('style');
     style.id = 'modes-styles';
     style.textContent = `
-.sf-card{background:rgba(30,30,30,.6);border:1px solid rgba(255,255,255,.10);border-radius:8px;overflow:hidden;margin:16px 0;color:#fff;font-family:"Roboto",sans-serif;font-size:15px;}
+.sf-card{background:rgba(30,30,30,.6);border:1px solid rgba(255,255,255,.10);border-radius:8px;overflow:hidden;margin:16px 0;color:#fff;font-family:"Roboto",sans-serif;font-size:15px;--sf-w:265px;}
 .sf-body{display:flex;}
 
 /* Left Column - Locked to center everything perfectly on PC and Mobile */
@@ -127,7 +127,7 @@
 .sf-tab { appearance: none!important; -webkit-appearance: none!important; background: transparent!important; border: none!important; border-bottom: 2px solid transparent!important; border-radius: 0!important; box-shadow: none!important; outline: none!important; text-shadow: none!important; margin: 0!important; flex: 1; text-align: center; padding: 11px 18px; font-family: inherit; font-size: 15px; font-weight: 500; white-space: nowrap; cursor: pointer; color: rgba(255,255,255,.55)!important; transition: background .15s ease, color .15s ease, border-color .15s ease; }
 .sf-tab:hover { background: rgba(92, 92, 92, 0.356)!important; color: #fff!important; }
 .sf-tab.active { color: #fff!important; background: rgba(36, 96, 235, 1) !important; text-shadow: 0 1px 3px rgb(0, 0, 0) !important }
-.sf-panel { display: none; flex: 1; min-height: 0; max-height: calc(var(--sf-w, 240px) + 230px); padding: 16px 18px; overflow-y: auto; scrollbar-width: thin; }
+.sf-panel { display: none; flex: 1; min-height: 0; box-sizing: border-box; padding: 16px 18px; overflow-y: auto; scrollbar-width: thin; }
 .sf-panel.active { display: block; }
 
 .sf-row { display: flex; gap: 10px; margin-bottom: 11px; align-items: baseline; line-height: 1.5; }
@@ -136,7 +136,7 @@
 .sf-danger { color: #ff6b6b; }
 .imgs-row { display: flex; flex-wrap: wrap; gap: 12px; }
 .imgs-row a { display: block; line-height: 0; }
-.imgs-row>div { flex: 1 1 0; min-width: 110px; }
+.imgs-row>div { flex: 1 1 100px; min-width: 0; max-width: calc((100% - 24px) / 3); }
 .img-th { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border: 1px solid rgba(255,255,255,.10); border-radius: 8px; display: block; }
 .img-cap { margin-top: 4px; font-size: 13px; color: rgba(255,255,255,.6); text-align: center; }
 .sf-card .sf-link { color: #fff!important; text-decoration: underline!important; text-underline-offset: 3px; }
@@ -147,9 +147,9 @@
    switcher gains buttons, capped at 5+. --sf-w drives both sf-left's width and
    the inner elements' max-width, so they scale together. <=2 buttons = default.
    (Uses :has(); needs a 2023+ browser.) */
-.sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(3)) { --sf-w: 280px; }
-.sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(4)) { --sf-w: 320px; }
-.sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(5)) { --sf-w: 350px; }  /* cap */
+.sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(3)) { --sf-w: 300px; }
+.sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(4)) { --sf-w: 340px; }
+.sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(5)) { --sf-w: 370px; }  /* cap */
 
 /* Responsive Breakpoint Overrides (< 980px viewports) */
 @media (max-width:980px){
@@ -200,5 +200,39 @@
         if (parentLink) parentLink.setAttribute('href', newImgUrl);
       }
     });
+
+    // ---- 3. Make each panel exactly as tall as its left column (PC only) ---
+    // The right column stretches to the left's height; this caps the panel to
+    // that height so it fills to the bottom of .sf-right and scrolls past it,
+    // instead of stopping short. On mobile the columns stack, so we clear it.
+    function syncPanelHeights() {
+      var pc = window.innerWidth > 980;
+      document.querySelectorAll('.sf-card').forEach(function (card) {
+        var left = card.querySelector('.sf-left');
+        var right = card.querySelector('.sf-right');
+        if (!left || !right) return;
+        var panels = card.querySelectorAll('.sf-panel');
+        if (!pc) { panels.forEach(function (p) { p.style.maxHeight = ''; }); return; }
+        var tabs = right.querySelector('.sf-tabs');
+        var avail = left.offsetHeight - (tabs ? tabs.offsetHeight : 0);
+        panels.forEach(function (p) { p.style.maxHeight = avail > 0 ? avail + 'px' : ''; });
+      });
+    }
+
+    syncPanelHeights();
+    window.addEventListener('load', syncPanelHeights);
+
+    var _sfResizeT;
+    window.addEventListener('resize', function () {
+      clearTimeout(_sfResizeT);
+      _sfResizeT = setTimeout(syncPanelHeights, 100);
+    });
+
+    // Re-sync when cards are added/changed (SPA navigation, late image loads).
+    var _sfMutT;
+    new MutationObserver(function () {
+      clearTimeout(_sfMutT);
+      _sfMutT = setTimeout(syncPanelHeights, 120);
+    }).observe(document.body, { childList: true, subtree: true });
   }
 })();
