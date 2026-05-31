@@ -686,7 +686,7 @@
   .sf-image-btn{background:transparent !important;border:none !important;color:rgba(255,255,255,0.5) !important;padding:5px 8px;font-size:11px;font-weight:600;text-transform:uppercase;cursor:pointer;flex:1;text-align:center;border-radius:4px 4px 0 0;transition:all 0.15s ease;white-space:nowrap;outline:none !important;box-shadow:none !important;margin:0 !important;font-family:inherit !important;}
   .sf-image-btn:hover{color:#fff !important;background:rgba(255,255,255,0.06) !important;}
   .sf-image-btn.active{color:#fff !important;background:rgba(36, 96, 235, 1) !important;text-shadow:0 1px 2px rgba(0,0,0,0.6);}
-  .sf-main-img-wrap{display:flex;justify-content:center;width:100%;max-width:var(--sf-w, 240px);margin-bottom:14px;box-sizing:border-box;}
+  .sf-main-img-wrap{display:flex;justify-content:center;width:100%;max-width:var(--sf-w, 240px);margin-bottom:15px;box-sizing:border-box;}
   .sf-left .sf-display-image{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border:1px solid rgba(255,255,255,.10);border-radius:0 0 8px 8px;display:block;}
   .stat-list{width:100%;max-width:var(--sf-w, 240px);display:flex;flex-direction:column;}
   .stat-line{display:flex;justify-content:space-between;align-items:center;padding:6px 2px;border-bottom:1px solid rgba(255,255,255,.08);}
@@ -733,8 +733,8 @@
   .sf-item-card .sf-item-row{display:flex;border-bottom:1px solid rgba(255,255,255,.10);min-height:45px;}
   .sf-item-card .sf-item-row:last-child{border-bottom:none;flex:1 1 auto;}
   .sf-item-card .sf-item-row:last-child .sf-item-label,.sf-item-card .sf-item-row:last-child .sf-item-value{align-items:flex-start;}
-  .sf-item-card .sf-item-label{flex:0 0 160px;padding:12px 15px;font-weight:600;font-size:14px;color:rgba(255,255,255,.55);background:rgba(0,0,0,.12);border-right:1px solid rgba(255,255,255,.10);display:flex;align-items:center;font-family:inherit !important;}
-  .sf-item-card .sf-item-value{flex:1;padding:12px 15px;font-size:14px;line-height:1.5;color:#fff;display:flex;align-items:center;font-family:inherit !important;}
+  .sf-item-card .sf-item-label{flex:0 0 160px;padding:12px 15px;font-weight:600;font-size:15px;color:rgba(255,255,255,.55);background:rgba(0,0,0,.12);border-right:1px solid rgba(255,255,255,.10);display:flex;align-items:center;font-family:inherit !important;}
+  .sf-item-card .sf-item-value{flex:1;padding:12px 15px;font-size:15px;line-height:1.5;color:#fff;display:flex;align-items:center;font-family:inherit !important;}
   .sf-item-card .sf-item-value em{color:rgba(255,255,255,.6);font-style:italic;margin-left:5px;}
   .sf-item-card .sf-item-value a{color:#fff !important;font-weight:600;text-decoration:underline !important;text-underline-offset:3px;transition:color .15s ease;}
   .sf-item-card .sf-item-value a:hover{color:#5c8dff !important;text-decoration-thickness:2px;}
@@ -756,7 +756,7 @@
   .sf-preview-link-title{font-size:16px;font-weight:600;color:#fff;margin-bottom:6px;font-family:inherit !important;}
   .sf-preview-link-url{font-size:13px;color:#00a2ff;word-break:break-all;text-decoration:underline;font-family:inherit !important;}
   .sf-preview-actions{display:flex;gap:12px;width:100%;justify-content:center;}
-  .sf-preview-btn{appearance:none!important;-webkit-appearance:none!important;padding:10px 20px;font-size:14px;font-weight:600;border-radius:6px;cursor:pointer;text-decoration:none!important;text-align:center;transition:all 0.15s ease;outline:none!important;box-shadow:none!important;margin:0 !important;font-family:"Roboto",sans-serif !important;}
+  .sf-preview-btn{appearance:none!important;-webkit-appearance:none!important;padding:10px 20px;font-size:15px;font-weight:600;border-radius:6px;cursor:pointer;text-decoration:none!important;text-align:center;transition:all 0.15s ease;outline:none!important;box-shadow:none!important;margin:0 !important;font-family:"Roboto",sans-serif !important;}
   .sf-btn-primary{background:#2460eb!important;color:#fff!important;border:none!important;}
   .sf-btn-primary:hover{background:#3b71f7!important;}
   .sf-btn-secondary{background:transparent!important;color:rgba(255,255,255,0.6)!important;border:1px solid rgba(255,255,255,0.2)!important;}
