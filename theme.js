@@ -740,8 +740,8 @@
   .sf-item-card .sf-item-value a:hover{color:#5c8dff !important;text-decoration-thickness:2px;}
   /* Optional bulleted/numbered lists inside a row value (just author a <ul>/<ol>) */
   .sf-item-card .sf-item-value:has(ul),.sf-item-card .sf-item-value:has(ol){align-items:flex-start;}
-  .sf-item-card .sf-item-value ul,.sf-item-card .sf-item-value ol{width:100%;margin:0;padding-left:20px;}
-  .sf-item-card .sf-item-value li{margin:3px 0;}
+  .sf-item-card .sf-item-value ul,.sf-item-card .sf-item-value ol{width:100%;margin:0 !important;padding:0 0 0 10px !important;font-family:inherit !important;}
+  .sf-item-card .sf-item-value li{margin:3px 0;font-family:inherit !important;}
   .sf-item-card .sf-item-value li::marker{color:rgba(255,255,255,.5);}
 
   .sf-preview-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:999999 !important;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s ease;box-sizing:border-box;font-family:"Roboto",sans-serif !important;}
