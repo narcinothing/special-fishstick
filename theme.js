@@ -766,8 +766,8 @@
     .sf-preview-box{width:90vw;padding:16px;}
     .sf-item-card .sf-item-body{flex-direction:column;}
     .sf-item-card .sf-item-profile{flex:1;border-right:none;border-bottom:1px solid rgba(255,255,255,.10);padding:10px;}
-    .sf-item-card .sf-item-img-wrap{max-width:220px;}
-    .sf-item-card .sf-item-profile .sf-image-switcher{max-width:220px;}
+    .sf-item-card .sf-item-img-wrap{max-width:280px;}
+    .sf-item-card .sf-item-profile .sf-image-switcher{max-width:280px !important;}
     .sf-item-card .sf-item-row{flex-direction:column;}
     .sf-item-card .sf-item-label{flex:1;background:rgba(0,0,0,.22);border-right:none;padding:8px 15px;font-size:13px;}
     .sf-item-card .sf-item-value{padding:10px 15px 15px 15px;}
