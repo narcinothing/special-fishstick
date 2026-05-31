@@ -530,6 +530,15 @@
     //   </div>
     // Each .sf-data-row becomes a label/value row. The image and any links inside
     // are routed through the shared preview modal (it renders into a .sf-card).
+    //
+    // OPTIONAL image switcher (same as the mode card) — drop in a .sf-data-images
+    // block and the profile gains a button-per-image switcher instead of a single
+    // static image:
+    //   <div class="sf-data-images">
+    //     <a href="URL_A">Current</a>
+    //     <a href="URL_B">Old</a>
+    //   </div>
+    // Priority: .sf-data-images (multi → switcher, single → static) else data-image.
     // ==========================================================================
     function scanAndRenderItemCards() {
       const components = document.querySelectorAll('.sf-item-infobox:not([data-ready])');
@@ -538,7 +547,16 @@
         el.style.display = 'block';
 
         const title = el.getAttribute('data-title') || '';
-        const image = el.getAttribute('data-image') || '';
+
+        // Collect images: prefer a .sf-data-images list; fall back to data-image.
+        var images = [];
+        el.querySelectorAll('.sf-data-images a').forEach(function (a) {
+          images.push({ label: a.textContent.trim(), url: a.getAttribute('href') });
+        });
+        if (images.length === 0) {
+          var single = el.getAttribute('data-image') || '';
+          if (single) images.push({ label: '', url: single });
+        }
 
         var rowsHtml = '';
         el.querySelectorAll('.sf-data-row').forEach(function (row) {
@@ -553,9 +571,22 @@
 
         if (!rowsHtml) return;
 
-        var imageHtml = image
-          ? '<a href="' + image + '" class="sf-item-img-wrap">' +
-              '<img src="' + image + '" alt="' + title + '" class="sf-item-image">' +
+        // Build the switcher only when there's more than one image; the buttons
+        // reuse the mode card's .sf-image-switcher/.sf-image-btn classes/handler.
+        var switcherHtml = '';
+        if (images.length > 1) {
+          images.forEach(function (img, idx) {
+            switcherHtml +=
+              '<button type="button" class="sf-image-btn ' + (idx === 0 ? 'active' : '') +
+              '" data-img-target="' + img.url + '">' + (img.label || ('Image ' + (idx + 1))) + '</button>';
+          });
+          switcherHtml = '<div class="sf-image-switcher">' + switcherHtml + '</div>';
+        }
+
+        var imageHtml = images.length
+          ? switcherHtml +
+            '<a href="' + images[0].url + '" class="sf-item-img-wrap">' +
+              '<img src="' + images[0].url + '" alt="' + title + '" class="sf-item-image">' +
             '</a>'
           : '';
 
@@ -686,6 +717,10 @@
   .sf-item-card .sf-item-title{width:100%;text-align:center;font-size:20px;font-weight:600;color:#fff;padding:0 0 12px 0;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,.10);font-family:inherit !important;}
   .sf-item-card .sf-item-img-wrap{display:block;width:100%;max-width:100%;line-height:0;}
   .sf-item-card .sf-item-image{width:100%;height:auto;border:0px solid rgba(255,255,255,.10);border-radius:6px;display:block;box-shadow:0 1px 3px rgba(0,0,0,.4);}
+  /* Optional image switcher inside the profile column — fuse it to the image */
+  .sf-item-card .sf-item-profile .sf-image-switcher{width:100%;max-width:100%;margin-bottom:0;}
+  .sf-item-card .sf-image-switcher + .sf-item-img-wrap{margin-top:0;}
+  .sf-item-card .sf-image-switcher + .sf-item-img-wrap .sf-item-image{border:1px solid rgba(255,255,255,.10);border-top:none;border-radius:0 0 6px 6px;}
   .sf-item-card .sf-item-details{flex:1;min-width:0;display:flex;flex-direction:column;}
   .sf-item-card .sf-item-row{display:flex;border-bottom:1px solid rgba(255,255,255,.10);min-height:45px;}
   .sf-item-card .sf-item-row:last-child{border-bottom:none;flex:1 1 auto;}
@@ -724,6 +759,7 @@
     .sf-item-card .sf-item-body{flex-direction:column;}
     .sf-item-card .sf-item-profile{flex:1;border-right:none;border-bottom:1px solid rgba(255,255,255,.10);padding:10px;}
     .sf-item-card .sf-item-img-wrap{max-width:220px;}
+    .sf-item-card .sf-item-profile .sf-image-switcher{max-width:220px;}
     .sf-item-card .sf-item-row{flex-direction:column;}
     .sf-item-card .sf-item-label{flex:1;background:rgba(0,0,0,.22);border-right:none;padding:8px 15px;font-size:13px;}
     .sf-item-card .sf-item-value{padding:10px 15px 15px 15px;}
@@ -774,18 +810,18 @@
         // 3. Handle image variant switching buttons
         var imgBtn = target.closest('.sf-image-btn');
         if (imgBtn) {
-          var switcher = imgBtn.closest('.sf-left');
+          var switcher = imgBtn.closest('.sf-left, .sf-item-profile');
           if (!switcher) return;
-          
+
           var buttons = switcher.querySelectorAll('.sf-image-btn');
           for (var k = 0; k < buttons.length; k++) {
             buttons[k].classList.remove('active');
           }
           imgBtn.classList.add('active');
-          
+
           var newImgUrl = imgBtn.getAttribute('data-img-target');
-          var displayImg = switcher.querySelector('.sf-display-image');
-          var parentLink = switcher.querySelector('.sf-main-img-wrap');
+          var displayImg = switcher.querySelector('.sf-display-image, .sf-item-image');
+          var parentLink = switcher.querySelector('.sf-main-img-wrap, .sf-item-img-wrap');
           if (displayImg) displayImg.setAttribute('src', newImgUrl);
           if (parentLink) parentLink.setAttribute('href', newImgUrl);
         }
