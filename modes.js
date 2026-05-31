@@ -33,7 +33,7 @@
     var style = document.createElement('style');
     style.id = 'modes-styles';
     style.textContent = `
-.sf-card{background:rgba(30,30,30,.6);border:1px solid rgba(255,255,255,.10);border-radius:8px;overflow:hidden;margin:16px 0;color:#fff;font-family:"Roboto",sans-serif;font-size:15px;--sf-w:265px;}
+.sf-card{background:rgba(30,30,30,.6);border:1px solid rgba(255,255,255,.10);border-radius:8px;overflow:hidden;margin:0px 0;color:#fff;font-family:"Roboto",sans-serif;font-size:15px;--sf-w:265px;}
 .sf-body{display:flex;}
 
 /* Left Column - Locked to center everything perfectly on PC and Mobile */
@@ -148,8 +148,8 @@
    the inner elements' max-width, so they scale together. <=2 buttons = default.
    (Uses :has(); needs a 2023+ browser.) */
 .sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(3)) { --sf-w: 300px; }
-.sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(4)) { --sf-w: 340px; }
-.sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(5)) { --sf-w: 370px; }  /* cap */
+.sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(4)) { --sf-w: 320px; }
+.sf-card:has(.sf-image-switcher .sf-image-btn:nth-child(5)) { --sf-w: 340px; }  /* cap */
 
 /* Responsive Breakpoint Overrides (< 980px viewports) */
 @media (max-width:980px){
