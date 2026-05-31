@@ -548,6 +548,14 @@
 
         const title = el.getAttribute('data-title') || '';
 
+        // Optional profile-column width modifier. Accepts a bare number ("240" ->
+        // 240px) or any CSS length/keyword ("16rem", "30%", "max-content"). Drives
+        // the --sf-item-w variable on the card; affects PC only (mobile is full
+        // width). Omit it to keep the 190px default.
+        var profileWidth = (el.getAttribute('data-profile-width') || '').trim();
+        if (/^\d+$/.test(profileWidth)) profileWidth = profileWidth + 'px';
+        var cardStyle = profileWidth ? ' style="--sf-item-w:' + profileWidth + '"' : '';
+
         // Collect images: prefer a .sf-data-images list; fall back to data-image.
         var images = [];
         el.querySelectorAll('.sf-data-images a').forEach(function (a) {
@@ -591,7 +599,7 @@
           : '';
 
         var template =
-        '<div class="sf-card sf-item-card">' +
+        '<div class="sf-card sf-item-card"' + cardStyle + '>' +
           '<div class="sf-item-body">' +
             '<div class="sf-item-profile">' +
               (title ? '<div class="sf-item-title">' + title + '</div>' : '') +
@@ -713,14 +721,14 @@
 
   /* Item / legacy infobox — profile column + detail rows, same dark shell as .sf-card */
   .sf-item-card .sf-item-body{display:flex;flex-direction:row;}
-  .sf-item-card .sf-item-profile{flex:0 0 190px;padding:5px;text-align:center;border-right:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .sf-item-card .sf-item-profile{flex:0 0 var(--sf-item-w, 190px);padding:5px;text-align:center;border-right:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;}
   .sf-item-card .sf-item-title{width:100%;text-align:center;font-size:20px;font-weight:600;color:#fff;padding:0 0 12px 0;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,.10);font-family:inherit !important;}
   .sf-item-card .sf-item-img-wrap{display:block;width:100%;max-width:100%;line-height:0;}
   .sf-item-card .sf-item-image{width:100%;height:auto;border:0px solid rgba(255,255,255,.10);border-radius:6px;display:block;box-shadow:0 1px 3px rgba(0,0,0,.4);}
   /* Optional image switcher inside the profile column — fuse it to the image */
   .sf-item-card .sf-item-profile .sf-image-switcher{width:100%;max-width:100%;margin-bottom:0;}
   .sf-item-card .sf-image-switcher + .sf-item-img-wrap{margin-top:0;}
-  .sf-item-card .sf-image-switcher + .sf-item-img-wrap .sf-item-image{border:1px solid rgba(255,255,255,.10);border-top:none;border-radius:0 0 6px 6px;}
+  .sf-item-card .sf-image-switcher + .sf-item-img-wrap .sf-item-image{border:none;border-radius:0 0 6px 6px;}
   .sf-item-card .sf-item-details{flex:1;min-width:0;display:flex;flex-direction:column;}
   .sf-item-card .sf-item-row{display:flex;border-bottom:1px solid rgba(255,255,255,.10);min-height:45px;}
   .sf-item-card .sf-item-row:last-child{border-bottom:none;flex:1 1 auto;}
